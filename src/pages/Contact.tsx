@@ -14,7 +14,7 @@ function Contact() {
             <div className="eyebrow gold">Hubungi Kami</div>
             <h2>
               Marketing Team<br />
-              Sea View <span className="serif-em">Karimun.</span>
+              Green karindo <span className="serif-em">Elite.</span>
             </h2>
             <p>
               Tim pemasaran kami siap membantu Anda — dari konsultasi awal,

@@ -32,8 +32,8 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: "About Us",
     dropdown: [
-      { label: "Our Story",       href: "/about/story" },
-      { label: "Our Team",        href: "/about/team" },
+      { label: "Our Story",        href: "/about/story" },
+      { label: "Our Team",         href: "/about/team" },
       { label: "Vision & Mission", href: "/about/vision" },
     ],
   },
@@ -54,7 +54,7 @@ const ChevronIcon = ({ open }: { open: boolean }) => (
     <path
       d="M2 4L6 8L10 4"
       stroke="currentColor"
-      strokeWidth="1.7"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -75,14 +75,14 @@ const HamburgerIcon = ({ open }: { open: boolean }) => (
   >
     {open ? (
       <>
-        <line x1="3"  y1="3"  x2="19" y2="19" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-        <line x1="19" y1="3"  x2="3"  y2="19" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <line x1="3"  y1="3"  x2="19" y2="19" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <line x1="19" y1="3"  x2="3"  y2="19" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
       </>
     ) : (
       <>
-        <line x1="2" y1="5.5" x2="20" y2="5.5"  stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-        <line x1="2" y1="11"  x2="20" y2="11"   stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-        <line x1="2" y1="16.5" x2="20" y2="16.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <line x1="2" y1="5.5"  x2="20" y2="5.5"  stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <line x1="2" y1="11"   x2="20" y2="11"   stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <line x1="2" y1="16.5" x2="20" y2="16.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
       </>
     )}
   </svg>
@@ -123,6 +123,14 @@ const NavLink = ({ item }: { item: NavItem }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  // Active page detection — exact match for "/" home, prefix match for others
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
+  const isActive = item.href
+    ? item.href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(item.href)
+    : false;
+
   // Close on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -145,7 +153,11 @@ const NavLink = ({ item }: { item: NavItem }) => {
 
   if (!item.dropdown) {
     return (
-      <a href={item.href} className="nav-link">
+      <a
+        href={item.href}
+        className={`nav-link${isActive ? " nav-link--active" : ""}`}
+        aria-current={isActive ? "page" : undefined}
+      >
         {item.label}
       </a>
     );
@@ -159,7 +171,7 @@ const NavLink = ({ item }: { item: NavItem }) => {
       onMouseLeave={() => setOpen(false)}
     >
       <button
-        className="nav-link nav-link--dropdown"
+        className={`nav-link nav-link--dropdown${isActive ? " nav-link--active" : ""}`}
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}

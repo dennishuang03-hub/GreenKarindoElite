@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
           <a href="#projects" className="hero__btn hero__btn--primary">
             Lihat Portofolio
           </a>
-          <a href="#contact" className="hero__btn hero__btn--ghost">
+          <a href="/contact" className="hero__btn hero__btn--ghost">
             Konsultasi Gratis
           </a>
         </div>

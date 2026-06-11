@@ -1,0 +1,280 @@
+/* ============================================================
+   CONTACT PAGE — Sea View Karimun
+   Fonts: Cormorant Garamond (serif) + Jost (sans)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+/* ---- CSS Variables ---- */
+:root {
+  --night:    #15171a;
+  --night-2:  #1c1f23;
+  --char:     #23262b;
+  --cream:    #efe7d8;
+  --cream-2:  #f4eee2;
+  --paper:    #faf6ee;
+  --gold:     #c5a05c;
+  --gold-lt:  #d9c08a;
+  --gold-dk:  #a8843f;
+  --muted-d:  #9a958b;
+  --muted-l:  #736d61;
+  --line-d:   rgba(212, 196, 160, 0.16);
+  --line-l:   #e0d7c3;
+}
+
+/* ---- Base reset (scoped to contact) ---- */
+.contact *,
+.contact *::before,
+.contact *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Utility: eyebrow label ---- */
+.eyebrow {
+  font-size: 11.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  font-family: 'Jost', sans-serif;
+}
+.eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: var(--gold);
+}
+.eyebrow.gold {
+  color: var(--gold);
+}
+
+/* ---- Utility: italic gold text ---- */
+.serif-em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* ============ SECTION WRAPPER ============ */
+.contact {
+  background: var(--night);
+  padding: 130px 0 0;
+  font-family: 'Jost', sans-serif;
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+
+.contact .wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  padding-bottom: 40px;
+}
+
+/* ============ TWO-COLUMN GRID ============ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+}
+
+/* ============ LEFT COLUMN ============ */
+.ct-left .eyebrow {
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.ct-left h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(42px, 5vw, 66px);
+  line-height: 1.08;
+  letter-spacing: 0.005em;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+
+.ct-left > p {
+  color: var(--muted-d);
+  font-weight: 300;
+  max-width: 380px;
+  margin-bottom: 34px;
+  font-size: 15px;
+}
+
+/* ---- Info rows ---- */
+.ct-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ct-row {
+  display: flex;
+  gap: 18px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line-d);
+  align-items: flex-start;
+}
+
+.ct-row:first-child {
+  border-top: 1px solid var(--line-d);
+}
+
+.ct-ic {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--gold-lt);
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.ct-row .cl {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.ct-row .cv {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  color: var(--cream);
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.ct-row .cs {
+  font-size: 12px;
+  color: var(--muted-d);
+  font-weight: 300;
+}
+
+/* ============ RIGHT COLUMN — FORM ============ */
+.ct-form {
+  background: var(--night-2);
+  border: 1px solid var(--line-d);
+  padding: 42px;
+}
+
+.ct-form h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 30px;
+  color: var(--cream);
+  line-height: 1.08;
+  margin-bottom: 6px;
+}
+
+.ct-form > p {
+  font-size: 13px;
+  color: var(--muted-d);
+  font-weight: 300;
+  margin-bottom: 26px;
+}
+
+/* ---- Form fields ---- */
+.fld {
+  margin-bottom: 18px;
+}
+
+.fld label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'Jost', sans-serif;
+}
+
+.fld input,
+.fld select,
+.fld textarea {
+  width: 100%;
+  background: var(--night);
+  border: 1px solid var(--line-d);
+  color: var(--cream);
+  padding: 13px 15px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  transition: border-color 0.3s;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.fld select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c5a05c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+
+.fld select option {
+  background: var(--night);
+  color: var(--cream);
+}
+
+.fld input:focus,
+.fld select:focus,
+.fld textarea:focus {
+  border-color: var(--gold);
+}
+
+.fld input::placeholder,
+.fld textarea::placeholder {
+  color: var(--muted-d);
+  font-weight: 300;
+}
+
+.fld textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* ---- Submit button ---- */
+.ct-submit {
+  width: 100%;
+  background: var(--gold);
+  color: var(--night);
+  border: 0;
+  padding: 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 4px;
+}
+
+.ct-submit:hover {
+  background: var(--gold-lt);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 920px) {
+  .contact .wrap {
+    padding: 0 24px;
+    padding-bottom: 40px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .contact {
+    padding: 80px 0 0;
+  }
+}

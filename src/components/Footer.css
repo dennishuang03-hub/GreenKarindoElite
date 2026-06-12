@@ -37,7 +37,6 @@
   color: var(--cream);
   -webkit-font-smoothing: antialiased;
   line-height: 1.7;
-  /* margin-top: 120px; */
   border-top: 1px solid var(--line-d);
   padding: 54px 0 34px;
 }
@@ -49,7 +48,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 26px;
-  padding-bottom: 34px;
+  padding: 36px 0 34px;
   border-bottom: 1px solid var(--line-d);
 }
 
@@ -116,6 +115,210 @@
   margin-top: 4px;
 }
 
+/* ── Contact info section ───────────────────────────────────── */
+.foot-contact {
+  display: grid;
+  grid-template-columns: 0.65fr 0.75fr 1.1fr;
+  align-items: start;
+  gap: 0;
+  padding: 54px 0 48px;
+  border-bottom: 1px solid var(--line-d);
+}
+
+/* Dividers between columns */
+.foot-contact > * + * {
+  border-left: 1px solid var(--line-d);
+  padding-left: 48px;
+}
+
+/* Shared eyebrow for contact section */
+.fc-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.fc-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Left column — brand intro ──────────────────────────────── */
+.fc-brand {
+  padding-right: 48px;
+}
+
+.fc-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+
+.fc-heading-em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.fc-desc {
+  font-size: 13.5px;
+  color: var(--muted-d);
+  font-weight: 300;
+  max-width: 300px;
+  line-height: 1.75;
+}
+
+/* ── Middle column — contact rows ───────────────────────────── */
+.fc-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.fc-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line-d);
+}
+
+.fc-row:last-child {
+  border-bottom: none;
+}
+
+.fc-ic {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--gold-lt);
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.fc-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+.fc-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  color: var(--cream);
+  line-height: 1.25;
+}
+
+.fc-sub {
+  font-size: 12px;
+  color: var(--muted-d);
+  font-weight: 300;
+  margin-top: 2px;
+}
+
+/* ── Right column — Google Maps ─────────────────────────────── */
+.fc-map {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Embedded Google Maps iframe */
+.fc-map-frame {
+  width: 100%;
+  height: 220px;
+  border: 1px solid var(--line-d);
+  overflow: hidden;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.fc-map-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  filter: grayscale(0.3) contrast(0.95);
+}
+
+/* "View Location / Google Maps" link */
+.fc-gmaps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--muted-d);
+  transition: color 0.25s;
+}
+
+.fc-gmaps-link:hover {
+  color: var(--gold-lt);
+}
+
+.fc-gmaps-link svg {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.fc-gmaps-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.fc-gmaps-text > span,
+.fc-gmaps-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--cream);
+}
+
+.fc-gmaps-link:hover .fc-gmaps-text {
+  color: var(--gold-lt);
+}
+
+.fc-gmaps-text small {
+  font-family: 'Jost', sans-serif;
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* Clickable WhatsApp value link */
+.fc-value-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  color: var(--cream);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.fc-value-link:hover {
+  color: var(--gold-lt);
+}
+
 /* ── Bottom row: copyright + disclaimer ─────────────────────── */
 .foot-bot {
   display: flex;
@@ -132,6 +335,37 @@
 @media (max-width: 920px) {
   .wrap {
     padding: 0 24px;
+  }
+
+  .foot-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .foot-slogan {
+    text-align: left;
+  }
+
+  .foot-contact {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* Remove left-border dividers on mobile */
+  .foot-contact > * + * {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--line-d);
+    padding-top: 36px;
+  }
+
+  .fc-brand {
+    padding-right: 0;
+  }
+
+  .fc-map-frame {
+    height: 200px;
   }
 
   .foot-top {

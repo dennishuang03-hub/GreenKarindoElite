@@ -73,6 +73,13 @@
 .vm-heading__title em {
   font-style: italic;
   color: var(--gold-lt);
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* Useless-but-fun: gold glow when you mouse over the title accent */
+.vm-heading__title em:hover {
+  color: #f0d79a;
+  text-shadow: 0 0 18px rgba(197, 160, 92, 0.5);
 }
 
 /* ── Grid ────────────────────────────────────────────────────── */
@@ -103,6 +110,7 @@
   height: 1px;
   background: var(--gold);
   flex-shrink: 0;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Vision card ─────────────────────────────────────────────── */
@@ -112,6 +120,7 @@
   border: 1px solid var(--line-d);
   border-radius: 4px;
   padding: 40px 44px;
+  overflow: hidden;
 }
 
 .vm-vision__text {
@@ -127,6 +136,29 @@
 .vm-vision__text em {
   font-style: italic;
   color: var(--gold-lt);
+}
+
+/* Useless-but-fun: a soft gold sheen sweeps across the vision card */
+.vm-vision::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(217, 192, 138, 0.10) 50%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  pointer-events: none;
+  transition: left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vm-vision:hover::after {
+  left: 130%;
 }
 
 /* ── Mission card ────────────────────────────────────────────── */
@@ -149,8 +181,11 @@
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 18px 0;
+  padding: 18px 16px;
+  margin: 0 -16px;
+  border-radius: 4px;
   border-bottom: 1px solid var(--line-d);
+  transition: background 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .vm-mission__item:first-child {
@@ -162,6 +197,12 @@
   border-bottom: none;
 }
 
+/* Useless-but-fun: each mission row nudges over and lights up on hover */
+.vm-mission__item:hover {
+  background: rgba(197, 160, 92, 0.06);
+  transform: translateX(6px);
+}
+
 .vm-mission__num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 24px;
@@ -170,6 +211,12 @@
   color: var(--gold);
   flex-shrink: 0;
   min-width: 32px;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.35s ease;
+}
+
+.vm-mission__item:hover .vm-mission__num {
+  transform: scale(1.25);
+  color: var(--gold-lt);
 }
 
 .vm-mission__text {
@@ -180,6 +227,51 @@
   color: #e7e7e7;
   margin: 0;
   padding-top: 3px;
+  transition: color 0.35s ease;
+}
+
+.vm-mission__item:hover .vm-mission__text {
+  color: #ffffff;
+}
+
+/* ── Card hover (glow + border brighten — no layout shift) ───── */
+.vm-vision,
+.vm-mission {
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.vm-vision:hover,
+.vm-mission:hover {
+  border-color: rgba(197, 160, 92, 0.45);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35),
+              0 0 0 1px rgba(197, 160, 92, 0.10) inset;
+}
+
+.vm-vision:hover .vm-card__eyebrow::before,
+.vm-mission:hover .vm-card__eyebrow::before {
+  width: 58px;
+}
+
+/* ── Entrance animation (reveals on first scroll into view) ──── */
+.vm-heading {
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0s,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0s;
+}
+
+/* Stagger: heading → vision → mission */
+.vm-vision  { transition-delay: 0.15s; }
+.vm-mission { transition-delay: 0.30s; }
+
+.vm-section:not(.is-visible) .vm-heading,
+.vm-section:not(.is-visible) .vm-vision,
+.vm-section:not(.is-visible) .vm-mission {
+  opacity: 0;
+  transform: translateY(28px);
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
@@ -206,5 +298,22 @@
   .vm-vision,
   .vm-mission {
     padding: 40px 28px;
+  }
+}
+
+/* ── Reduced motion: show everything immediately, no movement ── */
+@media (prefers-reduced-motion: reduce) {
+  .vm-section .vm-heading,
+  .vm-section .vm-vision,
+  .vm-section .vm-mission {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .vm-mission__item:hover,
+  .vm-mission__item:hover .vm-mission__num,
+  .vm-vision::after {
+    transition: none !important;
   }
 }

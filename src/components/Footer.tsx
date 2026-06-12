@@ -67,7 +67,8 @@ const Footer: React.FC = () => {
           <div className="fc-details">
             <div className="fc-eyebrow">Detail Kontak</div>
             <ContactRow
-              icon={<WhatsAppIcon />}
+              icon={<a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link">
+              <WhatsAppIcon /></a>}
               label="WhatsApp"
               value={
                 <a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link">
@@ -76,9 +77,11 @@ const Footer: React.FC = () => {
               }
             />
             <ContactRow
-              icon={<LocationIcon />}
+              icon={<a href="https://maps.google.com/?q=PT+Green+Karindo+Elite" target="_blank" rel="noopener noreferrer" className="fc-value-link">
+                <LocationIcon /></a>}
               label="Alamat"
-              value={<>Ruko Kamboja no.25,<br />Tanjung Balai Karimun</>}
+              value={<a href="https://maps.google.com/?q=PT+Green+Karindo+Elite" target="_blank" rel="noopener noreferrer" className="fc-value-link">
+                      Ruko Kamboja no.25, Tanjung Balai Karimun</a>}
               sub="Kepulauan Riau, Indonesia"
             />
           </div>

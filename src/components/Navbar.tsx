@@ -30,12 +30,12 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    label: "About Us", href: "/About" 
-    // dropdown: [
-    //   { label: "Our Story",        href: "/about/story" },
-    //   { label: "Our Team",         href: "/about/team" },
-    //   { label: "Vision & Mission", href: "/about/vision" },
-    // ],
+    label: "About Us",
+    href: "/About",
+    dropdown: [
+      { label: "Overview",          href: "/About#about-hero" },
+      { label: "Vision & Mission",  href: "/About#vision-mission" },
+    ],
   },
   { label: "Contact Us", href: "/contact" },
 ];
@@ -94,9 +94,10 @@ const HamburgerIcon = ({ open }: { open: boolean }) => (
 interface DropdownMenuProps {
   items: DropdownItem[];
   isOpen: boolean;
+  onItemClick?: () => void;
 }
 
-const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => (
+const DropdownMenu = ({ items, isOpen, onItemClick }: DropdownMenuProps) => (
   <div
     className={`dropdown-menu${isOpen ? " dropdown-menu--open" : ""}`}
     role="menu"
@@ -109,6 +110,7 @@ const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => (
         className="dropdown-item"
         role="menuitem"
         tabIndex={isOpen ? 0 : -1}
+        onClick={onItemClick}
       >
         {item.label}
       </a>
@@ -174,12 +176,24 @@ const NavLink = ({ item }: { item: NavItem }) => {
         className={`nav-link nav-link--dropdown${isActive ? " nav-link--active" : ""}`}
         aria-haspopup="true"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          // If this item also points somewhere (e.g. About Us → /About),
+          // clicking the label navigates there. Hovering still opens the menu.
+          if (item.href) {
+            window.location.href = item.href;
+          } else {
+            setOpen((v) => !v);
+          }
+        }}
       >
         {item.label}
         <ChevronIcon open={open} />
       </button>
-      <DropdownMenu items={item.dropdown} isOpen={open} />
+      <DropdownMenu
+        items={item.dropdown}
+        isOpen={open}
+        onItemClick={() => setOpen(false)}
+      />
     </div>
   );
 };

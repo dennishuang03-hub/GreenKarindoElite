@@ -1,0 +1,10 @@
+/* Smooth scrolling for in-page section jumps */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset each section so the fixed navbar doesn't cover its top.
+   Match the value to your navbar height (~88px here). */
+.section-anchor {
+  scroll-margin-top: 88px;
+}

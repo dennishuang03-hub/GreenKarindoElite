@@ -59,6 +59,8 @@
       rgba(15, 17, 20, 0.75) 0%,
       transparent 50%
     );
+  opacity: 0;
+  animation: ah-fade 1.4s ease forwards;
 }
 
 /* ── Content wrapper ─────────────────────────────────────────── */
@@ -173,6 +175,50 @@
   letter-spacing: 0.04em;
 }
 
+/* ── Entrance animation (staggered fade-and-rise on load) ────── */
+@keyframes ah-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ah-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ah-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Content elements start hidden, then ease in one after another */
+.ah-eyebrow,
+.ah-title,
+.ah-tagline,
+.ah-body,
+.ah-since {
+  opacity: 0;
+  animation: ah-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ah-eyebrow { animation-delay: 0.25s; }
+.ah-title   { animation-delay: 0.40s; }
+.ah-tagline { animation-delay: 0.62s; }
+.ah-body    { animation-delay: 0.92s; }
+.ah-since   { animation-delay: 1.08s; }
+
+/* Divider draws itself out from the left */
+.ah-divider {
+  transform-origin: left center;
+  animation: ah-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.78s both;
+}
+
+/* Scroll cue fades in last */
+.ah-scroll {
+  opacity: 0;
+  animation: ah-fade 1s ease 1.4s forwards;
+}
+
 /* ── Scroll indicator ────────────────────────────────────────── */
 .ah-scroll {
   position: absolute;
@@ -244,4 +290,17 @@
 @media (prefers-reduced-motion: reduce) {
   .about-hero__bg { animation: none; }
   .ah-scroll__line::after { animation: none; }
+
+  .ah-eyebrow,
+  .ah-title,
+  .ah-tagline,
+  .ah-body,
+  .ah-since,
+  .ah-divider,
+  .ah-scroll,
+  .about-hero__overlay {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }

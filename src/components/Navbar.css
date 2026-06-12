@@ -249,6 +249,18 @@
     0 0 0 1px rgba(197, 160, 92, 0.05) inset;
 }
 
+/* Invisible bridge — fills the gap between the button and the menu
+   so moving the mouse down into the dropdown doesn't close it */
+.dropdown-menu::after {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: transparent;
+}
+
 /* Arrow pip */
 .dropdown-menu::before {
   content: '';
@@ -284,6 +296,8 @@
   text-transform: uppercase;
   text-decoration: none;
   border-radius: var(--radius-sm);
+  position: relative;
+  z-index: 1;
   transition:
     color var(--transition-fast),
     background var(--transition-fast),

@@ -49,7 +49,7 @@
   position: absolute;
   inset: -15%;
   background-image:
-    url("../assets/Gate.png");
+    url("../../assets/Gate.png");
   background-size: cover;
   background-position: center 35%;
   will-change: transform;

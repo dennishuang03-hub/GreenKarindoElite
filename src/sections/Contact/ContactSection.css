@@ -1,0 +1,124 @@
+/* ============================================================
+   ContactSection.css — PT Green Karindo Elite
+   Section-level layout only.
+   Component styles (ct-form, ct-row, fld, etc.) come from
+   Contact.css — do not redefine them here.
+   ============================================================ */
+
+/* ── Section shell ───────────────────────────────────────────── */
+.cs-section {
+  background: #15171a;
+  padding: 120px 0;
+  font-family: 'Jost', sans-serif;
+  color: #efe7d8;
+  -webkit-font-smoothing: antialiased;
+  scroll-margin-top: 84px; /* offset for fixed navbar */
+}
+
+/* ── Wrap ────────────────────────────────────────────────────── */
+.cs-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ── Section header ──────────────────────────────────────────── */
+.cs-header {
+  margin-bottom: 64px;
+}
+
+.cs-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #c5a05c;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.cs-eyebrow::before {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: #c5a05c;
+  flex-shrink: 0;
+}
+
+.cs-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(42px, 5vw, 66px);
+  line-height: 1.08;
+  letter-spacing: 0.005em;
+  color: #efe7d8;
+  margin: 0 0 16px;
+}
+
+.cs-title__em {
+  font-style: italic;
+  color: #d9c08a;
+}
+
+.cs-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  color: #9a958b;
+  max-width: 420px;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── Two-column grid ─────────────────────────────────────────── */
+.cs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 70px;
+  align-items: start;
+}
+
+/* ── Left column wrapper ─────────────────────────────────────── */
+.cs-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── WhatsApp CTA button ─────────────────────────────────────── */
+.cs-wa-btn {
+  margin-top: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #c5a05c;
+  color: #15171a;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 28px;
+  transition: background 0.28s ease;
+}
+
+.cs-wa-btn:hover {
+  background: #d9c08a;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .cs-section {
+    padding: 80px 0;
+  }
+
+  .cs-wrap {
+    padding: 0 24px;
+  }
+
+  .cs-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

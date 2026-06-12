@@ -1,11 +1,3 @@
-/* ============================================================
-   Hero.css — Green Karindo Elite
-   Layout mirrors the DENNIS.pdf brochure cover:
-   full-bleed dark night photo · centered editorial serif
-   headline · bottom badge pill strip
-   ============================================================ */
-
-/* ── Tokens (shared with Navbar via :root) ────────────────── */
 :root {
   --hero-black:       #0D0C0A;
   --hero-dark:        #1A1810;
@@ -57,7 +49,7 @@
   position: absolute;
   inset: -15%;
   background-image:
-    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=80");
+    url("../assets/Gate.png");
   background-size: cover;
   background-position: center 35%;
   will-change: transform;

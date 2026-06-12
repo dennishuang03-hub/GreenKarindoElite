@@ -30,12 +30,12 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    label: "About Us",
-    dropdown: [
-      { label: "Our Story",        href: "/about/story" },
-      { label: "Our Team",         href: "/about/team" },
-      { label: "Vision & Mission", href: "/about/vision" },
-    ],
+    label: "About Us", href: "/About" 
+    // dropdown: [
+    //   { label: "Our Story",        href: "/about/story" },
+    //   { label: "Our Team",         href: "/about/team" },
+    //   { label: "Vision & Mission", href: "/about/vision" },
+    // ],
   },
   { label: "Contact Us", href: "/contact" },
 ];

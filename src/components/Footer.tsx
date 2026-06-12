@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Footer.css';
 import logo from '../assets/Logo.png';
 
@@ -43,8 +43,35 @@ const ContactRow: React.FC<ContactRowProps> = ({ icon, label, value, sub }) => (
 
 // ─── Main Footer ───────────────────────────────────────────────────────────
 const Footer: React.FC = () => {
+  const footerRef = useRef<HTMLElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = footerRef.current;
+    if (!node) return;
+
+    // Reveal once the footer scrolls into view.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <footer className="footer">
+    <footer
+      ref={footerRef}
+      className={`footer${visible ? ' is-visible' : ''}`}
+    >
       <div className="wrap">
 
         {/* ── Contact info section ── */}

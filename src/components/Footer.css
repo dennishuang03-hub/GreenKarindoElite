@@ -383,3 +383,136 @@
     gap: 6px;
   }
 }
+
+/* ============================================================
+   Animation + hover layer (added)
+   Entrance reveal on scroll-into-view + playful hovers
+   ============================================================ */
+
+/* ── Entrance: staggered fade-and-rise ──────────────────────── */
+.foot-contact > *,
+.foot-top,
+.foot-bot {
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Stagger order: brand → details → map → brand row → copyright */
+.foot-contact > *:nth-child(1) { transition-delay: 0.00s; }
+.foot-contact > *:nth-child(2) { transition-delay: 0.12s; }
+.foot-contact > *:nth-child(3) { transition-delay: 0.24s; }
+.foot-top                      { transition-delay: 0.32s; }
+.foot-bot                      { transition-delay: 0.40s; }
+
+.footer:not(.is-visible) .foot-contact > *,
+.footer:not(.is-visible) .foot-top,
+.footer:not(.is-visible) .foot-bot {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+/* ── Hover: eyebrow line grows when its column is hovered ───── */
+.foot-contact > * {
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fc-eyebrow::before {
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fc-brand:hover .fc-eyebrow::before,
+.fc-details:hover .fc-eyebrow::before,
+.fc-map:hover .fc-eyebrow::before {
+  width: 46px;
+}
+
+/* ── Hover: contact rows light up, icon circle fills gold ───── */
+.fc-row {
+  border-radius: 6px;
+  transition: background 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fc-row:hover {
+  background: rgba(197, 160, 92, 0.06);
+  transform: translateX(5px);
+}
+
+.fc-ic {
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+.fc-row:hover .fc-ic {
+  background: var(--gold);
+  color: var(--night);
+  transform: scale(1.1) rotate(-6deg);
+  box-shadow: 0 0 18px rgba(197, 160, 92, 0.35);
+}
+
+/* ── Hover: map frame goes full-colour and glows ────────────── */
+.fc-map-frame {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.fc-map-frame iframe {
+  transition: filter 0.5s ease;
+}
+
+.fc-map-frame:hover {
+  border-color: rgba(197, 160, 92, 0.5);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+}
+
+.fc-map-frame:hover iframe {
+  filter: grayscale(0) contrast(1);
+}
+
+/* ── Hover: developer logo gives a little spin-tilt ─────────── */
+.foot-dev .fd-mark img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* 
+.foot-dev:hover .fd-mark img {
+  transform: scale(1.08) rotate(4deg);
+} */
+
+.foot-dev .fd-t .n {
+  transition: color 0.35s ease;
+}
+
+.foot-dev:hover .fd-t .n {
+  color: var(--gold-lt);
+}
+
+/* ── Hover: slogan gets a soft gold glow ────────────────────── */
+.foot-slogan .fs-1 {
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.foot-slogan .fs-1:hover {
+  color: #f0d79a;
+  text-shadow: 0 0 16px rgba(197, 160, 92, 0.45);
+}
+
+/* ── Reduced motion: show everything at once, no movement ───── */
+@media (prefers-reduced-motion: reduce) {
+  .footer .foot-contact > *,
+  .footer .foot-top,
+  .footer .foot-bot {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .fc-row:hover,
+  .fc-row:hover .fc-ic,
+  .foot-dev:hover .fd-mark img {
+    transform: none !important;
+  }
+}

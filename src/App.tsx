@@ -7,12 +7,14 @@ import Projects from "./pages/Projects";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer.tsx";
+import WhatsAppButton from "./components/WhatsAppButton.tsx";
 
 function App() {
     return (
         <BrowserRouter>
 
             <Navbar />
+            <WhatsAppButton />
 
             <Routes>
                 <Route path="/" element={<Home />} />

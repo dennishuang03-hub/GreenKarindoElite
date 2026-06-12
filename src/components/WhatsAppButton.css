@@ -1,0 +1,135 @@
+/* ============================================================
+   WhatsAppButton.css — Sticky WhatsApp CTA
+   Fixed bottom-right · Gold ring · Pulse animation
+   ============================================================ */
+
+/* ── Button ─────────────────────────────────────────────────── */
+.wa-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 999;
+
+  /* Size */
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+
+  /* Colors */
+  background: #25d366;
+  color: #fff;
+
+  /* Gold ring border */
+  box-shadow:
+    0 0 0 2px rgba(197, 160, 92, 0.55),
+    0 8px 28px rgba(0, 0, 0, 0.45);
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Pulse animation */
+  animation: wa-pulse 2.8s ease-in-out infinite;
+}
+
+.wa-btn:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow:
+    0 0 0 3px rgba(197, 160, 92, 0.75),
+    0 14px 36px rgba(0, 0, 0, 0.5);
+  animation: none; /* pause pulse on hover */
+}
+
+/* ── Icon ───────────────────────────────────────────────────── */
+.wa-btn__icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+/* ── Tooltip label (appears on hover) ───────────────────────── */
+.wa-btn__label {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  white-space: nowrap;
+
+  background: #15171a;
+  color: #d9c08a;
+  font-family: 'Jost', sans-serif;
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+
+  padding: 7px 14px;
+  border: 1px solid rgba(197, 160, 92, 0.3);
+  border-radius: 3px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Small arrow pointing right toward the button */
+.wa-btn__label::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: #15171a;
+  border-top: 1px solid rgba(197, 160, 92, 0.3);
+  border-right: 1px solid rgba(197, 160, 92, 0.3);
+}
+
+.wa-btn:hover .wa-btn__label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ── Pulse keyframes ────────────────────────────────────────── */
+@keyframes wa-pulse {
+  0%   { box-shadow: 0 0 0 2px rgba(197,160,92,.5), 0 8px 28px rgba(0,0,0,.4); }
+  50%  { box-shadow: 0 0 0 7px rgba(37,211,102,.18), 0 8px 28px rgba(0,0,0,.4); }
+  100% { box-shadow: 0 0 0 2px rgba(197,160,92,.5), 0 8px 28px rgba(0,0,0,.4); }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .wa-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .wa-btn__icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Hide tooltip on mobile — not enough space */
+  .wa-btn__label {
+    display: none;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .wa-btn {
+    animation: none;
+  }
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 
 interface ContactInfoRowProps {
-  icon: string;
+  icon: React.ReactNode;
   label: string;
-  value: string;
+  value: React.ReactNode;
   sub?: string;
 }
 

@@ -278,3 +278,112 @@
     padding: 80px 0 0;
   }
 }
+
+/* ============================================================
+   Animation + hover layer (added)
+   Entrance reveal on scroll-into-view + interactive hovers
+   ============================================================ */
+
+.contact {
+  scroll-margin-top: 84px; /* offset for fixed navbar when jumped to */
+}
+
+/* ── Entrance: staggered fade-and-rise ──────────────────────── */
+@keyframes ct-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hidden until the section becomes visible */
+.contact:not(.is-visible) .ct-left .eyebrow,
+.contact:not(.is-visible) .ct-left h2,
+.contact:not(.is-visible) .ct-left > p,
+.contact:not(.is-visible) .ct-row,
+.contact:not(.is-visible) .ct-form {
+  opacity: 0;
+}
+
+/* Reveal in sequence once visible */
+.contact.is-visible .ct-left .eyebrow         { animation: ct-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+.contact.is-visible .ct-left h2               { animation: ct-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both; }
+.contact.is-visible .ct-left > p              { animation: ct-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both; }
+.contact.is-visible .ct-info .ct-row:nth-child(1) { animation: ct-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.40s both; }
+.contact.is-visible .ct-info .ct-row:nth-child(2) { animation: ct-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.50s both; }
+.contact.is-visible .ct-info .ct-row:nth-child(3) { animation: ct-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.60s both; }
+.contact.is-visible .ct-form                  { animation: ct-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both; }
+
+/* ── Hover: info rows highlight, icon circle fills gold ─────── */
+.ct-row {
+  border-radius: 6px;
+  transition: background 0.35s ease;
+}
+
+.ct-row:hover {
+  background: rgba(197, 160, 92, 0.05);
+}
+
+.ct-ic {
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+.ct-row:hover .ct-ic {
+  background: var(--gold);
+  color: var(--night);
+  transform: scale(1.08) rotate(-6deg);
+  box-shadow: 0 0 18px rgba(197, 160, 92, 0.35);
+}
+
+.ct-row .cv {
+  transition: color 0.35s ease;
+}
+
+.ct-row:hover .cv {
+  color: var(--gold-lt);
+}
+
+/* ── Hover: form card glows, fields warm up ─────────────────── */
+.ct-form {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ct-form:hover {
+  border-color: rgba(197, 160, 92, 0.35);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+}
+
+.fld input:hover,
+.fld select:hover,
+.fld textarea:hover {
+  border-color: rgba(197, 160, 92, 0.4);
+}
+
+/* ── Hover: submit button lifts ─────────────────────────────── */
+.ct-submit {
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ct-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(197, 160, 92, 0.5);
+}
+
+/* ── Reduced motion: show everything at once, no movement ───── */
+@media (prefers-reduced-motion: reduce) {
+  .contact .ct-left .eyebrow,
+  .contact .ct-left h2,
+  .contact .ct-left > p,
+  .contact .ct-row,
+  .contact .ct-form {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .ct-row:hover .ct-ic,
+  .ct-submit:hover {
+    transform: none !important;
+  }
+}

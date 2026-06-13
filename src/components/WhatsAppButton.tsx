@@ -1,10 +1,12 @@
 import React from 'react';
 import './WhatsAppButton.css';
+import { useLang } from '../i18n/LanguageContext';
 
 const WA_NUMBER = '6281270400400';
 const WA_MESSAGE = 'Halo, saya ingin mengetahui lebih lanjut tentang Sea View Karimun.';
 
 const WhatsAppButton: React.FC = () => {
+  const { t } = useLang();
   const href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MESSAGE)}`;
 
   return (
@@ -27,7 +29,7 @@ const WhatsAppButton: React.FC = () => {
       </svg>
 
       {/* Tooltip label */}
-      <span className="wa-btn__label">Chat WhatsApp</span>
+      <span className="wa-btn__label">{t.wa.label}</span>
     </a>
   );
 };

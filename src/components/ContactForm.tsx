@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useLang } from '../i18n/LanguageContext';
 
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useLang();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -10,21 +12,21 @@ function ContactForm() {
 
   return (
     <form className="ct-form" onSubmit={handleSubmit}>
-      <h3>Jadwalkan Survei Lokasi</h3>
-      <p>Isi formulir berikut, tim kami akan segera menghubungi Anda.</p>
+      <h3>{t.form.title}</h3>
+      <p>{t.form.subtitle}</p>
 
       <div className="fld">
-        <label htmlFor="nama">Nama Lengkap</label>
-        <input id="nama" type="text" placeholder="Nama Anda" required />
+        <label htmlFor="nama">{t.form.nameLabel}</label>
+        <input id="nama" type="text" placeholder={t.form.namePlaceholder} required />
       </div>
 
       <div className="fld">
-        <label htmlFor="whatsapp">Nomor WhatsApp</label>
+        <label htmlFor="whatsapp">{t.form.whatsappLabel}</label>
         <input id="whatsapp" type="tel" placeholder="08xx-xxxx-xxxx" required />
       </div>
 
       <div className="fld">
-        <label htmlFor="proyek">Proyek yang Diminati</label>
+        <label htmlFor="proyek">{t.form.projectLabel}</label>
         <select id="proyek">
           <option>Sea View — Bukit Indah Karimun</option>
           <option>Bukit Indah — Lubuk Semut</option>
@@ -32,17 +34,17 @@ function ContactForm() {
       </div>
 
       <div className="fld">
-        <label htmlFor="skema">Skema Pembayaran</label>
+        <label htmlFor="skema">{t.form.schemeLabel}</label>
         <select id="skema">
-          <option>DP 0% — Zero Down Payment</option>
-          <option>Cash Bertahap</option>
-          <option>KPR / Bank</option>
+          {t.form.schemeOptions.map((opt) => (
+            <option key={opt}>{opt}</option>
+          ))}
         </select>
       </div>
 
       <div className="fld">
-        <label htmlFor="pesan">Pesan</label>
-        <textarea id="pesan" placeholder="Tuliskan pertanyaan Anda..." />
+        <label htmlFor="pesan">{t.form.messageLabel}</label>
+        <textarea id="pesan" placeholder={t.form.messagePlaceholder} />
       </div>
 
       <button
@@ -50,7 +52,7 @@ function ContactForm() {
         className="ct-submit"
         style={submitted ? { background: '#7a9e6a' } : undefined}
       >
-        {submitted ? 'Pesan Terkirim ✓' : 'Kirim Permintaan Survei'}
+        {submitted ? t.form.submitted : t.form.submit}
       </button>
     </form>
   );

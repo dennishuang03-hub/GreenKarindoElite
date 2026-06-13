@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../../components/VisionMission.css';
 import VisionCard from '../../components/VisionCard';
 import MissionList from '../../components/MissionList';
+import { useLang } from '../../i18n/LanguageContext';
 
 const VisionMissionSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -38,9 +40,9 @@ const VisionMissionSection: React.FC = () => {
 
         {/* Heading */}
         <div className="vm-heading vm-reveal">
-          <div className="vm-heading__eyebrow">Visi &amp; Misi</div>
+          <div className="vm-heading__eyebrow">{t.vm.eyebrow}</div>
           <h2 className="vm-heading__title">
-            Vision &amp; <em>Mission</em>
+            {t.vm.titlePre}<em>{t.vm.titleEm}</em>
           </h2>
         </div>
 

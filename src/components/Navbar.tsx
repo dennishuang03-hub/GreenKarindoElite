@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "./Navbar.css";
 import LogoImg from "../assets/Logo.png";
+import { useLang } from "../i18n/LanguageContext";
+import type { Lang, Translation } from "../i18n/translations";
 
 // ─────────────────────────────────────────────
 // Types
@@ -17,29 +19,57 @@ interface NavItem {
 }
 
 // ─────────────────────────────────────────────
-// Navigation config — edit this to update links
+// Navigation config — labels come from translations
 // ─────────────────────────────────────────────
-const NAV_ITEMS: NavItem[] = [
-  { label: "Beranda", href: "/" },
+const buildNavItems = (t: Translation): NavItem[] => [
+  { label: t.nav.home, href: "/" },
   {
-    label: "Project",
-    dropdown: [
-      { label: "Residential",  href: "/project/residential" },
-      { label: "Commercial",   href: "/project/commercial" },
-      { label: "Mixed Use",    href: "/project/mixed-use" },
-    ],
+    label: t.nav.project,
   },
   {
-    label: "Tentang Kami",
+    label: t.nav.about,
     href: "/About",
     dropdown: [
-      { label: "Profil Perusahaan",          href: "/About#about-hero" },
-      { label: "Visi & Misi",  href: "/About#vision-mission" },
-      { label: "Kunjungi Kami",          href: "/About#our-location" },
+      { label: t.nav.profile, href: "/About#about-hero" },
+      { label: t.nav.vision, href: "/About#vision-mission" },
+      { label: t.nav.visit, href: "/About#our-location" },
     ],
   },
-  { label: "Kontak", href: "/contact" },
+  { label: t.nav.contact, href: "/contact" },
 ];
+
+// ─────────────────────────────────────────────
+// Language toggle — ID / EN
+// ─────────────────────────────────────────────
+const LangToggle = ({
+  lang,
+  setLang,
+  className = "",
+}: {
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  className?: string;
+}) => (
+  <div className={`lang-toggle ${className}`.trim()} role="group" aria-label="Language">
+    <button
+      type="button"
+      className={`lang-toggle__btn${lang === "id" ? " lang-toggle__btn--active" : ""}`}
+      aria-pressed={lang === "id"}
+      onClick={() => setLang("id")}
+    >
+      ID
+    </button>
+    <span className="lang-toggle__sep" aria-hidden="true">|</span>
+    <button
+      type="button"
+      className={`lang-toggle__btn${lang === "en" ? " lang-toggle__btn--active" : ""}`}
+      aria-pressed={lang === "en"}
+      onClick={() => setLang("en")}
+    >
+      EN
+    </button>
+  </div>
+);
 
 // ─────────────────────────────────────────────
 // Chevron icon
@@ -205,6 +235,8 @@ const NavLink = ({ item }: { item: NavItem }) => {
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { lang, setLang, t } = useLang();
+  const NAV_ITEMS = buildNavItems(t);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -230,7 +262,7 @@ const Navbar = () => {
               />
               <div className="navbar__logo-wordmark">
                 <span className="navbar__logo-name">Green Karindo Elite</span>
-                <span className="navbar__logo-tagline">Property Development</span>
+                <span className="navbar__logo-tagline">{t.logo.tagline}</span>
               </div>
             </a>
 
@@ -241,6 +273,9 @@ const Navbar = () => {
                   <NavLink item={item} />
                 </li>
               ))}
+              <li className="navbar__lang-item">
+                <LangToggle lang={lang} setLang={setLang} />
+              </li>
             </ul>
 
             {/* ── Mobile hamburger ── */}
@@ -294,6 +329,11 @@ const Navbar = () => {
               )}
             </div>
           ))}
+
+          <div className="mobile-divider" />
+          <div className="navbar__mobile-lang">
+            <LangToggle lang={lang} setLang={setLang} />
+          </div>
         </div>
       </header>
     </>

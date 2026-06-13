@@ -471,6 +471,65 @@
   }
 }
 
+/* ── Language toggle (ID / EN) ───────────────────────────────── */
+.navbar__lang-item {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  padding-left: 14px;
+  border-left: 1px solid var(--clr-gold-line);
+}
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lang-toggle__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  color: var(--clr-text-dim);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.lang-toggle__btn:hover,
+.lang-toggle__btn:focus-visible {
+  color: var(--clr-gold-lt);
+  outline: none;
+}
+
+.lang-toggle__btn--active {
+  color: var(--clr-gold-lt);
+  background: var(--clr-gold-muted);
+}
+
+.lang-toggle__sep {
+  color: var(--clr-gold-line);
+  font-size: 12px;
+  user-select: none;
+}
+
+/* Mobile placement */
+.navbar__mobile-lang {
+  display: flex;
+  justify-content: center;
+  padding: 14px 16px 4px;
+}
+
+.navbar__mobile-lang .lang-toggle__btn {
+  font-size: 15px;
+  padding: 8px 14px;
+}
+
 /* ── Reduced motion ──────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .navbar,

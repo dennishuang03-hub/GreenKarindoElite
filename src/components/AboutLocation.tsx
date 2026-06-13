@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './AboutLocation.css';
+import { useLang } from '../i18n/LanguageContext';
 
 // ─── Google Maps embed ─────────────────────────────────────────────────────
 const GMAPS_EMBED =
@@ -9,6 +10,7 @@ const GMAPS_EMBED =
 const AboutLocation: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -42,13 +44,12 @@ const AboutLocation: React.FC = () => {
 
         {/* Header */}
         <div className="al-header">
-          <div className="al-eyebrow">Lokasi Kami</div>
+          <div className="al-eyebrow">{t.location.eyebrow}</div>
           <h2 className="al-title">
-            Kantor <em>Pemasaran</em>
+            {t.location.titlePre}<em>{t.location.titleEm}</em>
           </h2>
           <p className="al-subtitle">
-            Kunjungi kantor pemasaran kami untuk konsultasi langsung,
-            atau hubungi tim kami untuk mengatur jadwal survei lokasi.
+            {t.location.subtitle}
           </p>
         </div>
 

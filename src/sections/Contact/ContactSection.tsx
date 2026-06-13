@@ -3,6 +3,7 @@ import './ContactSection.css';
 import '../../components/Contact.css';   // original ct-row, ct-ic, cl, cv, cs, ct-form, fld, ct-submit styles
 import ContactForm from '../../components/ContactForm';
 import ContactInfoRow from '../../components/ContactInfoRow';
+import { useLang } from '../../i18n/LanguageContext';
 
 const WhatsAppIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -25,6 +26,7 @@ const ClockIcon = () => (
 const ContactSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -58,35 +60,34 @@ const ContactSection: React.FC = () => {
 
           {/* ---- Left column ---- */}
           <div className="ct-left">
-            <div className="eyebrow gold">Hubungi Kami</div>
+            <div className="eyebrow gold">{t.contact.eyebrow}</div>
             <h2>
-              Marketing Team<br />
-              Green karindo <span className="serif-em">Elite.</span>
+              {t.contact.titleLine1}<br />
+              {t.contact.titleBrand}<span className="serif-em">{t.contact.titleEm}</span>
             </h2>
             <p>
-              Tim pemasaran kami siap membantu Anda — dari konsultasi awal,
-              survei lokasi, hingga proses akad.
+              {t.contact.desc}
             </p>
 
             <div className="ct-info">
               <ContactInfoRow
                 icon={<a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link"><WhatsAppIcon /></a>}
-                label="WhatsApp"
+                label={t.contact.waLabel}
                 value={<a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link">
                       +62 8xx-xxxx-xxxx</a>}
-                sub="Marketing Team Sea View"
+                sub={t.contact.waSub}
               />
               <ContactInfoRow
                 icon={<a href="https://maps.google.com/?q=PT+Green+Karindo+Elite" target="_blank" rel="noopener noreferrer" className="fc-value-link"><LocationIcon /></a>}
-                label="Kantor Pemasaran"
+                label={t.contact.officeLabel}
                 value={<a href="https://maps.google.com/?q=PT+Green+Karindo+Elite" target="_blank" rel="noopener noreferrer" className="fc-value-link">
                       Ruko Kamboja no.25, Tanjung Balai Karimun</a>}
-                sub="Kepulauan Riau, Indonesia"
+                sub={t.contact.officeSub}
               />
               <ContactInfoRow
                 icon={<a href="https://maps.google.com/?q=PT+Green+Karindo+Elite" target="_blank" rel="noopener noreferrer" className="fc-value-link"><ClockIcon /></a>}
-                label="Jam Operasional"
-                value="Senin – Sabtu · 08.00 – 17.00 WIB"
+                label={t.contact.hoursLabel}
+                value={t.contact.hoursValue}
               />
             </div>
           </div>

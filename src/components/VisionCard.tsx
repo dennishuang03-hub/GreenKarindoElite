@@ -1,5 +1,6 @@
 import React from 'react';
 import './VisionMission.css';
+import { useLang } from '../i18n/LanguageContext';
 
 interface VisionCardProps {
   /** The vision statement text */
@@ -8,17 +9,14 @@ interface VisionCardProps {
   label?: string;
 }
 
-const DEFAULT_VISION =
-  'Menjadi leading luxury property group di Indonesia, yang dikenal lewat exceptional developments yang merepresentasikan elegance, exclusivity, dan lasting value.';
-
-const VisionCard: React.FC<VisionCardProps> = ({
-  vision = DEFAULT_VISION,
-  label = 'Visi',
-}) => {
+const VisionCard: React.FC<VisionCardProps> = ({ vision, label }) => {
+  const { t } = useLang();
+  const resolvedVision = vision ?? t.vm.vision;
+  const resolvedLabel = label ?? t.vm.visionLabel;
   return (
     <article className="vm-vision">
-      <div className="vm-card__eyebrow">{label}</div>
-      <p className="vm-vision__text">{vision}</p>
+      <div className="vm-card__eyebrow">{resolvedLabel}</div>
+      <p className="vm-vision__text">{resolvedVision}</p>
     </article>
   );
 };

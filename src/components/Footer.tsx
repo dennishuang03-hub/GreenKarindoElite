@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Footer.css';
 import logo from '../assets/Logo.png';
+import { useLang } from '../i18n/LanguageContext';
 
 // ─── Social links — edit these with your real profiles ──────────────────────
 const INSTAGRAM_URL = 'https://instagram.com/greenkarindoelite';
@@ -57,6 +58,7 @@ const ContactRow: React.FC<ContactRowProps> = ({ icon, label, value, sub }) => (
 const Footer: React.FC = () => {
   const footerRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     const node = footerRef.current;
@@ -91,24 +93,23 @@ const Footer: React.FC = () => {
 
           {/* Col 1 — Hubungi Kami */}
           <div className="fc-brand">
-            <div className="fc-eyebrow">Hubungi Kami</div>
+            <div className="fc-eyebrow">{t.footer.contactEyebrow}</div>
             <h3 className="fc-heading">
-              <span className="fc-heading-em">Marketing Team</span><br />
-              Sea View Karimun.
+              <span className="fc-heading-em">{t.footer.marketingTeam}</span><br />
+              {t.footer.marketingPlace}
             </h3>
             <p className="fc-desc">
-              Tim pemasaran kami siap membantu Anda — dari konsultasi awal,
-              survei lokasi, hingga proses akad.
+              {t.footer.desc}
             </p>
           </div>
 
           {/* Col 2 — Detail Kontak */}
           <div className="fc-details">
-            <div className="fc-eyebrow">Detail Kontak</div>
+            <div className="fc-eyebrow">{t.footer.detailEyebrow}</div>
             <ContactRow
               icon={<a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fc-value-link">
               <WhatsAppIcon /></a>}
-              label="WhatsApp"
+              label={t.footer.waLabel}
               value={
                 <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fc-value-link">
                   +62 8xx-xxxx-xxxx
@@ -118,19 +119,18 @@ const Footer: React.FC = () => {
             <ContactRow
               icon={<a href="https://maps.google.com/?q=PT+Green+Karindo+Elite" target="_blank" rel="noopener noreferrer" className="fc-value-link">
                 <LocationIcon /></a>}
-              label="Alamat"
+              label={t.footer.addressLabel}
               value={<a href="https://maps.google.com/?q=PT+Green+Karindo+Elite" target="_blank" rel="noopener noreferrer" className="fc-value-link">
                       Ruko Kamboja no.25, Tanjung Balai Karimun</a>}
-              sub="Kepulauan Riau, Indonesia"
+              sub={t.footer.addressSub}
             />
           </div>
 
           {/* Col 3 — Ikuti Kami / Social media */}
           <div className="fc-social">
-            <div className="fc-eyebrow">Ikuti Kami</div>
+            <div className="fc-eyebrow">{t.footer.followEyebrow}</div>
             <p className="fc-social-desc">
-              Ikuti perkembangan proyek dan informasi terbaru kami
-              di media sosial.
+              {t.footer.followDesc}
             </p>
             <div className="fc-social-links">
               <a
@@ -163,20 +163,21 @@ const Footer: React.FC = () => {
               <img src={logo} alt="Green Karindo Elite Logo" />
             </span>
             <div className="fd-t">
-              <div className="l">Developer</div>
+              <div className="l">{t.footer.developerLabel}</div>
               <div className="n">Green Karindo Elite</div>
-              <div className="r">Kontraktor &amp; Developer</div>
+              <div className="r">{t.footer.developerRole}</div>
             </div>
           </div>
           <div className="foot-slogan">
+            {/* Slogan intentionally left untranslated per request */}
             <div className="fs-1">Your Home Above the Horizon.</div>
           </div>
         </div>
 
         {/* ── Copyright row ── */}
         <div className="foot-bot">
-          <span>© 2026 Green Karindo Elite. Seluruh hak cipta dilindungi.</span>
-          <span>Spesifikasi, harga, dan ilustrasi bersifat indikatif dan dapat berubah.</span>
+          <span>{t.footer.copyright}</span>
+          <span>{t.footer.disclaimer}</span>
         </div>
 
       </div>

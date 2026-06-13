@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Hero.css";
+import { useLang } from "../i18n/LanguageContext";
 
 const Hero: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
+  const { t } = useLang();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -11,12 +13,7 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const badges = [
-    "Kontraktor Profesional",
-    "Kepulauan Riau",
-    "Desain Tropis Modern",
-    "KPR Ready",
-  ];
+  const badges = t.hero.badges;
 
   return (
     <section
@@ -39,7 +36,7 @@ const Hero: React.FC = () => {
         {/* Eyebrow — "A MODERN PRIVATE RESIDENCE" equivalent */}
         <div className="hero__eyebrow">
           <span className="hero__eyebrow-text">
-            Kontraktor &amp; Developer
+            {t.hero.eyebrow}
           </span>
         </div>
 
@@ -51,21 +48,21 @@ const Hero: React.FC = () => {
         </h1>
 
         {/* Sub-brand line — italic serif like "Bukit Indah Karimun" */}
-        <p className="hero__subtitle">Kepulauan Riau · Indonesia</p>
+        <p className="hero__subtitle">{t.hero.subtitle}</p>
 
         {/* Tagline — like "Your Home Above the Horizon." */}
         <p className="hero__tagline">
-          Membangun hunian, kawasan, dan infrastruktur<br />
-          dengan standar arsitektur tropis modern.
+          {t.hero.taglineLine1}<br />
+          {t.hero.taglineLine2}
         </p>
 
         {/* CTA buttons */}
         <div className="hero__actions">
           <a href="#projects" className="hero__btn hero__btn--primary">
-            Lihat Portofolio
+            {t.hero.ctaPrimary}
           </a>
           <a href="/contact" className="hero__btn hero__btn--ghost">
-            Konsultasi Gratis
+            {t.hero.ctaSecondary}
           </a>
         </div>
       </div>

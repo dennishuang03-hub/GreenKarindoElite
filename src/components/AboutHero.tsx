@@ -1,6 +1,7 @@
 import React from 'react';
 import './AboutHero.css';
 import heroBg from '../assets/AboutHero.jpg';
+import { useLang } from '../i18n/LanguageContext';
 
 // ── Scroll indicator ──────────────────────────────────────────
 const ScrollIndicator = () => (
@@ -12,6 +13,7 @@ const ScrollIndicator = () => (
 
 // ── About Hero ────────────────────────────────────────────────
 const AboutHero: React.FC = () => {
+  const { t } = useLang();
   return (
     <section className="about-hero" aria-label="About Us Hero">
 
@@ -29,7 +31,7 @@ const AboutHero: React.FC = () => {
       <div className="about-hero__inner">
 
         {/* Eyebrow */}
-        <div className="ah-eyebrow">Tentang Kami</div>
+        <div className="ah-eyebrow">{t.aboutHero.eyebrow}</div>
 
         {/* Company name */}
         <h1 className="ah-title">
@@ -38,23 +40,21 @@ const AboutHero: React.FC = () => {
         </h1>
 
         {/* Tagline */}
-        <p className="ah-tagline">Kontraktor &amp; Developer</p>
+        <p className="ah-tagline">{t.aboutHero.tagline}</p>
 
         {/* Divider */}
         <div className="ah-divider" aria-hidden="true" />
 
         {/* Founding paragraph */}
         <p className="ah-body">
-          Didirikan pada tanggal 22 Oktober 1981 oleh{' '}
-          <span className="ah-body__name">Christopher Lee</span>{' '}
-          dengan nama PT Green Karindo Elite, PT Green Karindo Elite kini menjadi
-          salah satu pengembang properti terkemuka dan paling terdiversifikasi
-          di Tanjung Balai Karimun, Indonesia.
+          {t.aboutHero.bodyBefore}
+          <span className="ah-body__name">{t.aboutHero.bodyName}</span>
+          {t.aboutHero.bodyAfter}
         </p>
 
         {/* Founding year badge */}
         <div className="ah-since">
-          <span className="ah-since__label">Berdiri sejak</span>
+          <span className="ah-since__label">{t.aboutHero.sinceLabel}</span>
           <span className="ah-since__year">1981</span>
         </div>
 

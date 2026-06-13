@@ -118,17 +118,29 @@
 /* ── Contact info section ───────────────────────────────────── */
 .foot-contact {
   display: grid;
-  grid-template-columns: 0.65fr 0.75fr 1.1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: start;
   gap: 0;
   padding: 54px 0 48px;
   border-bottom: 1px solid var(--line-d);
 }
 
+/* Even horizontal spacing around each divider (40px each side = 80px gaps) */
+.foot-contact > * {
+  padding: 0 44px;
+}
+
+.foot-contact > *:first-child {
+  padding-left: 0;
+}
+
+.foot-contact > *:last-child {
+  padding-right: 0;
+}
+
 /* Dividers between columns */
 .foot-contact > * + * {
   border-left: 1px solid var(--line-d);
-  padding-left: 48px;
 }
 
 /* Shared eyebrow for contact section */
@@ -154,9 +166,6 @@
 }
 
 /* ── Left column — brand intro ──────────────────────────────── */
-.fc-brand {
-  padding-right: 48px;
-}
 
 .fc-heading {
   font-family: 'Cormorant Garamond', serif;
@@ -234,76 +243,55 @@
   margin-top: 2px;
 }
 
-/* ── Right column — Google Maps ─────────────────────────────── */
-.fc-map {
+/* ── Right column — Ikuti Kami / Social ─────────────────────── */
+.fc-social {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-/* Embedded Google Maps iframe */
-.fc-map-frame {
-  width: 100%;
-  height: 220px;
-  border: 1px solid var(--line-d);
-  overflow: hidden;
-  margin-bottom: 12px;
-  flex-shrink: 0;
-}
-
-.fc-map-frame iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-  filter: grayscale(0.3) contrast(0.95);
-}
-
-/* "View Location / Google Maps" link */
-.fc-gmaps-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
+.fc-social-desc {
+  font-size: 13.5px;
   color: var(--muted-d);
-  transition: color 0.25s;
+  font-weight: 300;
+  max-width: 280px;
+  line-height: 1.75;
+  margin-bottom: 24px;
 }
 
-.fc-gmaps-link:hover {
-  color: var(--gold-lt);
-}
-
-.fc-gmaps-link svg {
-  flex-shrink: 0;
-  color: var(--gold);
-}
-
-.fc-gmaps-text {
+.fc-social-links {
   display: flex;
-  flex-direction: column;
-  line-height: 1.2;
+  gap: 14px;
 }
 
-.fc-gmaps-text > span,
-.fc-gmaps-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 17px;
-  color: var(--cream);
-}
-
-.fc-gmaps-link:hover .fc-gmaps-text {
+.fc-social-btn {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
   color: var(--gold-lt);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
 }
 
-.fc-gmaps-text small {
-  font-family: 'Jost', sans-serif;
-  font-style: normal;
-  font-size: 9px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 500;
+.fc-social-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.fc-social-btn:hover {
+  background: var(--gold);
+  color: var(--night);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -6px rgba(197, 160, 92, 0.45);
 }
 
 /* Clickable WhatsApp value link */
@@ -352,20 +340,15 @@
     gap: 36px;
   }
 
-  /* Remove left-border dividers on mobile */
+  /* Stack: drop the side padding, use top dividers instead */
+  .foot-contact > * {
+    padding: 0;
+  }
+
   .foot-contact > * + * {
     border-left: none;
-    padding-left: 0;
     border-top: 1px solid var(--line-d);
     padding-top: 36px;
-  }
-
-  .fc-brand {
-    padding-right: 0;
-  }
-
-  .fc-map-frame {
-    height: 200px;
   }
 
   .foot-top {
@@ -398,7 +381,7 @@
     transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Stagger order: brand → details → map → brand row → copyright */
+/* Stagger order: brand → details → social → brand row → copyright */
 .foot-contact > *:nth-child(1) { transition-delay: 0.00s; }
 .foot-contact > *:nth-child(2) { transition-delay: 0.12s; }
 .foot-contact > *:nth-child(3) { transition-delay: 0.24s; }
@@ -413,19 +396,13 @@
 }
 
 /* ── Hover: eyebrow line grows when its column is hovered ───── */
-.foot-contact > * {
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 .fc-eyebrow::before {
   transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .fc-brand:hover .fc-eyebrow::before,
 .fc-details:hover .fc-eyebrow::before,
-.fc-map:hover .fc-eyebrow::before {
+.fc-social:hover .fc-eyebrow::before {
   width: 46px;
 }
 
@@ -455,33 +432,7 @@
   box-shadow: 0 0 18px rgba(197, 160, 92, 0.35);
 }
 
-/* ── Hover: map frame goes full-colour and glows ────────────── */
-.fc-map-frame {
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.fc-map-frame iframe {
-  transition: filter 0.5s ease;
-}
-
-.fc-map-frame:hover {
-  border-color: rgba(197, 160, 92, 0.5);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
-}
-
-.fc-map-frame:hover iframe {
-  filter: grayscale(0) contrast(1);
-}
-
-/* ── Hover: developer logo gives a little spin-tilt ─────────── */
-.foot-dev .fd-mark img {
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-/* 
-.foot-dev:hover .fd-mark img {
-  transform: scale(1.08) rotate(4deg);
-} */
-
+/* ── Hover: developer name brightens ────────────────────────── */
 .foot-dev .fd-t .n {
   transition: color 0.35s ease;
 }
@@ -512,7 +463,7 @@
 
   .fc-row:hover,
   .fc-row:hover .fc-ic,
-  .foot-dev:hover .fd-mark img {
+  .fc-social-btn:hover {
     transform: none !important;
   }
 }

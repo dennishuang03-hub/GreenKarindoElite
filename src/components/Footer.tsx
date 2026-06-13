@@ -2,12 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Footer.css';
 import logo from '../assets/Logo.png';
 
-// ─── Google Maps URLs ──────────────────────────────────────────────────────
-const GMAPS_URL =
-  'https://maps.google.com/?q=PT+Green+Karindo+Elite';
-
-const GMAPS_EMBED =
-  "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d548.2141438119448!2d103.41819603591438!3d1.0103356292905825!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d75b1f671c9a51%3A0x8f4c00414efb2008!2sPT%20Green%20Karindo%20Elite!5e1!3m2!1sen!2sus!4v1781253807730!5m2!1sen!2sus";
+// ─── Social links — edit these with your real profiles ──────────────────────
+const INSTAGRAM_URL = 'https://instagram.com/greenkarindoelite';
+const FACEBOOK_URL  = 'https://facebook.com/greenkarindoelite';
+const WHATSAPP_URL  = 'https://wa.me/628xxxxxxxxxx';
 
 // ─── Icons ────────────────────────────────────────────────────────────────
 const WhatsAppIcon = () => (
@@ -19,6 +17,20 @@ const WhatsAppIcon = () => (
 const LocationIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z" />
   </svg>
 );
 
@@ -94,11 +106,11 @@ const Footer: React.FC = () => {
           <div className="fc-details">
             <div className="fc-eyebrow">Detail Kontak</div>
             <ContactRow
-              icon={<a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link">
+              icon={<a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fc-value-link">
               <WhatsAppIcon /></a>}
               label="WhatsApp"
               value={
-                <a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fc-value-link">
                   +62 8xx-xxxx-xxxx
                 </a>
               }
@@ -113,30 +125,33 @@ const Footer: React.FC = () => {
             />
           </div>
 
-          {/* Col 3 — Kantor Pemasaran / Google Maps */}
-          <div className="fc-map">
-            <div className="fc-eyebrow">Kantor Pemasaran</div>
-            <div className="fc-map-frame">
-              <iframe
-                src={GMAPS_EMBED}
-                title="Lokasi Kantor Pemasaran Green Karindo Elite"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+          {/* Col 3 — Ikuti Kami / Social media */}
+          <div className="fc-social">
+            <div className="fc-eyebrow">Ikuti Kami</div>
+            <p className="fc-social-desc">
+              Ikuti perkembangan proyek dan informasi terbaru kami
+              di media sosial.
+            </p>
+            <div className="fc-social-links">
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fc-social-btn"
+                aria-label="Instagram"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fc-social-btn"
+                aria-label="Facebook"
+              >
+                <FacebookIcon />
+              </a>
             </div>
-            <a
-              href={GMAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="fc-gmaps-link"
-            >
-              <LocationIcon />
-              <span className="fc-gmaps-text">
-                View Location
-                <small>Google Maps</small>
-              </span>
-            </a>
           </div>
 
         </div>

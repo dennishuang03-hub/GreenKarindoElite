@@ -20,7 +20,7 @@ interface NavItem {
 // Navigation config — edit this to update links
 // ─────────────────────────────────────────────
 const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
+  { label: "Beranda", href: "/" },
   {
     label: "Project",
     dropdown: [
@@ -30,15 +30,15 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    label: "About Us",
+    label: "Tentang Kami",
     href: "/About",
     dropdown: [
-      { label: "Overview",          href: "/About#about-hero" },
-      { label: "Vision & Mission",  href: "/About#vision-mission" },
-      { label: "Our Location",          href: "/About#our-location" },
+      { label: "Profil Perusahaan",          href: "/About#about-hero" },
+      { label: "Visi & Misi",  href: "/About#vision-mission" },
+      { label: "Kunjungi Kami",          href: "/About#our-location" },
     ],
   },
-  { label: "Contact Us", href: "/contact" },
+  { label: "Kontak", href: "/contact" },
 ];
 
 // ─────────────────────────────────────────────

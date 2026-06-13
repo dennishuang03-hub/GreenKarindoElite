@@ -1,0 +1,161 @@
+/* ============================================================
+   AboutLocation.css — PT Green Karindo Elite
+   Office location · Map embed · Dark · Gold luxury palette
+   Fonts: Cormorant Garamond + Jost  (matches the rest of the site)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
+
+/* ── Tokens (shared with the rest of the site) ──────────────── */
+:root {
+  --night:    #15171a;
+  --night-2:  #1c1f23;
+  --cream:    #efe7d8;
+  --gold:     #c5a05c;
+  --gold-lt:  #d9c08a;
+  --gold-dk:  #a8843f;
+  --muted-d:  #9a958b;
+  --line-d:   rgba(212, 196, 160, 0.18);
+}
+
+/* ── Section shell ───────────────────────────────────────────── */
+.al-section {
+  position: relative;
+  background: var(--night);
+  padding: 120px 0;
+  font-family: 'Jost', sans-serif;
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  scroll-margin-top: 84px; /* offset for fixed navbar when jumped to */
+}
+
+.al-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.al-header {
+  margin-bottom: 48px;
+  max-width: 560px;
+}
+
+.al-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.al-eyebrow::before {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.al-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(34px, 5vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: var(--cream);
+  margin: 0 0 16px;
+}
+
+.al-title em {
+  font-style: italic;
+  color: var(--gold-lt);
+}
+
+.al-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--muted-d);
+  margin: 0;
+}
+
+/* ── Map ─────────────────────────────────────────────────────── */
+.al-map {
+  display: flex;
+}
+
+.al-map-frame {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  border: 1px solid var(--line-d);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.al-map-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  filter: grayscale(0.4) contrast(0.95);
+  transition: filter 0.5s ease;
+}
+
+/* Hover: map warms to full colour and glows */
+.al-map-frame:hover {
+  border-color: rgba(197, 160, 92, 0.5);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.al-map-frame:hover iframe {
+  filter: grayscale(0) contrast(1);
+}
+
+/* ── Entrance animation (reveals on scroll into view) ────────── */
+@keyframes al-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.al-section:not(.is-visible) .al-header,
+.al-section:not(.is-visible) .al-map {
+  opacity: 0;
+}
+
+.al-section.is-visible .al-header { animation: al-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+.al-section.is-visible .al-map    { animation: al-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both; }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .al-section {
+    padding: 80px 0;
+  }
+
+  .al-wrap {
+    padding: 0 24px;
+  }
+
+  .al-map-frame {
+    min-height: 320px;
+  }
+}
+
+/* ── Reduced motion: show everything at once, no movement ────── */
+@media (prefers-reduced-motion: reduce) {
+  .al-section .al-header,
+  .al-section .al-map {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}

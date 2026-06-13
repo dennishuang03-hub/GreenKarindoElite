@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import AboutHeroSection from '../sections/AboutUs/AboutHeroSection';
 import VisionMissionSection from '../sections/AboutUs/VisionMissionSection';
+import AboutLocationSection from '../sections/AboutUs/AboutLocationSection';
 import './About.css';
 
 const About: React.FC = () => {
@@ -31,6 +32,9 @@ const About: React.FC = () => {
       </div>
       <div id="vision-mission" className="section-anchor">
         <VisionMissionSection />
+      </div>
+      <div id="our-location" className="section-anchor">
+        <AboutLocationSection />
       </div>
     </section>
   );

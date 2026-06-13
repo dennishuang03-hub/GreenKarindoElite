@@ -65,11 +65,8 @@
 
 /* ── Content wrapper ─────────────────────────────────────────── */
 .about-hero__inner {
-  position: relative;
-  z-index: 2;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 140px 40px 100px;
+  padding: 140px 40px 100px;  /* 40px left + 40px right */
   width: 100%;
 }
 

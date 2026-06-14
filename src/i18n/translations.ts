@@ -98,6 +98,24 @@ export interface Translation {
   wa: {
     label: string;
   };
+  projects: {
+    eyebrow: string;
+    titlePre: string;
+    titleEm: string;
+    intro: string;
+    status: {
+      "new-launch": string;
+      available: string;
+      "coming-soon": string;
+    };
+    detailsTitle: string;
+    viewBrochure: string;
+    seeLocation: string;
+    galleryPrev: string;
+    galleryNext: string;
+    loading: string;
+    empty: string;
+  };
 }
 
 export const translations: Record<Lang, Translation> = {
@@ -212,6 +230,25 @@ export const translations: Record<Lang, Translation> = {
     wa: {
       label: "Chat WhatsApp",
     },
+    projects: {
+      eyebrow: "Proyek Kami",
+      titlePre: "Portofolio ",
+      titleEm: "Proyek",
+      intro:
+        "Jelajahi pengembangan residensial dan komersial kami di Tanjung Balai Karimun.",
+      status: {
+        "new-launch": "Peluncuran Baru",
+        available: "Tersedia",
+        "coming-soon": "Segera Hadir",
+      },
+      detailsTitle: "Detail Proyek",
+      viewBrochure: "Lihat Brosur",
+      seeLocation: "Lihat Lokasi",
+      galleryPrev: "Gambar sebelumnya",
+      galleryNext: "Gambar berikutnya",
+      loading: "Memuat proyek…",
+      empty: "Belum ada proyek untuk ditampilkan.",
+    },
   },
 
   en: {
@@ -324,6 +361,25 @@ export const translations: Record<Lang, Translation> = {
     },
     wa: {
       label: "Chat on WhatsApp",
+    },
+    projects: {
+      eyebrow: "Our Projects",
+      titlePre: "Project ",
+      titleEm: "Portfolio",
+      intro:
+        "Explore our residential and commercial developments in Tanjung Balai Karimun.",
+      status: {
+        "new-launch": "New Launch",
+        available: "Available",
+        "coming-soon": "Coming Soon",
+      },
+      detailsTitle: "Project Details",
+      viewBrochure: "View Brochure",
+      seeLocation: "See Location",
+      galleryPrev: "Previous image",
+      galleryNext: "Next image",
+      loading: "Loading projects…",
+      empty: "No projects to show yet.",
     },
   },
 };

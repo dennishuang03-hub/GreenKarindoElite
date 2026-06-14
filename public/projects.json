@@ -1,0 +1,90 @@
+{
+  "projects": [
+    {
+      "id": "sea-view-karimun",
+      "status": "new-launch",
+      "name": { "id": "Sea View Karimun", "en": "Sea View Karimun" },
+      "location": {
+        "id": "Bukit Indah, Tanjung Balai Karimun",
+        "en": "Bukit Indah, Tanjung Balai Karimun"
+      },
+      "tagline": {
+        "id": "Hunian tropis modern dengan panorama laut",
+        "en": "Modern tropical living with ocean panoramas"
+      },
+      "description": {
+        "id": "Kawasan residensial eksklusif di puncak Bukit Indah dengan pemandangan laut lepas. Mengusung arsitektur tropis modern, setiap unit dirancang untuk pencahayaan dan sirkulasi udara alami, dilengkapi area komersial dan ruang terbuka hijau.",
+        "en": "An exclusive residential estate atop Bukit Indah overlooking the open sea. Built around modern tropical architecture, every unit is designed for natural light and airflow, complete with a commercial area and green open spaces."
+      },
+      "images": [
+        "/projects/sea-view-karimun/ExteriorMalam.png",
+        "/projects/sea-view-karimun/InteriorMalam.png",
+        "/projects/sea-view-karimun/JoggingTrack.png",
+        "/projects/sea-view-karimun/PlanningGate.png"
+      ],
+      "specs": [
+        { "label": { "id": "Tipe Unit", "en": "Unit Type" }, "value": { "id": "36 / 72 & 45 / 90", "en": "36 / 72 & 45 / 90" } },
+        { "label": { "id": "Jumlah Unit", "en": "Total Units" }, "value": { "id": "120 unit", "en": "120 units" } },
+        { "label": { "id": "Mulai Dari", "en": "Starting From" }, "value": { "id": "Rp 850 Juta", "en": "IDR 850 Million" } },
+        { "label": { "id": "Sertifikat", "en": "Certificate" }, "value": { "id": "SHM", "en": "Freehold (SHM)" } }
+      ],
+      "brochureUrl": "/projects/sea-view-karimun/SeaViewBrochure.pdf",
+      "mapUrl": "https://maps.app.goo.gl/zy72r3H7PuvHoqHS9"
+    },
+    {
+      "id": "bukit-indah-residence",
+      "status": "available",
+      "name": { "id": "Bukit Indah Residence", "en": "Bukit Indah Residence" },
+      "location": {
+        "id": "Lubuk Semut, Tanjung Balai Karimun",
+        "en": "Lubuk Semut, Tanjung Balai Karimun"
+      },
+      "tagline": {
+        "id": "Rumah keluarga di kawasan asri dan strategis",
+        "en": "Family homes in a lush, strategic neighbourhood"
+      },
+      "description": {
+        "id": "Perumahan keluarga yang tenang dan strategis, dekat dengan sekolah, pusat perbelanjaan, dan fasilitas kesehatan. Tersedia berbagai tipe rumah siap huni dengan skema pembayaran fleksibel termasuk KPR.",
+        "en": "A calm, well-located family neighbourhood close to schools, shopping, and healthcare. A range of ready-to-occupy house types is available with flexible payment schemes including mortgage financing."
+      },
+      "images": [
+        "/projects/bukit-indah-residence/1.svg",
+        "/projects/bukit-indah-residence/2.svg"
+      ],
+      "specs": [
+        { "label": { "id": "Tipe Unit", "en": "Unit Type" }, "value": { "id": "40 / 84", "en": "40 / 84" } },
+        { "label": { "id": "Jumlah Unit", "en": "Total Units" }, "value": { "id": "80 unit", "en": "80 units" } },
+        { "label": { "id": "Mulai Dari", "en": "Starting From" }, "value": { "id": "Rp 650 Juta", "en": "IDR 650 Million" } },
+        { "label": { "id": "Status", "en": "Status" }, "value": { "id": "Siap Huni", "en": "Ready to Occupy" } }
+      ],
+      "brochureUrl": "/projects/bukit-indah-residence/brochure.pdf",
+      "mapUrl": "https://maps.google.com/?q=PT+Green+Karindo+Elite"
+    },
+    {
+      "id": "karimun-commercial-park",
+      "status": "coming-soon",
+      "name": { "id": "Karimun Commercial Park", "en": "Karimun Commercial Park" },
+      "location": {
+        "id": "Pusat Kota, Tanjung Balai Karimun",
+        "en": "City Centre, Tanjung Balai Karimun"
+      },
+      "tagline": {
+        "id": "Kawasan ruko dan bisnis terpadu",
+        "en": "An integrated shophouse and business district"
+      },
+      "description": {
+        "id": "Pengembangan komersial terpadu yang menggabungkan ruko, perkantoran, dan area kuliner di jantung kota. Dirancang untuk mendukung pertumbuhan usaha lokal dengan akses dan visibilitas terbaik. Informasi lebih lanjut akan segera diumumkan.",
+        "en": "An integrated commercial development combining shophouses, offices, and a culinary area in the heart of the city. Designed to support local business growth with prime access and visibility. More information will be announced soon."
+      },
+      "images": [
+        "/projects/karimun-commercial-park/1.svg"
+      ],
+      "specs": [
+        { "label": { "id": "Tipe", "en": "Type" }, "value": { "id": "Ruko 3 Lantai", "en": "3-Storey Shophouse" } },
+        { "label": { "id": "Perkiraan Rilis", "en": "Estimated Launch" }, "value": { "id": "Kuartal 4, 2026", "en": "Q4 2026" } },
+        { "label": { "id": "Status", "en": "Status" }, "value": { "id": "Pra-pemasaran", "en": "Pre-marketing" } }
+      ],
+      "mapUrl": "https://maps.google.com/?q=PT+Green+Karindo+Elite"
+    }
+  ]
+}

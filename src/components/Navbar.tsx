@@ -3,6 +3,7 @@ import "./Navbar.css";
 import LogoImg from "../assets/Logo.png";
 import { useLang } from "../i18n/LanguageContext";
 import type { Lang, Translation } from "../i18n/translations";
+import { useProjects } from "../data/projects";
 
 // ─────────────────────────────────────────────
 // Types
@@ -21,10 +22,16 @@ interface NavItem {
 // ─────────────────────────────────────────────
 // Navigation config — labels come from translations
 // ─────────────────────────────────────────────
-const buildNavItems = (t: Translation): NavItem[] => [
+const buildNavItems = (
+  t: Translation,
+  projectDropdown: DropdownItem[]
+): NavItem[] => [
   { label: t.nav.home, href: "/" },
   {
     label: t.nav.project,
+    href: "/projects",
+    // Built dynamically from the projects data — one link per project.
+    dropdown: projectDropdown.length ? projectDropdown : undefined,
   },
   {
     label: t.nav.about,
@@ -236,7 +243,12 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { lang, setLang, t } = useLang();
-  const NAV_ITEMS = buildNavItems(t);
+  const { projects } = useProjects();
+  const projectDropdown = (projects ?? []).map((p) => ({
+    label: p.name[lang],
+    href: `/projects#${p.id}`,
+  }));
+  const NAV_ITEMS = buildNavItems(t, projectDropdown);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);

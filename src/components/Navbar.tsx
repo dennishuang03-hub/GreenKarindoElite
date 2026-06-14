@@ -256,11 +256,18 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The home page opens on a dark hero image, so the navbar can stay
+  // transparent there. Every other page now starts on a light section,
+  // so force the solid (dark frosted) navbar from the top for contrast.
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+  const isHome = pathname === "/";
+  const solid = scrolled || !isHome;
+
   return (
     <>
       <header>
         <nav
-          className={`navbar${scrolled ? " navbar--scrolled" : ""}`}
+          className={`navbar${solid ? " navbar--scrolled" : ""}`}
           aria-label="Main navigation"
         >
           <div className="navbar__inner">

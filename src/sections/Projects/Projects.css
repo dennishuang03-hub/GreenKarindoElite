@@ -71,7 +71,7 @@
 /* ── Project section ─────────────────────────────────────────── */
 .proj-section {
   padding: 80px 24px;
-  background: #e6ddcc;        /* muted champagne — light section */
+  background: #faf6ee;        /* muted champagne — light section */
   color: #33302a;            /* warm ink text */
   border-bottom: 1px solid rgba(150, 118, 60, 0.18);
   scroll-margin-top: 84px; /* offset for the fixed navbar on anchor jump */

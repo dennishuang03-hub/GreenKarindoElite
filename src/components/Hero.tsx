@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
 
         {/* CTA buttons */}
         <div className="hero__actions">
-          <a href="#projects" className="hero__btn hero__btn--primary">
+          <a href="/projects" className="hero__btn hero__btn--primary">
             {t.hero.ctaPrimary}
           </a>
           <a href="/contact" className="hero__btn hero__btn--ghost">

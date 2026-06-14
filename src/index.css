@@ -8,4 +8,8 @@ html,
 body {
   margin: 0;
   overflow-x: hidden;
+  /* Dark base so iOS Safari's overscroll "bounce" at the top/bottom
+     matches the site (the footer and home hero are dark) instead of
+     flashing white. */
+  background-color: #0f1113;
 }

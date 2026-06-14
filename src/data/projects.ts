@@ -25,6 +25,18 @@ export interface ProjectSpec {
 
 export type ProjectStatus = "new-launch" | "available" | "coming-soon";
 
+// A project's gallery can be either a plain list of images, OR two
+// parallel lists (same scenes shot at morning and night). When the
+// `morning`/`night` form is used, the Projects page automatically
+// shows a Morning / Night switch under the gallery. Keep the two
+// lists in the same order so switching keeps the same scene.
+export interface TimeOfDayImages {
+  morning: string[];
+  night: string[];
+}
+
+export type ProjectImages = string[] | TimeOfDayImages;
+
 export interface Project {
   /** Unique id — also used as the URL hash anchor (/projects#<id>). */
   id: string;
@@ -35,8 +47,8 @@ export interface Project {
   tagline: LocalizedString;
   /** Longer descriptive paragraph. */
   description: LocalizedString;
-  /** One or more image URLs (served from /public). */
-  images: string[];
+  /** Either a plain list of image URLs, or { morning: [...], night: [...] }. */
+  images: ProjectImages;
   /** Key facts shown as a small spec grid. */
   specs: ProjectSpec[];
   /** Optional link to a brochure (PDF or page). */

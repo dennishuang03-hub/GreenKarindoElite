@@ -113,6 +113,8 @@ export interface Translation {
     seeLocation: string;
     galleryPrev: string;
     galleryNext: string;
+    morning: string;
+    night: string;
     loading: string;
     empty: string;
   };
@@ -246,6 +248,8 @@ export const translations: Record<Lang, Translation> = {
       seeLocation: "Lihat Lokasi",
       galleryPrev: "Gambar sebelumnya",
       galleryNext: "Gambar berikutnya",
+      morning: "Pagi",
+      night: "Malam",
       loading: "Memuat proyek…",
       empty: "Belum ada proyek untuk ditampilkan.",
     },
@@ -378,6 +382,8 @@ export const translations: Record<Lang, Translation> = {
       seeLocation: "See Location",
       galleryPrev: "Previous image",
       galleryNext: "Next image",
+      morning: "Morning",
+      night: "Night",
       loading: "Loading projects…",
       empty: "No projects to show yet.",
     },

@@ -34,6 +34,19 @@ public/
 - `status` — one of `new-launch`, `available`, `coming-soon` (controls the badge).
 - `name`, `tagline`, `location`, `description`, and each `specs` label/value have
   an `id` (Indonesian) and `en` (English) value so the site stays bilingual.
-- `images` — list of file paths under `/projects/...`; the first shows first.
+- `images` — EITHER a simple list of file paths under `/projects/...`
+  (the first shows first), OR a morning/night pair to add a
+  **Morning / Night switch** under the gallery:
+
+  ```json
+  "images": {
+    "morning": ["/projects/my-project/ExteriorPagi.png", "/projects/my-project/InteriorPagi.png"],
+    "night":   ["/projects/my-project/ExteriorMalam.png", "/projects/my-project/InteriorMalam.png"]
+  }
+  ```
+
+  Keep both lists in the **same order** (same scenes) so switching the
+  time of day keeps the viewer on the same shot. If you only provide a
+  plain list, no switch appears.
 - `brochureUrl` — path to the PDF; remove the line to hide the brochure button.
 - `mapUrl` — Google Maps link; remove the line to hide the "See Location" button.

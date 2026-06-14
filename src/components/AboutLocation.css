@@ -16,15 +16,22 @@
   --gold-dk:  #a8843f;
   --muted-d:  #9a958b;
   --line-d:   rgba(212, 196, 160, 0.18);
+
+  /* Muted champagne "paper" palette for light sections */
+  --paper:    #e6ddcc;
+  --paper-2:  #efe7d6;
+  --ink:      #33302a;
+  --ink-dim:  #6b6253;
+  --line-l:   rgba(150, 118, 60, 0.24);
 }
 
 /* ── Section shell ───────────────────────────────────────────── */
 .al-section {
   position: relative;
-  background: var(--night);
+  background: var(--paper);
   padding: 120px 0;
   font-family: 'Jost', sans-serif;
-  color: var(--cream);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   scroll-margin-top: 84px; /* offset for fixed navbar when jumped to */
 }
@@ -48,7 +55,7 @@
   font-weight: 500;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dk);
   display: flex;
   align-items: center;
   gap: 14px;
@@ -59,7 +66,7 @@
   content: '';
   width: 34px;
   height: 1px;
-  background: var(--gold);
+  background: var(--gold-dk);
   flex-shrink: 0;
 }
 
@@ -69,20 +76,20 @@
   font-size: clamp(34px, 5vw, 54px);
   line-height: 1.05;
   letter-spacing: 0.01em;
-  color: var(--cream);
+  color: var(--ink);
   margin: 0 0 16px;
 }
 
 .al-title em {
   font-style: italic;
-  color: var(--gold-lt);
+  color: var(--gold-dk);
 }
 
 .al-subtitle {
   font-size: 15px;
   font-weight: 300;
   line-height: 1.75;
-  color: var(--muted-d);
+  color: var(--ink-dim);
   margin: 0;
 }
 
@@ -95,7 +102,7 @@
   position: relative;
   width: 100%;
   min-height: 440px;
-  border: 1px solid var(--line-d);
+  border: 1px solid var(--line-l);
   border-radius: 6px;
   overflow: hidden;
   transition: border-color 0.4s ease, box-shadow 0.4s ease;

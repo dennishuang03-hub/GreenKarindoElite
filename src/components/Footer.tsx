@@ -6,7 +6,7 @@ import { useLang } from '../i18n/LanguageContext';
 // ─── Social links — edit these with your real profiles ──────────────────────
 const INSTAGRAM_URL = 'https://instagram.com/greenkarindoelite';
 const FACEBOOK_URL  = 'https://facebook.com/greenkarindoelite';
-const WHATSAPP_URL  = 'https://wa.me/628xxxxxxxxxx';
+const WHATSAPP_URL  = 'https://wa.me/6281389082292';
 
 // ─── Icons ────────────────────────────────────────────────────────────────
 const WhatsAppIcon = () => (
@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
               label={t.footer.waLabel}
               value={
                 <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fc-value-link">
-                  +62 8xx-xxxx-xxxx
+                  +62 81389082292
                 </a>
               }
             />

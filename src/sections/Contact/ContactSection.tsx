@@ -71,10 +71,10 @@ const ContactSection: React.FC = () => {
 
             <div className="ct-info">
               <ContactInfoRow
-                icon={<a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link"><WhatsAppIcon /></a>}
+                icon={<a href="https://wa.me/6281389082292" target="_blank" rel="noopener noreferrer" className="fc-value-link"><WhatsAppIcon /></a>}
                 label={t.contact.waLabel}
-                value={<a href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="fc-value-link">
-                      +62 8xx-xxxx-xxxx</a>}
+                value={<a href="https://wa.me/6281389082292" target="_blank" rel="noopener noreferrer" className="fc-value-link">
+                      +62 81389082292</a>}
                 sub={t.contact.waSub}
               />
               <ContactInfoRow

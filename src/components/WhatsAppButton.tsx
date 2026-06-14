@@ -2,7 +2,7 @@ import React from 'react';
 import './WhatsAppButton.css';
 import { useLang } from '../i18n/LanguageContext';
 
-const WA_NUMBER = '6281270400400';
+const WA_NUMBER = '6281389082292';
 const WA_MESSAGE = 'Halo, saya ingin mengetahui lebih lanjut tentang Sea View Karimun.';
 
 const WhatsAppButton: React.FC = () => {

@@ -4,7 +4,7 @@ import { useProjects } from "../../data/projects";
 import type { ProjectImages } from "../../data/projects";
 import "./FeaturedProjects.css";
 
-const AUTOPLAY_MS = 5000;
+const AUTOPLAY_MS = 3000;
 
 // Resolve a /public path against Vite's base URL.
 const withBase = (p: string): string =>
@@ -55,8 +55,11 @@ const FeaturedProjects = () => {
           className="feat__track"
           style={{ transform: `translateX(-${safe * 100}%)` }}
         >
-          {list.map((p) => (
-            <article className="feat__slide" key={p.id}>
+          {list.map((p, i) => (
+            <article
+              className={`feat__slide${i === safe ? " feat__slide--active" : ""}`}
+              key={p.id}
+            >
               <div className="feat__media">
                 <img
                   src={withBase(firstImage(p.images))}

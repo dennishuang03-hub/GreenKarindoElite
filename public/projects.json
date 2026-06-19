@@ -58,8 +58,8 @@
       "en": "A calm, well-located family neighbourhood close to schools, shopping, and healthcare. A range of ready-to-occupy house types is available with flexible payment schemes including mortgage financing."
       },
       "images": [
-      "/projects/bukit-indah-residence/1.svg",
-      "/projects/bukit-indah-residence/2.svg"
+      "/projects/bukit-indah-residence/BIR1.png",
+      "/projects/bukit-indah-residence/BIR2.png"
       ],
       "specs": [
       { "label": { "id": "Tipe Unit", "en": "Unit Type" }, "value": { "id": "40 / 84", "en": "40 / 84" } },
@@ -87,7 +87,7 @@
       "en": "An integrated commercial development combining shophouses, offices, and a culinary area in the heart of the city. Designed to support local business growth with prime access and visibility. More information will be announced soon."
       },
       "images": [
-      "/projects/karimun-commercial-park/1.svg"
+      "/projects/karimun-commercial-park/CP.png"
       ],
       "specs": [
       { "label": { "id": "Tipe", "en": "Type" }, "value": { "id": "Ruko 3 Lantai", "en": "3-Storey Shophouse" } },

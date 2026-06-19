@@ -124,6 +124,12 @@ export interface Translation {
     titleEm: string;
     learnMore: string;
   };
+  why: {
+    eyebrow: string;
+    titlePre: string;
+    titleEm: string;
+    items: { title: string; desc: string }[];
+  };
 }
 
 export const translations: Record<Lang, Translation> = {
@@ -265,6 +271,17 @@ export const translations: Record<Lang, Translation> = {
       titleEm: "Unggulan",
       learnMore: "Pelajari Lebih Lanjut",
     },
+    why: {
+      eyebrow: "Mengapa Kami",
+      titlePre: "Mengapa Memilih ",
+      titleEm: "Kami",
+      items: [
+        { title: "Berpengalaman Sejak 1981", desc: "Puluhan tahun membangun hunian dan kawasan yang terpercaya." },
+        { title: "Kualitas & Desain", desc: "Arsitektur tropis modern dengan material dan pengerjaan terbaik." },
+        { title: "Legalitas Terjamin", desc: "Sertifikat SHM dengan proses kepemilikan yang jelas dan aman." },
+        { title: "Pembayaran Fleksibel", desc: "Pilihan skema KPR dan cash bertahap sesuai kebutuhan Anda." },
+      ],
+    },
   },
 
   en: {
@@ -404,6 +421,17 @@ export const translations: Record<Lang, Translation> = {
       titlePre: "Featured ",
       titleEm: "Projects",
       learnMore: "Learn More",
+    },
+    why: {
+      eyebrow: "Why Us",
+      titlePre: "Why Choose ",
+      titleEm: "Us",
+      items: [
+        { title: "Established Since 1981", desc: "Decades of building trusted homes and communities." },
+        { title: "Quality & Design", desc: "Modern tropical architecture with premium materials and craftsmanship." },
+        { title: "Secure Legal Certainty", desc: "Freehold (SHM) certificates with a clear, safe ownership process." },
+        { title: "Flexible Payment", desc: "Mortgage and instalment schemes to suit your needs." },
+      ],
     },
   },
 };

@@ -85,11 +85,103 @@
   margin: 0;
 }
 
+/* ── Visit CTA banner (dark card on the cream band) ──────────── */
+.why__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 48px;
+  padding: 30px 36px;
+  background: #15171a;
+  border: 1px solid rgba(212, 196, 160, 0.14);
+  border-radius: 10px;
+  box-shadow: 0 24px 56px -34px rgba(42, 38, 32, 0.4);
+}
+
+.why__cta-text {
+  min-width: 0;
+}
+
+.why__cta-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body, "Jost", sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c5a05c;
+  margin-bottom: 12px;
+}
+
+.why__cta-eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: #c5a05c;
+  flex-shrink: 0;
+}
+
+.why__cta-title {
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  line-height: 1.15;
+  color: #efe7d8;
+  margin: 0 0 10px;
+  max-width: 560px;
+}
+
+.why__cta-desc {
+  font-family: var(--font-body, "Jost", sans-serif);
+  font-weight: 300;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #9a958b;
+  margin: 0;
+  max-width: 500px;
+}
+
+.why__cta-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 24px;
+  background: #c5a05c;
+  color: #15171a;
+  font-family: var(--font-body, "Jost", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.why__cta-btn:hover {
+  background: #d9c08a;
+  transform: translateY(-2px);
+}
+
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 820px) {
   .why__grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px 24px;
+  }
+
+  .why__cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 36px 32px;
+  }
+
+  .why__cta-btn {
+    width: 100%;
   }
 }
 
@@ -101,5 +193,9 @@
   .why__grid {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+
+  .why__cta {
+    padding: 30px 24px;
   }
 }

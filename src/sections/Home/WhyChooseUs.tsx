@@ -61,6 +61,18 @@ const WhyChooseUs = () => {
             );
           })}
         </div>
+
+        {/* Visit CTA banner */}
+        <div className="why__cta">
+          <div className="why__cta-text">
+            <div className="why__cta-eyebrow">{t.visitCta.eyebrow}</div>
+            <h3 className="why__cta-title">{t.visitCta.title}</h3>
+            <p className="why__cta-desc">{t.visitCta.desc}</p>
+          </div>
+          <a className="why__cta-btn" href="/contact">
+            {t.visitCta.button}
+          </a>
+        </div>
       </div>
     </section>
   );

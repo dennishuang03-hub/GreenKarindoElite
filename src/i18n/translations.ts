@@ -130,6 +130,12 @@ export interface Translation {
     titleEm: string;
     items: { title: string; desc: string }[];
   };
+  visitCta: {
+    eyebrow: string;
+    title: string;
+    desc: string;
+    button: string;
+  };
 }
 
 export const translations: Record<Lang, Translation> = {
@@ -282,6 +288,12 @@ export const translations: Record<Lang, Translation> = {
         { title: "Pembayaran Fleksibel", desc: "Pilihan skema KPR dan cash bertahap sesuai kebutuhan Anda." },
       ],
     },
+    visitCta: {
+      eyebrow: "Kunjungi Lokasi",
+      title: "Ingin menyaksikan langsung? Kami tunggu kunjungan Anda.",
+      desc: "Datang ke lokasi dan saksikan sendiri kualitas pengerjaannya. Tim kami siap mendampingi survei Anda kapan saja, tanpa keharusan apa pun.",
+      button: "Jadwalkan Kunjungan",
+    },
   },
 
   en: {
@@ -432,6 +444,12 @@ export const translations: Record<Lang, Translation> = {
         { title: "Secure Legal Certainty", desc: "Freehold (SHM) certificates with a clear, safe ownership process." },
         { title: "Flexible Payment", desc: "Mortgage and instalment schemes to suit your needs." },
       ],
+    },
+    visitCta: {
+      eyebrow: "Visit the Location",
+      title: "Want to see it in person? We'd love to welcome you.",
+      desc: "Come to the site and see the build quality for yourself. Our team is ready to guide your visit anytime, with no obligation.",
+      button: "Schedule a Visit",
     },
   },
 };

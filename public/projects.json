@@ -18,18 +18,18 @@
       },
       "images": {
         "morning": [
-          "/projects/sea-view-karimun/ExteriorPagi.png",
-          "/projects/sea-view-karimun/InteriorPagi.png",
-          "/projects/sea-view-karimun/JoggingTrackPagi.png",
-          "/projects/sea-view-karimun/MasterBedroomPagi.png",
-          "/projects/sea-view-karimun/PlanningGatePagi.png"
+          "/projects/sea-view-karimun/ExteriorPagi.jpg",
+          "/projects/sea-view-karimun/InteriorPagi.jpg",
+          "/projects/sea-view-karimun/JoggingTrackPagi.jpg",
+          "/projects/sea-view-karimun/MasterBedroomPagi.jpg",
+          "/projects/sea-view-karimun/PlanningGatePagi.jpg"
         ],
         "night": [
-          "/projects/sea-view-karimun/ExteriorMalam.png",
-          "/projects/sea-view-karimun/InteriorMalam.png",
-          "/projects/sea-view-karimun/JoggingTrackMalam.png",
-          "/projects/sea-view-karimun/MasterBedroomMalam.png",
-          "/projects/sea-view-karimun/PlanningGate.png"
+          "/projects/sea-view-karimun/ExteriorMalam.jpg",
+          "/projects/sea-view-karimun/InteriorMalam.jpg",
+          "/projects/sea-view-karimun/JoggingTrackMalam.jpg",
+          "/projects/sea-view-karimun/MasterBedroomMalam.jpg",
+          "/projects/sea-view-karimun/PlanningGate.jpg"
         ]
       },
       "specs": [
@@ -58,8 +58,8 @@
       "en": "A calm, well-located family neighbourhood close to schools, shopping, and healthcare. A range of ready-to-occupy house types is available with flexible payment schemes including mortgage financing."
       },
       "images": [
-      "/projects/bukit-indah-residence/BIR1.png",
-      "/projects/bukit-indah-residence/BIR2.png"
+      "/projects/bukit-indah-residence/BIR1.jpg",
+      "/projects/bukit-indah-residence/BIR2.jpg"
       ],
       "specs": [
       { "label": { "id": "Tipe Unit", "en": "Unit Type" }, "value": { "id": "40 / 84", "en": "40 / 84" } },
@@ -87,7 +87,7 @@
       "en": "An integrated commercial development combining shophouses, offices, and a culinary area in the heart of the city. Designed to support local business growth with prime access and visibility. More information will be announced soon."
       },
       "images": [
-      "/projects/karimun-commercial-park/CP.png"
+      "/projects/karimun-commercial-park/CP.jpg"
       ],
       "specs": [
       { "label": { "id": "Tipe", "en": "Type" }, "value": { "id": "Ruko 3 Lantai", "en": "3-Storey Shophouse" } },

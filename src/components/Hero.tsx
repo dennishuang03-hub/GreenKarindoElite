@@ -1,30 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "./Hero.css";
 import { useLang } from "../i18n/LanguageContext";
 
 const Hero: React.FC = () => {
-  const [scrollY, setScrollY] = useState(0);
-  const heroRef = useRef<HTMLElement>(null);
   const { t } = useLang();
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const badges = t.hero.badges;
 
   return (
     <section
       className="hero"
-      ref={heroRef}
       aria-label="Green Karindo Elite — Hero"
     >
-      {/* ── Parallax background ── */}
+      {/* ── Background ── */}
       <div
         className="hero__bg"
-        style={{ transform: `translateY(${scrollY * 0.28}px)` }}
         aria-hidden="true"
       />
       {/* ── Dark overlay — gradient from bottom like brochure ── */}

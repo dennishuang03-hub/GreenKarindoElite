@@ -52,7 +52,6 @@
     url("../assets/Gate.png");
   background-size: cover;
   background-position: center 35%;
-  will-change: transform;
   z-index: -2;
 }
 

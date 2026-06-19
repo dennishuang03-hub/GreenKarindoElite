@@ -7,7 +7,13 @@
 html,
 body {
   margin: 0;
-  overflow-x: hidden;
+  /* Prevent sideways scroll. `clip` is used instead of `hidden` because
+     `overflow-x: hidden` on html/body turns <body> into a scroll
+     container on mobile, which makes iOS Safari refuse to scroll the
+     last part of shorter pages (e.g. Contact). `clip` blocks horizontal
+     overflow without creating a scroll container. */
+  overflow-x: hidden; /* fallback for old browsers */
+  overflow-x: clip;
   /* Dark base so iOS Safari's overscroll "bounce" at the top/bottom
      matches the site (the footer and home hero are dark) instead of
      flashing white. */

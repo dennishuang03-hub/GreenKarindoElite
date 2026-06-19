@@ -32,7 +32,15 @@ const ContactSection: React.FC = () => {
     const node = sectionRef.current;
     if (!node) return;
 
-    // Reveal once the section scrolls into view.
+    // If IntersectionObserver isn't available, just show everything.
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+
+    // Reveal as soon as any part of the section enters the viewport.
+    // threshold 0 is reliable for a section that sits at the top of the page;
+    // 0.15 could fail to fire on tall sections, leaving content hidden.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -42,11 +50,18 @@ const ContactSection: React.FC = () => {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0 }
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+
+    // Safety net: never let the entrance animation trap the page.
+    const fallback = window.setTimeout(() => setVisible(true), 1000);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (

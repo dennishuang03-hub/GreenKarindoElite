@@ -65,6 +65,7 @@ const FeaturedProjects = () => {
                   src={withBase(firstImage(p.images))}
                   alt={p.name[lang]}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="feat__overlay" aria-hidden="true" />
                 <span className={`feat__status feat__status--${p.status}`}>

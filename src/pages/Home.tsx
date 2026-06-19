@@ -1,11 +1,13 @@
 // import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import FeaturedProjects from "../sections/Home/FeaturedProjects";
 
-function Home() 
+function Home()
 {
     return (
         <>
             <Hero />
+            <FeaturedProjects />
         </>
     );
 }

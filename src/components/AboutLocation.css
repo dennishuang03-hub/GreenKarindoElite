@@ -28,8 +28,11 @@
 /* ── Section shell ───────────────────────────────────────────── */
 .al-section {
   position: relative;
-  background: var(--paper);
-  padding: 120px 0;
+  /* Slightly deeper champagne than the Vision & Mission section above,
+     plus a hairline divider, so the two light sections read as separate. */
+  background: #ddd2bd;
+  border-top: 1px solid rgba(150, 118, 60, 0.28);
+  padding: 50px;
   font-family: 'Jost', sans-serif;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;

@@ -28,7 +28,7 @@
 .vm-section {
   position: relative;
   background: var(--paper);
-  padding: 120px 0;
+  padding: 70px;
   overflow: hidden;
 }
 

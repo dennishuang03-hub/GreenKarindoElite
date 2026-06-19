@@ -118,6 +118,12 @@ export interface Translation {
     loading: string;
     empty: string;
   };
+  featured: {
+    eyebrow: string;
+    titlePre: string;
+    titleEm: string;
+    learnMore: string;
+  };
 }
 
 export const translations: Record<Lang, Translation> = {
@@ -253,6 +259,12 @@ export const translations: Record<Lang, Translation> = {
       loading: "Memuat proyek…",
       empty: "Belum ada proyek untuk ditampilkan.",
     },
+    featured: {
+      eyebrow: "Portofolio",
+      titlePre: "Proyek ",
+      titleEm: "Unggulan",
+      learnMore: "Pelajari Lebih Lanjut",
+    },
   },
 
   en: {
@@ -386,6 +398,12 @@ export const translations: Record<Lang, Translation> = {
       night: "Night",
       loading: "Loading projects…",
       empty: "No projects to show yet.",
+    },
+    featured: {
+      eyebrow: "Our Portfolio",
+      titlePre: "Featured ",
+      titleEm: "Projects",
+      learnMore: "Learn More",
     },
   },
 };

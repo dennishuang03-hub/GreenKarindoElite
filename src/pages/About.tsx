@@ -1,42 +1,49 @@
-import React, { useEffect } from 'react';
-import AboutHeroSection from '../sections/AboutUs/AboutHeroSection';
-import VisionMissionSection from '../sections/AboutUs/VisionMissionSection';
-import AboutLocationSection from '../sections/AboutUs/AboutLocationSection';
-import './About.css';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import AboutStory from "../sections/AboutUs/AboutStory";
+import VisionMissionSection from "../sections/AboutUs/VisionMissionSection";
+import AboutLocationSection from "../sections/AboutUs/AboutLocationSection";
+import PageHeader from "../components/ui/PageHeader";
+import { useLang } from "../i18n/LanguageContext";
+import { useSeo } from "../lib/useSeo";
+import "./About.css";
 
-const About: React.FC = () => {
-  // Scroll to the section named in the URL hash, e.g. /About#vision-mission
+const About = () => {
+  const { t } = useLang();
+
+  useSeo({
+    title: t.seo.aboutTitle,
+    description: t.seo.aboutDesc,
+    path: "/about",
+  });
+
+  // Jump to the section named in the URL hash (e.g. /about#vision-mission).
+  // The hash is read from the router, not from window: React Router
+  // navigates with pushState, which never fires a hashchange event, so
+  // a listener would miss every in-app link.
+  const { hash } = useLocation();
+
   useEffect(() => {
-    const scrollToHash = () => {
-      const { hash } = window.location;
-      if (!hash) return;
-      const el = document.querySelector(hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    // Delay slightly on first load so the sections have rendered first.
-    const t = setTimeout(scrollToHash, 60);
-
-    // Re-run when the hash changes while already on this page.
-    window.addEventListener('hashchange', scrollToHash);
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener('hashchange', scrollToHash);
-    };
-  }, []);
+    if (!hash) return;
+    // A short delay lets the sections mount before we measure them.
+    const timer = setTimeout(() => {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
+    }, 80);
+    return () => clearTimeout(timer);
+  }, [hash]);
 
   return (
-    <section>
-      <div id="about-hero" className="section-anchor">
-        <AboutHeroSection />
-      </div>
-      <div id="vision-mission" className="section-anchor">
-        <VisionMissionSection />
-      </div>
-      <div id="our-location" className="section-anchor">
-        <AboutLocationSection />
-      </div>
-    </section>
+    <main className="about" id="main">
+      <PageHeader
+        eyebrow={t.aboutHero.eyebrow}
+        titlePre={t.about.titlePre}
+        titleEm={t.about.titleEm}
+        lead={t.about.lead}
+      />
+      <AboutStory />
+      <VisionMissionSection />
+      <AboutLocationSection />
+    </main>
   );
 };
 

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "src/components/Navbar.css"
+        ],
+        "createdAt": "2026-08-23T13:58:21.261Z",
+        "reason": "Claude's call: the navbar deliberately shrinks 76px->64px once when the page leaves the top; a transform equivalent would scale the logo and wordmark. Single one-shot transition on a fixed 3-child bar, not a per-frame hover effect."
+      }
+    ]
+  }
+}

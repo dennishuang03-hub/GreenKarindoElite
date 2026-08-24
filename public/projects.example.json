@@ -1,0 +1,149 @@
+{
+  "_comment": [
+    "EXAMPLE ONLY — this file is never loaded by the site.",
+    "It shows every field a project can have, including the interactive",
+    "site plan and the construction progress timeline. Copy the parts you",
+    "need into projects.json and replace the sample values with real ones.",
+    "Field-by-field notes are in projects/README.md."
+  ],
+  "projects": [
+    {
+      "id": "contoh-proyek",
+      "status": "new-launch",
+      "name": { "id": "Contoh Proyek", "en": "Example Project" },
+      "location": {
+        "id": "Contoh Lokasi, Tanjung Balai Karimun",
+        "en": "Example Location, Tanjung Balai Karimun"
+      },
+      "tagline": {
+        "id": "Satu kalimat penjelas di bawah nama proyek",
+        "en": "A one-line description shown under the project name"
+      },
+      "description": {
+        "id": "Paragraf lebih panjang yang menjelaskan konsep kawasan, arsitektur, dan fasilitas utamanya.",
+        "en": "A longer paragraph describing the estate concept, its architecture, and the main facilities."
+      },
+      "heroImage": "/projects/contoh-proyek/hero.jpg",
+      "priceFrom": { "id": "Mulai Rp 450 Juta", "en": "From Rp 450 Million" },
+      "images": {
+        "morning": [
+          "/projects/contoh-proyek/ExteriorPagi.jpg",
+          "/projects/contoh-proyek/InteriorPagi.jpg"
+        ],
+        "night": [
+          "/projects/contoh-proyek/ExteriorMalam.jpg",
+          "/projects/contoh-proyek/InteriorMalam.jpg"
+        ]
+      },
+      "specs": [
+        {
+          "label": { "id": "Tipe Unit", "en": "Unit Type" },
+          "value": { "id": "36 / 72", "en": "36 / 72" }
+        },
+        {
+          "label": { "id": "Jumlah Unit", "en": "Total Units" },
+          "value": { "id": "120 unit", "en": "120 units" }
+        },
+        {
+          "label": { "id": "Sertifikat", "en": "Certificate" },
+          "value": { "id": "SHM", "en": "Freehold (SHM)" }
+        }
+      ],
+      "highlights": [
+        { "id": "Sertifikat SHM per unit", "en": "Freehold certificate per unit" },
+        { "id": "One gate system 24 jam", "en": "24-hour one-gate system" },
+        { "id": "Dekat sekolah dan pusat kota", "en": "Close to schools and the town centre" }
+      ],
+      "sitePlan": {
+        "image": "/projects/contoh-proyek/siteplan.jpg",
+        "title": { "id": "Denah Kawasan", "en": "Master Plan" },
+        "units": [
+          {
+            "id": "a-01",
+            "label": "A-01",
+            "status": "available",
+            "type": { "id": "Tipe 36/72", "en": "Type 36/72" },
+            "size": "72 m²",
+            "price": "Rp 450 Jt",
+            "x": 12.0,
+            "y": 30.0,
+            "w": 7.0,
+            "h": 5.0
+          },
+          {
+            "id": "a-02",
+            "label": "A-02",
+            "status": "booked",
+            "type": { "id": "Tipe 36/72", "en": "Type 36/72" },
+            "size": "72 m²",
+            "price": "Rp 455 Jt",
+            "x": 19.5,
+            "y": 30.0,
+            "w": 7.0,
+            "h": 5.0
+          },
+          {
+            "id": "a-03",
+            "label": "A-03",
+            "status": "sold",
+            "type": { "id": "Tipe 45/90", "en": "Type 45/90" },
+            "size": "90 m²",
+            "price": "Rp 610 Jt",
+            "x": 27.0,
+            "y": 30.0,
+            "w": 7.0,
+            "h": 5.0
+          }
+        ]
+      },
+      "progress": {
+        "overall": 65,
+        "updated": "2026-08",
+        "milestones": [
+          {
+            "date": "2026-02",
+            "status": "done",
+            "percent": 100,
+            "title": { "id": "Pematangan Lahan", "en": "Land Preparation" },
+            "description": {
+              "id": "Cut and fill serta akses jalan utama selesai.",
+              "en": "Cut and fill and the main access road are complete."
+            },
+            "images": ["/projects/contoh-proyek/progress/land-1.jpg"]
+          },
+          {
+            "date": "2026-05",
+            "status": "done",
+            "percent": 100,
+            "title": { "id": "Pondasi & Struktur", "en": "Foundation & Structure" },
+            "description": {
+              "id": "Pondasi seluruh unit blok A selesai dikerjakan.",
+              "en": "Foundations for every unit in block A are finished."
+            }
+          },
+          {
+            "date": "2026-08",
+            "status": "ongoing",
+            "percent": 45,
+            "title": { "id": "Dinding & Atap", "en": "Walls & Roofing" },
+            "description": {
+              "id": "Pemasangan dinding dan rangka atap sedang berjalan.",
+              "en": "Wall construction and roof framing are under way."
+            }
+          },
+          {
+            "date": "2026-12",
+            "status": "planned",
+            "title": { "id": "Finishing & Serah Terima", "en": "Finishing & Handover" },
+            "description": {
+              "id": "Pengecatan, sanitasi, dan serah terima unit pertama.",
+              "en": "Painting, sanitary fit-out, and handover of the first units."
+            }
+          }
+        ]
+      },
+      "brochureUrl": "/projects/contoh-proyek/brochure.pdf",
+      "mapUrl": "https://maps.google.com/?q=Tanjung+Balai+Karimun"
+    }
+  ]
+}

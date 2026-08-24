@@ -1,476 +1,305 @@
-/* ============================================================
-   Footer.css — Green Karindo Elite
-   Matches DENNIS.html styling exactly
-   Fonts: Cormorant Garamond (serif) + Jost (sans-serif)
-   ============================================================ */
+/* ─────────────────────────────────────────────────────────────
+   Footer — contact call to action, link columns, legal line, and an
+   oversized wordmark bleeding off the bottom edge.
+   ───────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
-
-/* ── CSS Custom Properties (design tokens) ─────────────────── */
-:root {
-  --night:     #15171a;
-  --night-2:   #1c1f23;
-  --char:      #23262b;
-  --cream:     #efe7d8;
-  --cream-2:   #f4eee2;
-  --paper:     #faf6ee;
-  --gold:      #c5a05c;
-  --gold-lt:   #d9c08a;
-  --gold-dk:   #a8843f;
-  --muted-d:   #9a958b;
-  --muted-l:   #736d61;
-  --line-d:    rgba(212, 196, 160, 0.16);
-  --line-l:    #e0d7c3;
+.foot {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink-1000);
+  color: var(--ink-fg);
+  padding-top: var(--section-y);
+  isolation: isolate;
 }
 
-/* ── Layout utility ─────────────────────────────────────────── */
-.wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
+.foot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-line) 30%,
+    var(--accent-line) 70%,
+    transparent
+  );
 }
 
-/* Footer spans ~92% of the viewport (wider than the default .wrap) */
-.footer .wrap {
-  width: 92%;
-  max-width: 1760px;
-  padding: 0;
-}
+/* ── Call to action ───────────────────────────────────────── */
 
-/* ── Footer shell ───────────────────────────────────────────── */
-.footer {
-  font-family: 'Jost', sans-serif;
-  background: var(--night);
-  color: var(--cream);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.7;
-  border-top: 1px solid var(--line-d);
-  padding: 32px 0 22px;
-}
-
-/* ── Top row: logo + slogan ─────────────────────────────────── */
-.foot-top {
+.foot__cta {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
+  gap: var(--sp-7);
   flex-wrap: wrap;
-  gap: 26px;
-  padding: 26px 0 24px;
-  border-bottom: 1px solid var(--line-d);
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--ink-rule-soft);
 }
 
-/* Developer identity block */
-.foot-dev {
+.foot__cta-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+
+.foot__cta-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-sm);
+  font-weight: 300;
+  line-height: 1.14;
+  color: var(--cream-50);
+}
+
+.foot__cta-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.foot__cta-desc {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--ink-fg-muted);
+  max-width: 46ch;
+}
+
+.foot__phone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-5) var(--sp-6);
+  border: 1px solid var(--ink-rule);
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    background var(--dur-3) var(--ease-out),
+    transform var(--dur-3) var(--ease-lux);
+}
+
+.foot__phone:hover {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+  transform: translateY(-2px);
+}
+
+.foot__phone-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.foot__phone-value {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  color: var(--cream-50);
+  white-space: nowrap;
+}
+
+/* ── Columns ──────────────────────────────────────────────── */
+
+.foot__cols {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  padding-block: var(--sp-8);
+}
+
+.foot__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.foot__brand {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--sp-3);
 }
 
-.foot-dev .fd-mark {
-  width: 52px;
-  height: 52px;
-  display: block;
-  flex-shrink: 0;
-}
-
-.foot-dev .fd-mark img {
-  width: 100%;
-  height: 100%;
+.foot__mark {
+  width: 46px;
+  height: 46px;
   object-fit: contain;
-  display: block;
 }
 
-/* Text stack inside developer block */
-.foot-dev .fd-t .l {
-  font-size: 10px;
-  letter-spacing: 0.2em;
+.foot__brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.foot__brand-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: var(--cream-50);
+}
+
+.foot__brand-role {
+  font-family: var(--font-body);
+  font-size: 0.5625rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
 }
 
-.foot-dev .fd-t .n {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.15;
-}
-
-.foot-dev .fd-t .r {
-  font-size: 15px;
-  color: var(--muted-d);
+.foot__slogan {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
   font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
+  color: var(--ink-fg);
+  max-width: 24ch;
 }
 
-/* Slogan block (right-aligned) */
-.foot-slogan {
+.foot__addr {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-style: normal;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--ink-fg-muted);
+  max-width: 30ch;
+}
+
+.foot__addr a { transition: color var(--dur-2) var(--ease-out); }
+.foot__addr a:hover { color: var(--accent); }
+
+.foot__col-title {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.foot__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.foot__links a {
+  position: relative;
+  display: inline-block;
+  font-size: var(--fs-small);
+  font-weight: 300;
+  color: var(--ink-fg-muted);
+  transition: color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-lux);
+}
+
+.foot__links a:hover {
+  color: var(--cream-50);
+  transform: translateX(3px);
+}
+
+.foot__follow {
+  font-size: var(--fs-small);
+  line-height: 1.7;
+  color: var(--ink-fg-muted);
+  max-width: 28ch;
+}
+
+.foot__social {
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.foot__social-btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  color: var(--ink-fg);
+  border: 1px solid var(--ink-rule);
+  transition:
+    background var(--dur-2) var(--ease-out),
+    color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-3) var(--ease-lux);
+}
+
+.foot__social-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-900);
+  transform: translateY(-3px);
+}
+
+/* ── Legal line ───────────────────────────────────────────── */
+
+.foot__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  padding-block: var(--sp-5);
+  border-top: 1px solid var(--ink-rule-soft);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.04em;
+  color: var(--ink-fg-muted);
+}
+
+.foot__disclaimer {
+  max-width: 52ch;
   text-align: right;
 }
 
-.foot-slogan .fs-1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 24px;
-  color: var(--gold-lt);
-}
+/* ── Watermark ────────────────────────────────────────────── */
 
-.foot-slogan .fs-2 {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted-d);
-  margin-top: 4px;
-}
-
-/* ── Contact info section ───────────────────────────────────── */
-.foot-contact {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: start;
-  gap: 0;
-  padding: 30px 0 34px;
-  border-bottom: 1px solid var(--line-d);
-}
-
-/* Even horizontal spacing around each divider (40px each side = 80px gaps) */
-.foot-contact > * {
-  padding: 0 44px;
-}
-
-.foot-contact > *:first-child {
-  padding-left: 0;
-}
-
-.foot-contact > *:last-child {
-  padding-right: 0;
-}
-
-/* Dividers between columns */
-.foot-contact > * + * {
-  border-left: 1px solid var(--line-d);
-}
-
-/* Shared eyebrow for contact section */
-.fc-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--gold);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  margin-top: 0;
-}
-
-.fc-eyebrow::before {
-  content: '';
-  width: 28px;
-  height: 1px;
-  background: var(--gold);
-  flex-shrink: 0;
-}
-
-/* ── Left column — brand intro ──────────────────────────────── */
-
-.fc-heading {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
-  font-size: clamp(28px, 3vw, 38px);
-  line-height: 1.1;
-  letter-spacing: 0.01em;
-  color: var(--cream);
-  margin-bottom: 14px;
-}
-
-.fc-heading-em {
-  font-style: italic;
-  color: var(--gold);
-}
-
-.fc-desc {
-  font-size: 13.5px;
-  color: var(--muted-d);
+.foot__watermark {
+  position: absolute;
+  left: 50%;
+  bottom: -0.28em;
+  transform: translateX(-50%);
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 15vw, 13rem);
   font-weight: 300;
-  max-width: 300px;
-  line-height: 1.75;
-}
-
-/* ── Middle column — contact rows ───────────────────────────── */
-.fc-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.fc-row {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--line-d);
-}
-
-.fc-row:last-child {
-  border-bottom: none;
-}
-
-.fc-ic {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--gold-lt);
-  flex-shrink: 0;
-  font-size: 16px;
   line-height: 1;
+  white-space: nowrap;
+  color: var(--cream-50);
+  opacity: 0.035;
+  pointer-events: none;
+  user-select: none;
 }
 
-.fc-label {
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 2px;
+/* ── Breakpoints ──────────────────────────────────────────── */
+
+@media (max-width: 1000px) {
+  .foot__cols { grid-template-columns: 1fr 1fr; }
 }
 
-.fc-value {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  color: var(--cream);
-  line-height: 1.25;
-}
-
-.fc-sub {
-  font-size: 12px;
-  color: var(--muted-d);
-  font-weight: 300;
-  margin-top: 2px;
-}
-
-/* ── Right column — Ikuti Kami / Social ─────────────────────── */
-.fc-social {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.fc-social-desc {
-  font-size: 13.5px;
-  color: var(--muted-d);
-  font-weight: 300;
-  max-width: 280px;
-  line-height: 1.75;
-  margin-bottom: 24px;
-}
-
-.fc-social-links {
-  display: flex;
-  gap: 14px;
-}
-
-.fc-social-btn {
-  width: 46px;
-  height: 46px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--gold-lt);
-  text-decoration: none;
-  flex-shrink: 0;
-  transition:
-    background 0.35s ease,
-    color 0.35s ease,
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease;
-}
-
-.fc-social-btn svg {
-  width: 18px;
-  height: 18px;
-  display: block;
-}
-
-.fc-social-btn:hover {
-  background: var(--gold);
-  color: var(--night);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px -6px rgba(197, 160, 92, 0.45);
-}
-
-/* Clickable WhatsApp value link */
-.fc-value-link {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  color: var(--cream);
-  text-decoration: none;
-  transition: color 0.25s;
-}
-
-.fc-value-link:hover {
-  color: var(--gold-lt);
-}
-
-/* ── Bottom row: copyright + disclaimer ─────────────────────── */
-.foot-bot {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-top: 20px;
-  font-size: 11.5px;
-  color: var(--muted-l);
-  font-weight: 500;
-}
-
-/* ── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 920px) {
-  .wrap {
-    padding: 0 24px;
-  }
-
-  .foot-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
-  .foot-slogan {
-    text-align: left;
-  }
-
-  .foot-contact {
+@media (max-width: 640px) {
+  .foot__cols {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: var(--sp-7);
   }
 
-  /* Stack: drop the side padding, use top dividers instead */
-  .foot-contact > * {
-    padding: 0;
-  }
+  .foot__phone { width: 100%; }
 
-  .foot-contact > * + * {
-    border-left: none;
-    border-top: 1px solid var(--line-d);
-    padding-top: 36px;
-  }
-
-  .foot-top {
+  .foot__bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: var(--sp-2);
   }
 
-  .foot-slogan {
-    text-align: left;
-  }
+  .foot__disclaimer { text-align: left; }
 
-  .foot-bot {
-    flex-direction: column;
-    gap: 6px;
-  }
-}
-
-/* ============================================================
-   Animation + hover layer (added)
-   Entrance reveal on scroll-into-view + playful hovers
-   ============================================================ */
-
-/* ── Entrance: staggered fade-and-rise ──────────────────────── */
-.foot-contact > *,
-.foot-top,
-.foot-bot {
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Stagger order: brand → details → social → brand row → copyright */
-.foot-contact > *:nth-child(1) { transition-delay: 0.00s; }
-.foot-contact > *:nth-child(2) { transition-delay: 0.12s; }
-.foot-contact > *:nth-child(3) { transition-delay: 0.24s; }
-.foot-top                      { transition-delay: 0.32s; }
-.foot-bot                      { transition-delay: 0.40s; }
-
-.footer:not(.is-visible) .foot-contact > *,
-.footer:not(.is-visible) .foot-top,
-.footer:not(.is-visible) .foot-bot {
-  opacity: 0;
-  transform: translateY(26px);
-}
-
-/* ── Hover: eyebrow line grows when its column is hovered ───── */
-.fc-eyebrow::before {
-  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fc-brand:hover .fc-eyebrow::before,
-.fc-details:hover .fc-eyebrow::before,
-.fc-social:hover .fc-eyebrow::before {
-  width: 46px;
-}
-
-/* ── Hover: contact rows light up, icon circle fills gold ───── */
-.fc-row {
-  border-radius: 6px;
-  transition: background 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fc-row:hover {
-  background: rgba(197, 160, 92, 0.06);
-  transform: translateX(5px);
-}
-
-.fc-ic {
-  transition:
-    background 0.35s ease,
-    color 0.35s ease,
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease;
-}
-
-.fc-row:hover .fc-ic {
-  background: var(--gold);
-  color: var(--night);
-  transform: scale(1.1) rotate(-6deg);
-  box-shadow: 0 0 18px rgba(197, 160, 92, 0.35);
-}
-
-/* ── Hover: developer name brightens ────────────────────────── */
-.foot-dev .fd-t .n {
-  transition: color 0.35s ease;
-}
-
-.foot-dev:hover .fd-t .n {
-  color: var(--gold-lt);
-}
-
-/* ── Hover: slogan gets a soft gold glow ────────────────────── */
-.foot-slogan .fs-1 {
-  transition: color 0.4s ease, text-shadow 0.4s ease;
-}
-
-.foot-slogan .fs-1:hover {
-  color: #f0d79a;
-  text-shadow: 0 0 16px rgba(197, 160, 92, 0.45);
-}
-
-/* ── Reduced motion: show everything at once, no movement ───── */
-@media (prefers-reduced-motion: reduce) {
-  .footer .foot-contact > *,
-  .footer .foot-top,
-  .footer .foot-bot {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .fc-row:hover,
-  .fc-row:hover .fc-ic,
-  .fc-social-btn:hover {
-    transform: none !important;
-  }
+  /* The mobile action bar occupies the bottom edge. */
+  .foot { padding-bottom: 72px; }
 }

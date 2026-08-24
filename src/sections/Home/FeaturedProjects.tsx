@@ -1,131 +1,126 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useLang } from "../../i18n/LanguageContext";
-import { useProjects } from "../../data/projects";
-import type { ProjectImages } from "../../data/projects";
+import { useProjects, firstImage } from "../../data/projects";
+import SectionHeading from "../../components/ui/SectionHeading";
+import Reveal from "../../components/ui/Reveal";
+import Picture from "../../components/ui/Picture";
 import "./FeaturedProjects.css";
 
-const AUTOPLAY_MS = 3000;
-
-// Resolve a /public path against Vite's base URL.
-const withBase = (p: string): string =>
-  p.startsWith("/") ? import.meta.env.BASE_URL.replace(/\/$/, "") + p : p;
-
-// First image works whether the project uses a plain list or morning/night.
-const firstImage = (images: ProjectImages): string =>
-  Array.isArray(images) ? images[0] : images.morning[0];
-
+/**
+ * The portfolio index.
+ *
+ * Desktop: a numbered list of projects on the left; hovering a row
+ * crossfades the large preview on the right — the visitor browses the
+ * whole portfolio without a single click or an autoplaying carousel.
+ * Mobile: the same projects as stacked cards.
+ */
 const FeaturedProjects = () => {
   const { lang, t } = useLang();
   const { projects } = useProjects();
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [active, setActive] = useState(0);
 
   const list = projects ?? [];
-  const count = list.length;
+  if (list.length === 0) return null;
 
-  // Auto-advance every 5s (unless paused or there's only one slide).
-  useEffect(() => {
-    if (count <= 1 || paused) return;
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % count);
-    }, AUTOPLAY_MS);
-    return () => clearInterval(id);
-  }, [count, paused]);
-
-  if (count === 0) return null;
-
-  const safe = Math.min(index, count - 1);
+  const current = list[Math.min(active, list.length - 1)];
 
   return (
-    <section className="feat" id="projects" aria-label="Featured projects">
-      <div className="feat__head">
-        <div className="feat__eyebrow">{t.featured.eyebrow}</div>
-        <h2 className="feat__title">
-          {t.featured.titlePre}
-          <em>{t.featured.titleEm}</em>
-        </h2>
-      </div>
-
-      <div
-        className="feat__viewport"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        <div
-          className="feat__track"
-          style={{ transform: `translateX(-${safe * 100}%)` }}
-        >
-          {list.map((p, i) => (
-            <article
-              className={`feat__slide${i === safe ? " feat__slide--active" : ""}`}
-              key={p.id}
-            >
-              <div className="feat__media">
-                <img
-                  src={withBase(firstImage(p.images))}
-                  alt={p.name[lang]}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="feat__overlay" aria-hidden="true" />
-                <span className={`feat__status feat__status--${p.status}`}>
-                  <span className="feat__status-dot" aria-hidden="true" />
-                  {t.projects.status[p.status]}
-                </span>
-
-                <div className="feat__info">
-                  <h3 className="feat__name">{p.name[lang]}</h3>
-                  <p className="feat__tagline">{p.tagline[lang]}</p>
-                  <a className="feat__btn" href={`/projects#${p.id}`}>
-                    {t.featured.learnMore}
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
+    <section className="feat section section--ink" id="projects" aria-label={t.featured.eyebrow}>
+      <div className="container">
+        <div className="feat__head">
+          <SectionHeading
+            index="01"
+            eyebrow={t.featured.eyebrow}
+            titlePre={t.featured.titlePre}
+            titleEm={t.featured.titleEm}
+          />
+          <Reveal delay={140} className="feat__head-side">
+            <p className="feat__head-note">{t.featured.note}</p>
+            <Link to="/projects" className="link-underline">
+              {t.featured.viewAll}
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </Reveal>
         </div>
 
-        {count > 1 && (
-          <>
-            <button
-              type="button"
-              className="feat__nav feat__nav--prev"
-              aria-label={t.projects.galleryPrev}
-              onClick={() => setIndex((i) => (i - 1 + count) % count)}
-            >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-                <path d="M15 5L8 12L15 19" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              className="feat__nav feat__nav--next"
-              aria-label={t.projects.galleryNext}
-              onClick={() => setIndex((i) => (i + 1) % count)}
-            >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-                <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-
-            <div className="feat__dots" role="tablist">
+        <div className="feat__body">
+          {/* ── Preview panel (desktop) ── */}
+          <Reveal variant="clip" className="feat__preview" threshold={0.05}>
+            <div className="feat__frames">
               {list.map((p, i) => (
-                <button
+                <Picture
                   key={p.id}
-                  type="button"
-                  className={`feat__dot${i === safe ? " feat__dot--active" : ""}`}
-                  aria-label={p.name[lang]}
-                  aria-selected={i === safe}
-                  role="tab"
-                  onClick={() => setIndex(i)}
+                  src={firstImage(p.images)}
+                  alt={p.name[lang]}
+                  className={`feat__frame${i === active ? " feat__frame--active" : ""}`}
+                  sizes="(max-width: 960px) 100vw, 52vw"
                 />
               ))}
+              <span className="feat__preview-scrim" aria-hidden="true" />
             </div>
-          </>
-        )}
+
+            <div className="feat__preview-meta" key={current.id}>
+              <span className={`status status--${current.status}`}>
+                <span className="status__dot" aria-hidden="true" />
+                {t.projects.status[current.status]}
+              </span>
+              <p className="feat__preview-loc">{current.location[lang]}</p>
+              <p className="feat__preview-tag">{current.tagline[lang]}</p>
+            </div>
+          </Reveal>
+
+          {/* ── Index list ── */}
+          <ol className="feat__list">
+            {list.map((p, i) => (
+              <Reveal
+                as="li"
+                key={p.id}
+                delay={i * 80}
+                className={`feat__item${i === active ? " feat__item--active" : ""}`}
+              >
+                <Link
+                  to={`/projects/${p.id}`}
+                  className="feat__row"
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                >
+                  <span className="feat__no">{String(i + 1).padStart(2, "0")}</span>
+
+                  {/* Thumbnail — the mobile stand-in for the hover preview */}
+                  <span className="feat__thumb">
+                    <Picture
+                      src={firstImage(p.images)}
+                      alt=""
+                      className="feat__thumb-img"
+                      sizes="120px"
+                    />
+                  </span>
+
+                  <span className="feat__text">
+                    <span className="feat__name">{p.name[lang]}</span>
+                    <span className="feat__meta">
+                      <span className={`status status--${p.status}`}>
+                        <span className="status__dot" aria-hidden="true" />
+                        {t.projects.status[p.status]}
+                      </span>
+                      <span className="feat__loc">{p.location[lang]}</span>
+                    </span>
+                    <span className="feat__tagline">{p.tagline[lang]}</span>
+                  </span>
+
+                  <span className="feat__go" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

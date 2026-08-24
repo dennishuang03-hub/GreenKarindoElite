@@ -1,0 +1,268 @@
+/* ─────────────────────────────────────────────────────────────
+   Construction progress — completion meter plus a dated timeline.
+   ───────────────────────────────────────────────────────────── */
+
+.prog {
+  position: relative;
+  overflow: hidden;
+}
+
+.prog__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  flex-wrap: wrap;
+  padding-bottom: var(--sp-7);
+  margin-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--ink-rule-soft);
+}
+
+.prog__title {
+  font-size: var(--fs-display-sm);
+  margin-top: var(--sp-3);
+}
+
+.prog__updated {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-fg-muted);
+}
+
+/* ── Completion meter ─────────────────────────────────────── */
+
+.prog__meter {
+  min-width: min(380px, 100%);
+  flex: 1 1 320px;
+  max-width: 460px;
+}
+
+.prog__meter-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-3);
+}
+
+.prog__meter-label {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-fg-muted);
+}
+
+.prog__meter-value {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--cream-50);
+  font-variant-numeric: tabular-nums;
+  /* Digits swap instantly; the bar carries the motion. */
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.prog__meter-pct {
+  font-size: 0.5em;
+  color: var(--accent);
+  margin-left: 0.1em;
+}
+
+.prog__bar {
+  position: relative;
+  height: 3px;
+  background: var(--ink-rule);
+  overflow: hidden;
+}
+
+.prog__bar-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-600), var(--gold-300));
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.6s var(--ease-lux) 120ms;
+}
+
+/* ── Timeline ─────────────────────────────────────────────── */
+
+.prog__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prog__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--sp-5);
+  padding-bottom: var(--sp-8);
+}
+
+/* The vertical spine, drawn between markers. */
+.prog__item::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 22px;
+  bottom: -6px;
+  width: 1px;
+  background: var(--ink-rule);
+}
+
+.prog__item:last-child::before { display: none; }
+
+.prog__marker {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ink-rule);
+  border-radius: 50%;
+  background: var(--ink-900);
+  z-index: 1;
+}
+
+.prog__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ink-fg-muted);
+}
+
+.prog__item--done .prog__marker { border-color: var(--accent-line); }
+.prog__item--done .prog__dot    { background: var(--accent); }
+
+.prog__item--ongoing .prog__marker {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(197, 160, 92, 0.14);
+}
+
+.prog__item--ongoing .prog__dot {
+  background: var(--accent);
+  animation: prog-pulse 2.2s var(--ease-in-out) infinite;
+}
+
+@keyframes prog-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.45); opacity: 0.65; }
+}
+
+.prog__item--planned .prog__dot {
+  background: transparent;
+  border: 1px solid var(--ink-fg-muted);
+}
+
+.prog__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding-top: 4px;
+  min-width: 0;
+}
+
+.prog__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.prog__date,
+.prog__status,
+.prog__percent {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.prog__date { color: var(--accent); }
+
+.prog__status {
+  color: var(--ink-fg-muted);
+  padding-left: var(--sp-4);
+  border-left: 1px solid var(--ink-rule);
+}
+
+.prog__percent {
+  color: var(--ink-fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.prog__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.24;
+  color: var(--cream-50);
+}
+
+.prog__item--planned .prog__name { color: var(--ink-fg-muted); }
+
+.prog__desc {
+  font-size: var(--fs-body);
+  line-height: 1.72;
+  color: var(--ink-fg-muted);
+  max-width: 62ch;
+}
+
+/* ── Milestone photos ─────────────────────────────────────── */
+
+.prog__shots {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.prog__shots::-webkit-scrollbar { display: none; }
+
+.prog__shot {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(140px, 26vw, 220px);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--ink-rule-soft);
+  transition: border-color var(--dur-2) var(--ease-out);
+}
+
+.prog__shot:hover { border-color: var(--accent); }
+
+.prog__shot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-4) var(--ease-lux);
+}
+
+.prog__shot:hover .prog__shot-img { transform: scale(1.06); }
+
+/* ── Mobile ───────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .prog__item {
+    grid-template-columns: 32px 1fr;
+    gap: var(--sp-4);
+    padding-bottom: var(--sp-7);
+  }
+
+  .prog__marker { width: 32px; height: 32px; }
+  .prog__item::before { left: 15px; top: 18px; }
+
+  .prog__meta { gap: var(--sp-3); }
+
+  .prog__status {
+    padding-left: var(--sp-3);
+  }
+}

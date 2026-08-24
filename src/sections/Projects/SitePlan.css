@@ -1,0 +1,269 @@
+/* ─────────────────────────────────────────────────────────────
+   Interactive master plan — percentage-positioned plot hotspots
+   over the plan drawing, with a legend that doubles as a filter.
+   ───────────────────────────────────────────────────────────── */
+
+.plan {
+  background: var(--paper-bg-alt);
+  color: var(--paper-fg);
+  border-top: 1px solid var(--paper-rule-soft);
+}
+
+.plan__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-7);
+}
+
+.plan__title {
+  font-size: var(--fs-display-sm);
+  margin-top: var(--sp-3);
+}
+
+/* ── Legend / filter ──────────────────────────────────────── */
+
+.plan__legend {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.plan__legend-btn {
+  --swatch: var(--sand-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper-fg-muted);
+  border: 1px solid var(--paper-rule);
+  background: transparent;
+  transition:
+    color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    background var(--dur-2) var(--ease-out);
+}
+
+.plan__legend-btn:hover { color: var(--paper-fg-strong); }
+
+.plan__legend-btn--active {
+  color: var(--paper-fg-strong);
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.plan__legend-btn--available { --swatch: var(--status-avail); }
+.plan__legend-btn--booked    { --swatch: var(--gold-500); }
+.plan__legend-btn--sold      { --swatch: var(--status-sold); }
+
+.plan__swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--swatch);
+}
+
+.plan__legend-count {
+  font-variant-numeric: tabular-nums;
+  color: var(--paper-fg-muted);
+  opacity: 0.75;
+}
+
+/* ── Plan canvas ──────────────────────────────────────────── */
+
+.plan__frame {
+  position: relative;
+  background: var(--cream-50);
+  border: 1px solid var(--paper-rule);
+  box-shadow: var(--shadow-sm);
+}
+
+.plan__scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.plan__canvas {
+  position: relative;
+  width: 100%;
+  /* On narrow screens the drawing needs room to stay readable, so the
+     canvas overflows and the wrapper scrolls sideways. */
+  min-width: 620px;
+}
+
+.plan__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Hotspots ─────────────────────────────────────────────── */
+
+.plan__spot {
+  --spot: var(--gold-500);
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--spot);
+  background: color-mix(in srgb, var(--spot) 22%, transparent);
+  border-radius: var(--radius-1);
+  transition:
+    background var(--dur-2) var(--ease-out),
+    opacity var(--dur-3) var(--ease-out),
+    transform var(--dur-2) var(--ease-lux),
+    box-shadow var(--dur-2) var(--ease-out);
+}
+
+.plan__spot--available { --spot: var(--status-avail); }
+.plan__spot--booked    { --spot: var(--gold-500); }
+.plan__spot--sold      { --spot: var(--status-sold); }
+
+.plan__spot:hover,
+.plan__spot:focus-visible {
+  background: color-mix(in srgb, var(--spot) 52%, transparent);
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px rgba(15, 17, 19, 0.22);
+  z-index: 2;
+}
+
+.plan__spot--selected {
+  background: color-mix(in srgb, var(--spot) 68%, transparent);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--spot) 28%, transparent);
+  z-index: 3;
+}
+
+/* Filtering fades non-matching plots rather than hiding them, so the
+   overall layout of the estate stays readable. */
+.plan__spot--dim {
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.plan__spot-label {
+  font-family: var(--font-body);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink-900);
+  text-shadow: 0 1px 2px rgba(250, 246, 238, 0.65);
+  pointer-events: none;
+}
+
+.plan__hint {
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper-fg-muted);
+  border-top: 1px solid var(--paper-rule-soft);
+  text-align: center;
+}
+
+/* ── Selected plot card ───────────────────────────────────── */
+
+.plan__card {
+  position: relative;
+  margin-top: var(--sp-5);
+  padding: var(--sp-6);
+  max-width: 460px;
+  background: var(--ink-900);
+  color: var(--ink-fg);
+  border-top: 2px solid var(--accent);
+  box-shadow: var(--shadow-md);
+  animation: plan-card var(--dur-3) var(--ease-lux) both;
+}
+
+@keyframes plan-card {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.plan__card-close {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--ink-fg-muted);
+  border: 1px solid var(--ink-rule);
+  transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+
+.plan__card-close:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.plan__card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+
+.plan__card-no {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--cream-50);
+}
+
+.plan__card-specs {
+  display: grid;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-5);
+}
+
+.plan__card-specs > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--ink-rule-soft);
+}
+
+.plan__card-specs dt {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-fg-muted);
+}
+
+.plan__card-specs dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--cream-50);
+}
+
+.plan__card-price { color: var(--accent) !important; }
+
+.plan__card-cta { width: 100%; }
+
+.plan__card-note {
+  font-size: var(--fs-small);
+  color: var(--ink-fg-muted);
+  font-style: italic;
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .plan__head { align-items: flex-start; }
+  .plan__card { max-width: none; padding: var(--sp-5); }
+  .plan__spot-label { font-size: 0.5rem; }
+}

@@ -1,0 +1,297 @@
+/* ─────────────────────────────────────────────────────────────
+   Contact — details column beside the survey-request form.
+   ───────────────────────────────────────────────────────────── */
+
+.contact {
+  background: var(--paper-bg);
+  color: var(--paper-fg);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+.contact__left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.contact__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-md);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--paper-fg-strong);
+}
+
+.contact__title em {
+  font-style: italic;
+  color: var(--accent-deep);
+}
+
+.contact__desc {
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  color: var(--paper-fg-muted);
+  max-width: 46ch;
+}
+
+/* ── Detail rows ──────────────────────────────────────────── */
+
+.contact__rows {
+  width: 100%;
+  margin-top: var(--sp-5);
+  border-top: 1px solid var(--paper-rule-soft);
+}
+
+.crow-wrap { border-bottom: 1px solid var(--paper-rule-soft); }
+
+.crow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  transition: padding-left var(--dur-3) var(--ease-lux);
+}
+
+.crow--link:hover { padding-left: var(--sp-3); }
+
+.crow__icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  color: var(--accent-deep);
+  border: 1px solid var(--paper-rule);
+  background: var(--paper-bg-alt);
+  transition:
+    background var(--dur-3) var(--ease-out),
+    color var(--dur-3) var(--ease-out),
+    border-color var(--dur-3) var(--ease-out);
+}
+
+.crow--link:hover .crow__icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-900);
+}
+
+.crow__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.crow__label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paper-fg-muted);
+}
+
+.crow__value {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: var(--paper-fg-strong);
+}
+
+.crow--link:hover .crow__value { color: var(--accent-deep); }
+
+.crow__sub {
+  font-size: var(--fs-small);
+  color: var(--paper-fg-muted);
+}
+
+/* ── Form card ────────────────────────────────────────────── */
+
+.cform {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--ink-900);
+  color: var(--ink-fg);
+  border-top: 2px solid var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.cform__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 300;
+  color: var(--cream-50);
+}
+
+.cform__sub {
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--ink-fg-muted);
+  margin-top: -0.5rem;
+  margin-bottom: var(--sp-2);
+}
+
+/* Honeypot: off-screen, never focusable by a person. */
+.cform__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.fld {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fld label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-fg-muted);
+}
+
+.fld input,
+.fld select,
+.fld textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--cream-50);
+  background: var(--ink-800);
+  border: 1px solid var(--ink-rule);
+  border-radius: var(--radius-0);
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    background var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-2) var(--ease-out);
+}
+
+.fld textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+.fld input::placeholder,
+.fld textarea::placeholder {
+  color: rgba(239, 231, 216, 0.34);
+}
+
+.fld input:focus,
+.fld select:focus,
+.fld textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--ink-700);
+  box-shadow: 0 0 0 3px rgba(197, 160, 92, 0.14);
+}
+
+/* Native select arrow, drawn to match the palette. */
+.fld select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 4.5L6 8.5L10 4.5' stroke='%23c5a05c' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  padding-right: 2.5rem;
+}
+
+.fld--error input,
+.fld--error select {
+  border-color: #b4635a;
+}
+
+.fld__error {
+  font-size: var(--fs-micro);
+  color: #d38a80;
+}
+
+.cform__submit { margin-top: var(--sp-2); }
+
+.cform__submit:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.cform__note {
+  font-size: var(--fs-micro);
+  line-height: 1.6;
+  color: var(--ink-fg-muted);
+  text-align: center;
+}
+
+/* ── Success state ────────────────────────────────────────── */
+
+.cform--sent {
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-4);
+  padding-block: clamp(2.5rem, 5vw, 3.5rem);
+  animation: cform-sent var(--dur-4) var(--ease-lux) both;
+}
+
+@keyframes cform-sent {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.cform__tick {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+  background: var(--accent-wash);
+  animation: cform-tick var(--dur-5) var(--ease-lux) both;
+}
+
+@keyframes cform-tick {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+.cform--sent .cform__sub { margin: 0; max-width: 34ch; }
+
+.cform__again {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-fg-muted);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+
+.cform__again:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .contact__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .crow__value { font-size: 1.05rem; }
+}

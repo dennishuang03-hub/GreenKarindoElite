@@ -1,53 +1,24 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
-import LogoImg from "../assets/Logo.png";
+import LogoImg from "../assets/Logo.webp";
 import { useLang } from "../i18n/LanguageContext";
-import type { Lang, Translation } from "../i18n/translations";
+import type { Lang } from "../i18n/translations";
 import { useProjects } from "../data/projects";
+import { site } from "../config/site";
 
-// ─────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────
-interface DropdownItem {
+interface SubItem {
   label: string;
-  href: string;
+  to: string;
 }
 
 interface NavItem {
   label: string;
-  href?: string;
-  dropdown?: DropdownItem[];
+  to: string;
+  children?: SubItem[];
 }
 
-// ─────────────────────────────────────────────
-// Navigation config — labels come from translations
-// ─────────────────────────────────────────────
-const buildNavItems = (
-  t: Translation,
-  projectDropdown: DropdownItem[]
-): NavItem[] => [
-  { label: t.nav.home, href: "/" },
-  {
-    label: t.nav.project,
-    href: "/projects",
-    // Built dynamically from the projects data — one link per project.
-    dropdown: projectDropdown.length ? projectDropdown : undefined,
-  },
-  {
-    label: t.nav.about,
-    href: "/About",
-    dropdown: [
-      { label: t.nav.profile, href: "/About#about-hero" },
-      { label: t.nav.vision, href: "/About#vision-mission" },
-      { label: t.nav.visit, href: "/About#our-location" },
-    ],
-  },
-  { label: t.nav.contact, href: "/contact" },
-];
-
-// ─────────────────────────────────────────────
-// Language toggle — ID / EN
-// ─────────────────────────────────────────────
+/* ── Language toggle ─────────────────────────────────────────── */
 const LangToggle = ({
   lang,
   setLang,
@@ -57,304 +28,348 @@ const LangToggle = ({
   setLang: (l: Lang) => void;
   className?: string;
 }) => (
-  <div className={`lang-toggle ${className}`.trim()} role="group" aria-label="Language">
-    <button
-      type="button"
-      className={`lang-toggle__btn${lang === "id" ? " lang-toggle__btn--active" : ""}`}
-      aria-pressed={lang === "id"}
-      onClick={() => setLang("id")}
-    >
-      ID
-    </button>
-    <span className="lang-toggle__sep" aria-hidden="true">|</span>
-    <button
-      type="button"
-      className={`lang-toggle__btn${lang === "en" ? " lang-toggle__btn--active" : ""}`}
-      aria-pressed={lang === "en"}
-      onClick={() => setLang("en")}
-    >
-      EN
-    </button>
-  </div>
-);
-
-// ─────────────────────────────────────────────
-// Chevron icon
-// ─────────────────────────────────────────────
-const ChevronIcon = ({ open }: { open: boolean }) => (
-  <svg
-    className={`chevron${open ? " chevron--open" : ""}`}
-    viewBox="0 0 12 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    <path
-      d="M2 4L6 8L10 4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+  <div className={`langsw ${className}`.trim()} role="group" aria-label="Language">
+    <span
+      className="langsw__thumb"
+      aria-hidden="true"
+      style={{ transform: `translateX(${lang === "en" ? "100%" : "0%"})` }}
     />
-  </svg>
-);
-
-// ─────────────────────────────────────────────
-// Hamburger icon
-// ─────────────────────────────────────────────
-const HamburgerIcon = ({ open }: { open: boolean }) => (
-  <svg
-    width="22"
-    height="22"
-    viewBox="0 0 22 22"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    {open ? (
-      <>
-        <line x1="3"  y1="3"  x2="19" y2="19" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        <line x1="19" y1="3"  x2="3"  y2="19" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      </>
-    ) : (
-      <>
-        <line x1="2" y1="5.5"  x2="20" y2="5.5"  stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        <line x1="2" y1="11"   x2="20" y2="11"   stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        <line x1="2" y1="16.5" x2="20" y2="16.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      </>
-    )}
-  </svg>
-);
-
-// ─────────────────────────────────────────────
-// Dropdown menu
-// ─────────────────────────────────────────────
-interface DropdownMenuProps {
-  items: DropdownItem[];
-  isOpen: boolean;
-  onItemClick?: () => void;
-}
-
-const DropdownMenu = ({ items, isOpen, onItemClick }: DropdownMenuProps) => (
-  <div
-    className={`dropdown-menu${isOpen ? " dropdown-menu--open" : ""}`}
-    role="menu"
-    aria-hidden={!isOpen}
-  >
-    {items.map((item) => (
-      <a
-        key={item.label}
-        href={item.href}
-        className="dropdown-item"
-        role="menuitem"
-        tabIndex={isOpen ? 0 : -1}
-        onClick={onItemClick}
+    {(["id", "en"] as Lang[]).map((code) => (
+      <button
+        key={code}
+        type="button"
+        className={`langsw__btn${lang === code ? " langsw__btn--active" : ""}`}
+        aria-pressed={lang === code}
+        onClick={() => setLang(code)}
       >
-        {item.label}
-      </a>
+        {code.toUpperCase()}
+      </button>
     ))}
   </div>
 );
 
-// ─────────────────────────────────────────────
-// Single nav link (with optional dropdown)
-// ─────────────────────────────────────────────
-const NavLink = ({ item }: { item: NavItem }) => {
+const Chevron = () => (
+  <svg className="navlink__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+/* ── Desktop link, with optional dropdown ────────────────────── */
+interface DesktopLinkProps {
+  item: NavItem;
+  onNavClick: (to: string) => (e: React.MouseEvent) => void;
+}
+
+const DesktopLink = ({ item, onNavClick }: DesktopLinkProps) => {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number | undefined>(undefined);
 
-  // Active page detection — exact match for "/" home, prefix match for others
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
-  const isActive = item.href
-    ? item.href === "/"
-      ? pathname === "/"
-      : pathname.startsWith(item.href)
-    : false;
-
-  // Close on outside click
+  // Close on Escape — a pointer-only menu traps keyboard users.
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  // Close on Escape
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, []);
+  // A short close delay keeps the menu open while the pointer crosses
+  // the gap between the trigger and the panel.
+  const scheduleClose = () => {
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(false), 120);
+  };
+  const cancelClose = () => window.clearTimeout(closeTimer.current);
 
-  if (!item.dropdown) {
+  if (!item.children?.length) {
     return (
-      <a
-        href={item.href}
-        className={`nav-link${isActive ? " nav-link--active" : ""}`}
-        aria-current={isActive ? "page" : undefined}
+      <NavLink
+        to={item.to}
+        end={item.to === "/"}
+        className={({ isActive }) => `navlink${isActive ? " navlink--active" : ""}`}
+        onClick={onNavClick(item.to)}
       >
-        {item.label}
-      </a>
+        <span className="navlink__label">{item.label}</span>
+      </NavLink>
     );
   }
 
   return (
     <div
-      ref={ref}
-      className="nav-dropdown-wrapper"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      ref={wrapRef}
+      className="navdrop"
+      onMouseEnter={() => {
+        cancelClose();
+        setOpen(true);
+      }}
+      onMouseLeave={scheduleClose}
+      onFocus={() => setOpen(true)}
+      onBlur={(e) => {
+        if (!wrapRef.current?.contains(e.relatedTarget as Node)) setOpen(false);
+      }}
     >
-      <button
-        className={`nav-link nav-link--dropdown${isActive ? " nav-link--active" : ""}`}
-        aria-haspopup="true"
+      <NavLink
+        to={item.to}
+        className={({ isActive }) =>
+          `navlink navlink--hasmenu${isActive ? " navlink--active" : ""}`
+        }
         aria-expanded={open}
-        onClick={() => {
-          // If this item also points somewhere (e.g. About Us → /About),
-          // clicking the label navigates there. Hovering still opens the menu.
-          if (item.href) {
-            window.location.href = item.href;
-          } else {
-            setOpen((v) => !v);
-          }
-        }}
+        aria-haspopup="true"
+        onClick={onNavClick(item.to)}
       >
-        {item.label}
-        <ChevronIcon open={open} />
-      </button>
-      <DropdownMenu
-        items={item.dropdown}
-        isOpen={open}
-        onItemClick={() => setOpen(false)}
-      />
+        <span className="navlink__label">{item.label}</span>
+        <Chevron />
+      </NavLink>
+
+      <div
+        className={`navmenu${open ? " navmenu--open" : ""}`}
+        role="menu"
+        aria-hidden={!open}
+        onMouseEnter={cancelClose}
+      >
+        <div className="navmenu__inner">
+          {item.children.map((sub, i) => (
+            <Link
+              key={sub.to}
+              to={sub.to}
+              className="navmenu__item"
+              role="menuitem"
+              tabIndex={open ? 0 : -1}
+              style={{ "--i": i } as React.CSSProperties}
+              onClick={(e) => {
+                setOpen(false);
+                onNavClick(sub.to)(e);
+              }}
+            >
+              <span className="navmenu__no">{String(i + 1).padStart(2, "0")}</span>
+              <span className="navmenu__label">{sub.label}</span>
+              <svg className="navmenu__arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-// ─────────────────────────────────────────────
-// Main Navbar
-// ─────────────────────────────────────────────
+/* ── Navbar ──────────────────────────────────────────────────── */
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+
   const { lang, setLang, t } = useLang();
   const { projects } = useProjects();
-  const projectDropdown = (projects ?? []).map((p) => ({
-    label: p.name[lang],
-    href: `/projects#${p.id}`,
-  }));
-  const NAV_ITEMS = buildNavItems(t, projectDropdown);
+  const { pathname } = useLocation();
 
+  const items: NavItem[] = [
+    { label: t.nav.home, to: "/" },
+    {
+      label: t.nav.project,
+      to: "/projects",
+      children: (projects ?? []).map((p) => ({
+        label: p.name[lang],
+        to: `/projects/${p.id}`,
+      })),
+    },
+    {
+      label: t.nav.about,
+      to: "/about",
+      children: [
+        { label: t.nav.profile, to: "/about#about-hero" },
+        { label: t.nav.vision, to: "/about#vision-mission" },
+        { label: t.nav.visit, to: "/about#our-location" },
+      ],
+    },
+    { label: t.nav.contact, to: "/contact" },
+  ];
+
+  // Scroll state: solid background and reading progress. The bar stays
+  // put — hiding it on scroll left a gap above the project pages'
+  // sticky section nav, which docks directly beneath it.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+
+      setScrolled(y > 24);
+      setProgress(max > 0 ? Math.min(y / max, 1) : 0);
+    };
+
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // The home page opens on a dark hero image, so the navbar can stay
-  // transparent there. Every other page now starts on a light section,
-  // so force the solid (dark frosted) navbar from the top for contrast.
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+  // Route change closes the drawer. Adjusting during render (rather
+  // than in an effect) avoids a frame where the new page is behind an
+  // open menu.
+  const [drawerPath, setDrawerPath] = useState(pathname);
+  if (drawerPath !== pathname) {
+    setDrawerPath(pathname);
+    setMobileOpen(false);
+  }
+
+  // Lock the page while the drawer is open.
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  /**
+   * Handles clicks on a link that points at the page you are already
+   * on. React Router treats those as no-ops, so "About Us" did nothing
+   * while on /about. Here they scroll instead: to the anchored section
+   * if the link carries one, otherwise back to the top. Links to a
+   * different page — and to a different anchor on this page — are left
+   * to the router.
+   */
+  const handleNavClick = (to: string) => (e: React.MouseEvent) => {
+    const [path = "", hash = ""] = to.split("#");
+    if (path.toLowerCase() !== pathname.toLowerCase()) return;
+
+    const hashChanges = hash && `#${hash}` !== window.location.hash;
+    if (hashChanges) return; // the router pushes it; the page scrolls itself
+
+    e.preventDefault();
+    setMobileOpen(false);
+
+    if (hash) {
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // The home hero is a dark image, so the bar can float transparently
+  // there. Every other page opens on a light section and needs the
+  // solid treatment from the very top.
   const isHome = pathname === "/";
-  const solid = scrolled || !isHome;
+  const solid = scrolled || !isHome || mobileOpen;
 
   return (
     <>
-      <header>
-        <nav
-          className={`navbar${solid ? " navbar--scrolled" : ""}`}
-          aria-label="Main navigation"
-        >
-          <div className="navbar__inner">
+      <header
+        className={[
+          "nav",
+          solid ? "nav--solid" : "",
+          mobileOpen ? "nav--open" : "",
+        ].filter(Boolean).join(" ")}
+      >
+        <a className="nav__skip" href="#main">Skip to content</a>
 
-            {/* ── Logo ── */}
-            <a href="/" className="navbar__logo" aria-label="Green Karindo Elite – home">
-              <img
-                src={LogoImg}
-                alt="Green Karindo Elite logo"
-                className="navbar__logo-img"
-              />
-              <div className="navbar__logo-wordmark">
-                <span className="navbar__logo-name">Green Karindo Elite</span>
-                <span className="navbar__logo-tagline">{t.logo.tagline}</span>
-              </div>
-            </a>
+        <div className="nav__inner">
+          <Link to="/" className="nav__brand" aria-label={`${site.name} — home`}>
+            <img src={LogoImg} alt="" className="nav__mark" width={42} height={42} />
+            <span className="nav__word">
+              <span className="nav__name">Green Karindo Elite</span>
+              <span className="nav__tag">{t.logo.tagline}</span>
+            </span>
+          </Link>
 
-            {/* ── Desktop links ── */}
-            <ul className="navbar__links" role="list">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.label}>
-                  <NavLink item={item} />
-                </li>
-              ))}
-              <li className="navbar__lang-item">
-                <LangToggle lang={lang} setLang={setLang} />
-              </li>
-            </ul>
+          <nav className="nav__links" aria-label="Main navigation">
+            {items.map((item) => (
+              <DesktopLink key={item.to} item={item} onNavClick={handleNavClick} />
+            ))}
+          </nav>
 
-            {/* ── Mobile hamburger ── */}
-            <button
-              className="navbar__hamburger"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-menu"
-              onClick={() => setMobileOpen((v) => !v)}
-            >
-              <HamburgerIcon open={mobileOpen} />
-            </button>
-
-          </div>
-        </nav>
-
-        {/* ── Mobile drawer ── */}
-        <div
-          id="mobile-menu"
-          className={`navbar__mobile-menu${mobileOpen ? " navbar__mobile-menu--open" : ""}`}
-          aria-hidden={!mobileOpen}
-        >
-          {NAV_ITEMS.map((item, i) => (
-            <div key={item.label}>
-              {i > 0 && <div className="mobile-divider" />}
-
-              {!item.dropdown ? (
-                <a
-                  href={item.href}
-                  className="mobile-nav-link"
-                  onClick={() => setMobileOpen(false)}
-                  tabIndex={mobileOpen ? 0 : -1}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <div className="mobile-dropdown-section">
-                  <div className="mobile-dropdown-label">{item.label}</div>
-                  {item.dropdown.map((sub) => (
-                    <a
-                      key={sub.label}
-                      href={sub.href}
-                      className="mobile-dropdown-item"
-                      onClick={() => setMobileOpen(false)}
-                      tabIndex={mobileOpen ? 0 : -1}
-                    >
-                      {sub.label}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <div className="mobile-divider" />
-          <div className="navbar__mobile-lang">
+          <div className="nav__actions">
             <LangToggle lang={lang} setLang={setLang} />
+            <Link to="/contact" className="btn btn--sm nav__cta">
+              {t.nav.cta}
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            className={`nav__burger${mobileOpen ? " nav__burger--open" : ""}`}
+            aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={mobileOpen}
+            aria-controls="nav-drawer"
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <span className="nav__burger-line" />
+            <span className="nav__burger-line" />
+          </button>
+        </div>
+
+        {/* Reading progress — a hairline of gold along the bar's edge. */}
+        <span
+          className="nav__progress"
+          aria-hidden="true"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+      </header>
+
+      {/* ── Mobile drawer ──
+          Kept outside <header> on purpose: the bar's backdrop-filter
+          makes it the containing block for fixed descendants, which
+          would collapse this panel to the height of the bar. */}
+      <div
+        id="nav-drawer"
+        className={`drawer${mobileOpen ? " drawer--open" : ""}`}
+        aria-hidden={!mobileOpen}
+      >
+        <div className="drawer__scroll">
+          <nav className="drawer__nav" aria-label="Mobile navigation">
+            {items.map((item, i) => (
+              <div
+                className="drawer__group"
+                key={item.to}
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                <NavLink
+                  to={item.to}
+                  end={item.to === "/"}
+                  className={({ isActive }) =>
+                    `drawer__link${isActive ? " drawer__link--active" : ""}`
+                  }
+                  tabIndex={mobileOpen ? 0 : -1}
+                  onClick={handleNavClick(item.to)}
+                >
+                  <span className="drawer__no">{String(i + 1).padStart(2, "0")}</span>
+                  {item.label}
+                </NavLink>
+
+                {item.children?.length ? (
+                  <div className="drawer__subs">
+                    {item.children.map((sub) => (
+                      <Link
+                        key={sub.to}
+                        to={sub.to}
+                        className="drawer__sub"
+                        tabIndex={mobileOpen ? 0 : -1}
+                        onClick={handleNavClick(sub.to)}
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </nav>
+
+          <div className="drawer__foot">
+            <div className="rule" />
+            <div className="drawer__foot-row">
+              <LangToggle lang={lang} setLang={setLang} className="langsw--ink" />
+              <a
+                className="drawer__wa"
+                href={`https://wa.me/${site.whatsappNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {site.whatsappDisplay}
+              </a>
+            </div>
+            <p className="drawer__addr">{site.address}</p>
           </div>
         </div>
-      </header>
+      </div>
     </>
   );
 };

@@ -1,201 +1,222 @@
-/* ============================================================
-   WhyChooseUs.css — Green Karindo Elite
-   Compact cream value-prop band for the home page.
-   ============================================================ */
+/* ─────────────────────────────────────────────────────────────
+   Value propositions — sticky heading beside a numbered list, then
+   the site-visit banner.
+   ───────────────────────────────────────────────────────────── */
 
 .why {
-  background: #e6ddcc;
-  color: #33302a;
-  padding: 64px 24px;
+  background: var(--paper-bg);
+  color: var(--paper-fg);
 }
 
-.why__inner {
-  max-width: 1240px;
-  margin: 0 auto;
-}
-
-/* ── Heading ─────────────────────────────────────────────────── */
-.why__head {
-  text-align: center;
-  margin-bottom: 44px;
-}
-
-.why__eyebrow {
-  font-family: var(--font-body, "Jost", sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: #a8843f;
-  margin-bottom: 14px;
-}
-
-.why__title {
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-  font-weight: 400;
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  line-height: 1.05;
-  margin: 0;
-}
-
-.why__title em {
-  font-style: italic;
-  color: #a8843f;
-}
-
-/* ── Grid of value props ─────────────────────────────────────── */
 .why__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+  padding-bottom: var(--section-y);
 }
 
-.why__card {
-  text-align: center;
-  padding: 0 8px;
+.why__aside {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-7));
 }
+
+/* ── List ─────────────────────────────────────────────────── */
+
+.why__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--paper-rule-soft);
+}
+
+.why__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: start;
+  gap: var(--sp-5);
+  padding: clamp(1.5rem, 3vw, 2.4rem) 0;
+  border-bottom: 1px solid var(--paper-rule-soft);
+}
+
+/* Indent on hover via transform rather than padding: padding would
+   reflow the rest of the list on every frame of the transition. */
+.why__no,
+.why__icon,
+.why__text {
+  transition: transform var(--dur-3) var(--ease-lux);
+}
+
+.why__item:hover .why__no,
+.why__item:hover .why__icon,
+.why__item:hover .why__text {
+  transform: translateX(var(--sp-3));
+}
+
+/* Gold rule that fills the bottom edge as the pointer arrives. */
+.why__item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-4) var(--ease-lux);
+}
+
+.why__item:hover::after { transform: scaleX(1); }
+
+.why__no {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--sand-400);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.55rem;
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.why__item:hover .why__no { color: var(--accent); }
 
 .why__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: 1px solid rgba(150, 118, 60, 0.4);
-  color: #a8843f;
-  margin-bottom: 18px;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  color: var(--accent-deep);
+  border: 1px solid var(--paper-rule);
+  background: var(--paper-bg-alt);
+  flex-shrink: 0;
+  transition:
+    background var(--dur-3) var(--ease-out),
+    color var(--dur-3) var(--ease-out),
+    border-color var(--dur-3) var(--ease-out),
+    transform var(--dur-3) var(--ease-lux);
 }
 
-.why__card-title {
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 1.2;
-  margin: 0 0 8px;
-  color: #2a2620;
+/* Carries the row's indent as well as its own lift, since a second
+   transform declaration would replace the first. */
+.why__item:hover .why__icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-900);
+  transform: translate(var(--sp-3), -2px);
 }
 
-.why__card-desc {
-  font-family: var(--font-body, "Jost", sans-serif);
-  font-weight: 300;
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: #6b6253;
-  margin: 0;
-}
-
-/* ── Visit CTA banner (dark card on the cream band) ──────────── */
-.why__cta {
+.why__text {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  margin-top: 48px;
-  padding: 30px 36px;
-  background: #15171a;
-  border: 1px solid rgba(212, 196, 160, 0.14);
-  border-radius: 10px;
-  box-shadow: 0 24px 56px -34px rgba(42, 38, 32, 0.4);
-}
-
-.why__cta-text {
+  flex-direction: column;
+  gap: var(--sp-2);
   min-width: 0;
 }
 
-.why__cta-eyebrow {
+.why__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--paper-fg-strong);
+}
+
+.why__desc {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--paper-fg-muted);
+  max-width: 46ch;
+}
+
+/* ── Visit banner ─────────────────────────────────────────── */
+
+.visit {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink-900);
+  color: var(--ink-fg);
+  border-top: 2px solid var(--accent);
+}
+
+/* Diagonal gold sheen that drifts across on hover. */
+.visit::before {
+  content: "";
+  position: absolute;
+  inset: -60% -20%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(197, 160, 92, 0.14) 50%,
+    transparent 58%
+  );
+  transform: translateX(-30%);
+  transition: transform 1.4s var(--ease-lux);
+  pointer-events: none;
+}
+
+.visit:hover::before { transform: translateX(30%); }
+
+.visit__inner {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-family: var(--font-body, "Jost", sans-serif);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #c5a05c;
-  margin-bottom: 12px;
+  justify-content: space-between;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 5vw, 4.5rem);
+  flex-wrap: wrap;
 }
 
-.why__cta-eyebrow::before {
-  content: "";
-  width: 24px;
-  height: 1px;
-  background: #c5a05c;
-  flex-shrink: 0;
+.visit__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-width: 58ch;
 }
 
-.why__cta-title {
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-  font-weight: 400;
-  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
-  line-height: 1.15;
-  color: #efe7d8;
-  margin: 0 0 10px;
-  max-width: 560px;
-}
-
-.why__cta-desc {
-  font-family: var(--font-body, "Jost", sans-serif);
+.visit__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
   font-weight: 300;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: #9a958b;
-  margin: 0;
-  max-width: 500px;
+  line-height: 1.2;
+  color: var(--cream-50);
+  text-wrap: balance;
 }
 
-.why__cta-btn {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 13px 24px;
-  background: #c5a05c;
-  color: #15171a;
-  font-family: var(--font-body, "Jost", sans-serif);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: background 0.25s ease, transform 0.25s ease;
+.visit__desc {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--ink-fg-muted);
 }
 
-.why__cta-btn:hover {
-  background: #d9c08a;
-  transform: translateY(-2px);
-}
+.visit__btn { flex-shrink: 0; }
 
-/* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 820px) {
-  .why__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px 24px;
-  }
+/* ── Mobile ───────────────────────────────────────────────── */
 
-  .why__cta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 28px;
-    padding: 36px 32px;
-  }
-
-  .why__cta-btn {
-    width: 100%;
-  }
-}
-
-@media (max-width: 460px) {
-  .why {
-    padding: 52px 20px;
-  }
-
+@media (max-width: 900px) {
   .why__grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: var(--sp-8);
   }
 
-  .why__cta {
-    padding: 30px 24px;
+  .why__aside {
+    position: static;
   }
+}
+
+@media (max-width: 560px) {
+  .why__item {
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-4);
+    row-gap: var(--sp-3);
+  }
+
+  /* Number and icon share the first row, text spans below. */
+  .why__no { grid-row: 1; padding-top: 1rem; }
+  .why__icon { grid-row: 1; width: 44px; height: 44px; }
+  .why__text { grid-column: 1 / -1; }
+
+  .visit__inner { padding-inline: var(--sp-5); }
+  .visit__btn { width: 100%; }
 }

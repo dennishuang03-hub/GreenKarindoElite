@@ -46,7 +46,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// Convenience hook used throughout the app.
+// Convenience hook used throughout the app. It ships beside the
+// provider on purpose — splitting it into its own module would only
+// satisfy the fast-refresh rule, at the cost of a second import
+// everywhere the context is used.
+// eslint-disable-next-line react-refresh/only-export-components
 export function useLang(): LanguageContextValue {
   const ctx = useContext(LanguageContext);
   if (!ctx) {

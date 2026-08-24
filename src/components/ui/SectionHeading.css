@@ -1,0 +1,51 @@
+.sh {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  max-width: 46ch;
+}
+
+.sh--center {
+  align-items: center;
+  text-align: center;
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+.sh__top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.sh--center .sh__top { justify-content: center; }
+
+/* The chapter number sits before the eyebrow with its own hairline. */
+.sh__index {
+  position: relative;
+  padding-right: var(--sp-4);
+}
+
+.sh__index::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 1px;
+  height: 12px;
+  margin-top: -6px;
+  background: var(--accent);
+  opacity: 0.4;
+}
+
+.sh__title {
+  font-size: var(--fs-display-md);
+  text-wrap: balance;
+}
+
+.sh__lead {
+  max-width: 52ch;
+}
+
+.sh--center .sh__lead { margin-inline: auto; }

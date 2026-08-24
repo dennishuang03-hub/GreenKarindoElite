@@ -1,0 +1,119 @@
+/* ─────────────────────────────────────────────────────────────
+   Persistent contact affordance: a WhatsApp pill on desktop, a
+   three-action bar along the bottom edge on mobile.
+   ───────────────────────────────────────────────────────────── */
+
+.wafab {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  z-index: var(--z-float);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0.7rem 0.7rem;
+  color: var(--ink-900);
+  background: var(--accent);
+  border: 1px solid var(--gold-300);
+  box-shadow: var(--shadow-gold);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition:
+    opacity var(--dur-3) var(--ease-out),
+    transform var(--dur-4) var(--ease-lux),
+    background var(--dur-2) var(--ease-out),
+    visibility var(--dur-3);
+}
+
+.wafab--shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.wafab:hover { background: var(--gold-300); }
+
+.wafab__icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.wafab__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: var(--ls-button);
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* Collapsed to an icon until hover, then the label slides open. */
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-width var(--dur-4) var(--ease-lux),
+    opacity var(--dur-2) var(--ease-out),
+    padding-right var(--dur-4) var(--ease-lux);
+}
+
+.wafab:hover .wafab__label,
+.wafab:focus-visible .wafab__label {
+  max-width: 200px;
+  opacity: 1;
+  padding-right: var(--sp-3);
+}
+
+/* ── Mobile bar ───────────────────────────────────────────── */
+
+.abar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-float);
+  display: none;
+  background: rgba(15, 17, 19, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--ink-rule);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.abar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0.6rem 0.4rem 0.65rem;
+  color: var(--ink-fg);
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+
+.abar__item + .abar__item { border-left: 1px solid var(--ink-rule-soft); }
+
+.abar__item:active {
+  background: rgba(197, 160, 92, 0.14);
+  color: var(--accent);
+}
+
+.abar__item--primary {
+  color: var(--ink-900);
+  background: var(--accent);
+}
+
+.abar__item--primary:active { background: var(--gold-300); }
+
+@media (max-width: 768px) {
+  .wafab { display: none; }
+  .abar { display: flex; }
+}

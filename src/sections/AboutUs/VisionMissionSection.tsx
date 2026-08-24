@@ -1,57 +1,49 @@
-import React, { useEffect, useRef, useState } from 'react';
-import '../../components/VisionMission.css';
-import VisionCard from '../../components/VisionCard';
-import MissionList from '../../components/MissionList';
-import { useLang } from '../../i18n/LanguageContext';
+import { useLang } from "../../i18n/LanguageContext";
+import SectionHeading from "../../components/ui/SectionHeading";
+import Reveal from "../../components/ui/Reveal";
 
-const VisionMissionSection: React.FC = () => {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
+/**
+ * Vision and mission. The vision sits in a quiet display-type panel;
+ * the missions run beneath it as a numbered list on hairlines.
+ */
+const VisionMissionSection = () => {
   const { t } = useLang();
-
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-
-    // Reveal once the section scrolls into view (first visit / first scroll).
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section
-      ref={sectionRef}
-      className={`vm-section${visible ? ' is-visible' : ''}`}
-      aria-label="Vision and Mission"
+      className="vm section section--ink"
+      id="vision-mission"
+      aria-label={t.vm.eyebrow}
     >
-      <div className="vm-section__inner">
+      <div className="container">
+        <div className="vm__grid">
+          <div className="vm__aside">
+            <SectionHeading
+              eyebrow={t.vm.eyebrow}
+              titlePre={t.vm.titlePre}
+              titleEm={t.vm.titleEm}
+            />
 
-        {/* Heading */}
-        <div className="vm-heading vm-reveal">
-          <div className="vm-heading__eyebrow">{t.vm.eyebrow}</div>
-          <h2 className="vm-heading__title">
-            {t.vm.titlePre}<em>{t.vm.titleEm}</em>
-          </h2>
+            <Reveal delay={140} className="vm__vision">
+              <span className="vm__vision-label">{t.vm.visionLabel}</span>
+              <p className="vm__vision-text">{t.vm.vision}</p>
+            </Reveal>
+          </div>
+
+          <div className="vm__missions">
+            <Reveal as="span" className="vm__missions-label">
+              {t.vm.missionLabel}
+            </Reveal>
+            <ol className="vm__list">
+              {t.vm.missions.map((m, i) => (
+                <Reveal as="li" key={m} delay={i * 70} className="vm__item">
+                  <span className="vm__no">{String(i + 1).padStart(2, "0")}</span>
+                  <p className="vm__text">{m}</p>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
         </div>
-
-        {/* Grid */}
-        <div className="vm-grid">
-          <VisionCard />
-          <MissionList />
-        </div>
-
       </div>
     </section>
   );

@@ -1,0 +1,158 @@
+/* ─────────────────────────────────────────────────────────────
+   Design tokens — the single source of truth for the whole site.
+   Nothing below this file should hard-code a colour, a font, a
+   spacing step, or an easing curve. Change a value here and it
+   propagates everywhere.
+
+   Palette and typefaces are unchanged from the original brand:
+   Cormorant Garamond + Jost, gold on ink with cream text.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Ink (dark surfaces) ─────────────────────────────────── */
+  --ink-1000: #0a0b0c;
+  --ink-900:  #0f1113;
+  --ink-800:  #15171a;
+  --ink-700:  #1c1f23;
+  --ink-600:  #23262b;
+  --ink-500:  #2e3238;
+
+  /* ── Gold (brand accent) ─────────────────────────────────── */
+  --gold-200: #efe0bd;
+  --gold-300: #d9c08a;
+  --gold-400: #cfae70;
+  --gold-500: #c5a05c;  /* primary */
+  --gold-600: #a8843f;
+  --gold-700: #8a6a2f;
+
+  /* ── Cream / paper (light surfaces) ──────────────────────── */
+  --cream-50:  #faf6ee;
+  --cream-100: #f4eee2;
+  --cream-200: #efe7d8;
+  --cream-300: #e6ddcc;
+  --cream-400: #ddd3c0;
+
+  /* ── Neutral warm greys (body copy on light) ─────────────── */
+  --sand-300: #c9c2b6;
+  --sand-400: #9a958b;
+  --sand-500: #736d61;
+  --sand-600: #6b6253;
+  --sand-700: #443f37;
+  --sand-800: #33302a;
+
+  /* ── Semantic: light ("paper") sections ──────────────────── */
+  --paper-bg:        var(--cream-100);
+  --paper-bg-alt:    var(--cream-50);
+  --paper-fg:        var(--sand-800);
+  --paper-fg-strong: #22201c;
+  --paper-fg-muted:  var(--sand-500);
+  --paper-rule:      rgba(51, 48, 42, 0.14);
+  --paper-rule-soft: rgba(51, 48, 42, 0.08);
+
+  /* ── Semantic: dark ("ink") sections ─────────────────────── */
+  --ink-bg:        var(--ink-900);
+  --ink-bg-alt:    var(--ink-800);
+  --ink-fg:        var(--cream-200);
+  --ink-fg-strong: var(--cream-50);
+  --ink-fg-muted:  rgba(239, 231, 216, 0.62);
+  --ink-rule:      rgba(239, 231, 216, 0.16);
+  --ink-rule-soft: rgba(239, 231, 216, 0.08);
+
+  /* ── Accent semantics ────────────────────────────────────── */
+  --accent:        var(--gold-500);
+  --accent-soft:   var(--gold-300);
+  --accent-deep:   var(--gold-600);
+  --accent-wash:   rgba(197, 160, 92, 0.12);
+  --accent-line:   rgba(197, 160, 92, 0.38);
+
+  /* ── Status colours (project availability) ───────────────── */
+  --status-new:    var(--gold-500);
+  --status-avail:  #8fbf7a;
+  --status-soon:   var(--sand-400);
+  --status-sold:   #b4635a;
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+  --font-body:    'Jost', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid display scale — editorial, generous, never cramped */
+  --fs-display-xl: clamp(3rem, 8.2vw, 7rem);
+  --fs-display-lg: clamp(2.5rem, 6vw, 4.75rem);
+  --fs-display-md: clamp(2rem, 4.4vw, 3.5rem);
+  --fs-display-sm: clamp(1.6rem, 3vw, 2.4rem);
+
+  --fs-lead:  clamp(1.05rem, 1.5vw, 1.3rem);
+  --fs-body:  clamp(0.95rem, 1.05vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-micro: 0.75rem;
+
+  /* Eyebrow / label treatment — the editorial signature */
+  --fs-eyebrow: 0.6875rem;
+  --ls-eyebrow: 0.34em;
+  --ls-button:  0.18em;
+  --ls-display: 0.02em;
+
+  --lh-tight: 1.06;
+  --lh-snug:  1.24;
+  --lh-body:  1.75;
+
+  /* ── Spacing scale (8pt-derived, editorial extremes) ─────── */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.5rem;
+  --sp-6:  2rem;
+  --sp-7:  2.5rem;
+  --sp-8:  3rem;
+  --sp-9:  4rem;
+  --sp-10: 5.5rem;
+  --sp-11: 7rem;
+  --sp-12: 9rem;
+
+  /* Vertical rhythm for full sections — shrinks on small screens */
+  --section-y:    clamp(4.5rem, 9vw, 9rem);
+  --section-y-lg: clamp(6rem, 12vw, 12rem);
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --container:      1320px;
+  --container-text: 720px;
+  --gutter:         clamp(1.25rem, 4vw, 4rem);
+  --nav-h:          76px;
+  --nav-h-scrolled: 64px;
+
+  /* ── Lines, radii, elevation ─────────────────────────────── */
+  --hairline: 1px;
+  --radius-0: 0px;      /* luxury default: square corners */
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 17, 19, 0.06),
+               0 4px 12px rgba(15, 17, 19, 0.05);
+  --shadow-md: 0 12px 32px rgba(15, 17, 19, 0.10),
+               0 2px 8px rgba(15, 17, 19, 0.06);
+  --shadow-lg: 0 30px 70px rgba(15, 17, 19, 0.20),
+               0 8px 20px rgba(15, 17, 19, 0.10);
+  --shadow-gold: 0 18px 44px rgba(138, 106, 47, 0.22);
+
+  /* ── Motion ──────────────────────────────────────────────── */
+  --ease-lux:  cubic-bezier(0.16, 1, 0.3, 1);      /* out-expo-ish */
+  --ease-out:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-1: 160ms;
+  --dur-2: 260ms;
+  --dur-3: 420ms;
+  --dur-4: 700ms;
+  --dur-5: 1100ms;
+
+  /* ── Z-index ladder ──────────────────────────────────────── */
+  --z-base:      1;
+  --z-sticky:    50;
+  --z-nav:       100;
+  --z-drawer:    150;
+  --z-float:     200;
+  --z-lightbox:  300;
+  --z-toast:     400;
+}

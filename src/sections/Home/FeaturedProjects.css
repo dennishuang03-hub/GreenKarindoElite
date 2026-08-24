@@ -1,285 +1,332 @@
-/* ============================================================
-   FeaturedProjects.css — Green Karindo Elite
-   Auto-rotating featured showcase on the home page (dark theme).
-   ============================================================ */
+/* ─────────────────────────────────────────────────────────────
+   Portfolio index. Sticky image preview on the left, numbered
+   project rows on the right; hovering a row crossfades the preview.
+   ───────────────────────────────────────────────────────────── */
 
 .feat {
-  background: #0f1113;
-  padding: 88px 24px 96px;
-  color: #efe7d8;
-  scroll-margin-top: 84px; /* offset for the fixed navbar on anchor jump */
-}
-
-/* ── Heading ─────────────────────────────────────────────────── */
-.feat__head {
-  max-width: 1240px;
-  margin: 0 auto 40px;
-  text-align: center;
-}
-
-.feat__eyebrow {
-  font-family: var(--font-body, "Jost", sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: #c5a05c;
-  margin-bottom: 16px;
-}
-
-.feat__title {
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-  font-weight: 400;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1.05;
-  margin: 0;
-}
-
-.feat__title em {
-  font-style: italic;
-  color: #d9c08a;
-}
-
-/* ── Carousel viewport ───────────────────────────────────────── */
-.feat__viewport {
   position: relative;
-  max-width: 1240px;
-  margin: 0 auto;
-  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(212, 196, 160, 0.18);
-  box-shadow: 0 36px 80px -36px rgba(0, 0, 0, 0.85);
 }
 
-.feat__track {
-  display: flex;
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+/* Faint gold wash bleeding in from the top-right corner. */
+.feat::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 60%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(197, 160, 92, 0.08), transparent 68%);
+  pointer-events: none;
 }
 
-.feat__slide {
-  flex: 0 0 100%;
-  min-width: 100%;
-}
-
-/* ── Slide media + overlay ───────────────────────────────────── */
-.feat__media {
+.feat__head {
   position: relative;
-  aspect-ratio: 16 / 8;
-  background: #15171a;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  flex-wrap: wrap;
+  padding-bottom: var(--sp-7);
+  margin-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--ink-rule-soft);
 }
 
-.feat__media img {
+.feat__head-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  max-width: 34ch;
+}
+
+.feat__head-note {
+  font-size: var(--fs-small);
+  line-height: 1.7;
+  color: var(--ink-fg-muted);
+}
+
+/* ── Body grid ────────────────────────────────────────────── */
+
+.feat__body {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+/* ── Preview panel ────────────────────────────────────────── */
+
+.feat__preview {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-6));
+}
+
+.feat__frames {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink-800);
+}
+
+.feat__frame {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity var(--dur-4) var(--ease-lux),
+    transform var(--dur-5) var(--ease-lux);
 }
 
-.feat__overlay {
+.feat__frame--active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.feat__preview-scrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    90deg,
-    rgba(10, 11, 13, 0.88) 0%,
-    rgba(10, 11, 13, 0.55) 38%,
-    rgba(10, 11, 13, 0.1) 70%,
-    rgba(10, 11, 13, 0) 100%
+    to top,
+    rgba(10, 11, 12, 0.72) 0%,
+    rgba(10, 11, 12, 0.1) 42%,
+    transparent 70%
   );
 }
 
-/* Status badge — top left */
-.feat__status {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-family: var(--font-body, "Jost", sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  border: 1px solid currentColor;
-  background: rgba(15, 17, 19, 0.55);
-  backdrop-filter: blur(4px);
-}
-
-.feat__status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.feat__status--new-launch { color: #d9b25c; }
-.feat__status--available  { color: #8fbf7a; }
-.feat__status--coming-soon { color: #c9c2b6; }
-
-/* ── Slide text — bottom left ────────────────────────────────── */
-.feat__info {
+.feat__preview-meta {
   position: absolute;
   left: 0;
+  right: 0;
   bottom: 0;
-  max-width: 460px;
-  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-6);
+  animation: feat-meta var(--dur-4) var(--ease-lux) both;
 }
 
-/* Text fades up each time its slide becomes active */
-.feat__slide--active .feat__info > * {
-  opacity: 0;
-  animation: featInfoIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+@keyframes feat-meta {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
 }
-.feat__slide--active .feat__name    { animation-delay: 0.15s; }
-.feat__slide--active .feat__tagline { animation-delay: 0.25s; }
-.feat__slide--active .feat__btn     { animation-delay: 0.35s; }
 
-@keyframes featInfoIn {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
+.feat__preview-loc {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 238, 226, 0.72);
+}
+
+.feat__preview-tag {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--cream-50);
+  max-width: 26ch;
+}
+
+/* ── Index list ───────────────────────────────────────────── */
+
+.feat__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink-rule-soft);
+}
+
+.feat__item { border-bottom: 1px solid var(--ink-rule-soft); }
+
+.feat__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: clamp(1.35rem, 2.6vw, 2.1rem) 0;
+}
+
+/* The hovered row indents. Transforming the left-hand cells keeps this
+   off the layout path — animating the row's padding would reflow every
+   row beneath it on each frame. The arrow stays pinned to the right. */
+.feat__no,
+.feat__thumb,
+.feat__text {
+  transition: transform var(--dur-3) var(--ease-lux);
+}
+
+.feat__item--active .feat__no,
+.feat__item--active .feat__thumb,
+.feat__item--active .feat__text {
+  transform: translateX(var(--sp-4));
+}
+
+/* Gold rule that fills the row's bottom edge on hover. */
+.feat__row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-4) var(--ease-lux);
+}
+
+.feat__item--active .feat__row::after { transform: scaleX(1); }
+
+.feat__no {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--ink-fg-muted);
+  font-variant-numeric: tabular-nums;
+  /* Repeats the indent transition from the shared rule above, which a
+     bare `transition: color` here would otherwise replace. */
+  transition:
+    color var(--dur-2) var(--ease-out),
+    transform var(--dur-3) var(--ease-lux);
+}
+
+.feat__item--active .feat__no { color: var(--accent); }
+
+/* Thumbnail is the mobile preview; hidden on desktop where the big
+   panel does the same job. */
+.feat__thumb { display: none; }
+
+.feat__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 
 .feat__name {
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
-  font-weight: 400;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  line-height: 1.08;
-  margin: 0 0 8px;
-  color: #fbf6ec;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+  font-weight: 300;
+  line-height: 1.14;
+  color: var(--cream-100);
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.feat__item--active .feat__name { color: var(--cream-50); }
+
+.feat__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.feat__loc {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-fg-muted);
 }
 
 .feat__tagline {
-  font-family: var(--font-body, "Jost", sans-serif);
+  font-size: var(--fs-small);
   font-weight: 300;
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: #d8d2c6;
-  margin: 0 0 16px;
+  line-height: 1.6;
+  color: var(--ink-fg-muted);
+  max-width: 44ch;
+  /* Revealed on hover at desktop width; always visible on mobile. */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height var(--dur-4) var(--ease-lux),
+    opacity var(--dur-3) var(--ease-out),
+    margin-top var(--dur-3) var(--ease-out);
 }
 
-.feat__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 4px;
-  background: #c5a05c;
-  color: #15171a;
-  font-family: var(--font-body, "Jost", sans-serif);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: background 0.25s ease, transform 0.25s ease, gap 0.25s ease;
+.feat__item--active .feat__tagline {
+  max-height: 5rem;
+  opacity: 1;
+  margin-top: 2px;
 }
 
-.feat__btn:hover {
-  background: #d9c08a;
-  transform: translateY(-2px);
-  gap: 13px;
-}
-
-/* ── Arrows ──────────────────────────────────────────────────── */
-.feat__nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
+.feat__go {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ink-rule);
   border-radius: 50%;
-  border: 1px solid rgba(212, 196, 160, 0.3);
-  background: rgba(15, 17, 19, 0.5);
-  backdrop-filter: blur(6px);
-  color: #efe7d8;
-  cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-  z-index: 2;
+  color: var(--cream-100);
+  flex-shrink: 0;
+  transition:
+    background var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    color var(--dur-2) var(--ease-out),
+    transform var(--dur-3) var(--ease-lux);
 }
 
-.feat__nav:hover {
-  background: rgba(197, 160, 92, 0.92);
-  color: #15171a;
-  border-color: transparent;
+.feat__item--active .feat__go {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-900);
+  transform: translateX(4px);
 }
 
-.feat__nav--prev { left: 18px; }
-.feat__nav--next { right: 18px; }
+/* ── Tablet / mobile ──────────────────────────────────────── */
 
-/* ── Dots ────────────────────────────────────────────────────── */
-.feat__dots {
-  position: absolute;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 9px;
-  z-index: 2;
-}
+@media (max-width: 960px) {
+  .feat__body { grid-template-columns: 1fr; }
 
-.feat__dot {
-  width: 9px;
-  height: 9px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgba(239, 231, 216, 0.35);
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
+  /* The sticky panel loses its purpose in a single column — each row
+     carries its own thumbnail instead. */
+  .feat__preview { display: none; }
 
-.feat__dot--active {
-  background: #c5a05c;
-  transform: scale(1.25);
-}
-
-/* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 760px) {
-  .feat {
-    padding: 64px 16px 72px;
+  .feat__thumb {
+    display: block;
+    width: clamp(84px, 22vw, 132px);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--ink-800);
   }
 
-  .feat__media {
-    aspect-ratio: 3 / 4;
+  .feat__thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-4) var(--ease-lux);
   }
 
-  /* On narrow screens dim the whole image for legible text */
-  .feat__overlay {
-    background: linear-gradient(
-      0deg,
-      rgba(10, 11, 13, 0.92) 0%,
-      rgba(10, 11, 13, 0.55) 45%,
-      rgba(10, 11, 13, 0.25) 100%
-    );
+  .feat__row {
+    grid-template-columns: auto auto 1fr auto;
+    gap: var(--sp-4);
+    align-items: center;
   }
 
-  .feat__info {
-    padding: 24px;
-    max-width: 100%;
-  }
+  .feat__row:active .feat__thumb-img { transform: scale(1.05); }
 
-  .feat__dots {
-    right: 50%;
-    transform: translateX(50%);
-    bottom: 16px;
-  }
-
-  .feat__nav { width: 40px; height: 40px; }
-  .feat__nav--prev { left: 10px; }
-  .feat__nav--next { right: 10px; }
-}
-
-/* ── Reduced motion ──────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .feat__track { transition: none; }
-  .feat__btn, .feat__nav, .feat__dot { transition: none; }
-  .feat__slide--active .feat__info > * {
+  .feat__tagline {
+    max-height: 5rem;
     opacity: 1;
-    animation: none;
   }
+
+  .feat__name { font-size: clamp(1.25rem, 5.2vw, 1.6rem); }
+}
+
+@media (max-width: 560px) {
+  .feat__head { align-items: flex-start; }
+  .feat__no { display: none; }
+  .feat__go { width: 36px; height: 36px; }
+  .feat__row { grid-template-columns: auto 1fr auto; }
+  .feat__tagline { display: none; }   /* the row stays scannable */
 }

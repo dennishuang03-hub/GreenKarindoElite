@@ -1,0 +1,137 @@
+/* Dark header band that opens Projects, About and Contact. */
+
+.phead {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink-900);
+  color: var(--ink-fg);
+  padding-top: calc(var(--nav-h) + clamp(3rem, 8vw, 6.5rem));
+  padding-bottom: clamp(3rem, 7vw, 5.5rem);
+  isolation: isolate;
+}
+
+/* Faint gold corner wash — same signature as the portfolio section. */
+.phead::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -8%;
+  width: 52%;
+  height: 90%;
+  background: radial-gradient(circle, rgba(197, 160, 92, 0.1), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.phead__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-size: cover;
+  background-position: center 42%;
+  transform: scale(1.04);
+  animation: phead-zoom 18s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes phead-zoom {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.12); }
+}
+
+.phead__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(100deg, rgba(10, 11, 12, 0.9) 0%, rgba(10, 11, 12, 0.6) 55%, rgba(10, 11, 12, 0.75) 100%),
+    linear-gradient(to top, rgba(10, 11, 12, 0.9), transparent 60%);
+}
+
+.phead--image { padding-bottom: clamp(4rem, 9vw, 7rem); }
+
+.phead__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.phead__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  animation: phead-fade var(--dur-4) var(--ease-lux) 120ms both;
+}
+
+.phead__rule {
+  display: block;
+  width: clamp(32px, 5vw, 60px);
+  height: 1px;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: phead-line var(--dur-5) var(--ease-lux) 200ms both;
+}
+
+@keyframes phead-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.phead__eyebrow-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.phead__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-lg);
+  font-weight: 300;
+  line-height: 1.02;
+  color: var(--cream-50);
+  text-wrap: balance;
+}
+
+.phead__title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.phead__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.phead__line-in {
+  display: block;
+  animation: phead-rise var(--dur-5) var(--ease-lux) 200ms both;
+}
+
+@keyframes phead-rise {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes phead-fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.phead__lead {
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.66;
+  color: var(--ink-fg-muted);
+  max-width: 52ch;
+  animation: phead-fade var(--dur-4) var(--ease-lux) 420ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phead__bg { animation: none; }
+  .phead__line-in { transform: none; }
+}

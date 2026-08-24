@@ -1,0 +1,164 @@
+/* Full-screen image viewer. Sits above everything via --z-lightbox. */
+
+.lbx {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-lightbox);
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 5vw, 4rem);
+  background: rgba(10, 11, 12, 0.94);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  animation: lbx-in var(--dur-3) var(--ease-lux) both;
+}
+
+@keyframes lbx-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lbx__stage {
+  margin: 0;
+  max-width: min(1400px, 100%);
+  max-height: 78vh;
+  display: grid;
+  place-items: center;
+}
+
+.lbx__img {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  object-fit: contain;
+  box-shadow: var(--shadow-lg);
+  animation: lbx-img var(--dur-4) var(--ease-lux) both;
+}
+
+@keyframes lbx-img {
+  from { opacity: 0; transform: scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Controls ─────────────────────────────────────────────── */
+
+.lbx__close,
+.lbx__nav {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  color: var(--cream-100);
+  background: rgba(239, 231, 216, 0.06);
+  border: 1px solid rgba(239, 231, 216, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    background var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-lux);
+}
+
+.lbx__close:hover,
+.lbx__nav:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-900);
+}
+
+.lbx__close {
+  top: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-pill);
+}
+
+.lbx__nav {
+  top: 50%;
+  width: 54px;
+  height: 54px;
+  margin-top: -27px;
+  border-radius: var(--radius-pill);
+}
+
+.lbx__nav--prev { left: clamp(0.5rem, 2.5vw, 2.5rem); }
+.lbx__nav--next { right: clamp(0.5rem, 2.5vw, 2.5rem); }
+
+.lbx__nav--prev:hover { transform: translateX(-3px); }
+.lbx__nav--next:hover { transform: translateX(3px); }
+
+/* ── Bottom bar: counter + thumbnail rail ─────────────────── */
+
+.lbx__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: var(--sp-4) var(--gutter) calc(var(--sp-4) + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(239, 231, 216, 0.1);
+  background: linear-gradient(to top, rgba(10, 11, 12, 0.85), transparent);
+}
+
+.lbx__counter {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--cream-200);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.lbx__counter-sep {
+  color: var(--accent);
+  margin-inline: 0.4em;
+}
+
+.lbx__thumbs {
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 2px;
+}
+
+.lbx__thumbs::-webkit-scrollbar { display: none; }
+
+.lbx__thumb {
+  flex: 0 0 auto;
+  width: 76px;
+  height: 48px;
+  overflow: hidden;
+  opacity: 0.42;
+  border: 1px solid transparent;
+  transition:
+    opacity var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out);
+}
+
+.lbx__thumb:hover { opacity: 0.8; }
+
+.lbx__thumb--active {
+  opacity: 1;
+  border-color: var(--accent);
+}
+
+.lbx__thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .lbx__nav { display: none; }        /* swipe instead */
+  .lbx__thumbs { display: none; }     /* counter carries the position */
+  .lbx__stage,
+  .lbx__img { max-height: 68vh; }
+  .lbx__bar { justify-content: center; }
+}

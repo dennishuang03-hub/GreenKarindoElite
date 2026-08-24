@@ -1,313 +1,376 @@
-:root {
-  --hero-black:       #0D0C0A;
-  --hero-dark:        #1A1810;
-  --hero-gold:        #C9A84C;
-  --hero-gold-light:  #E2C97E;
-  --hero-cream:       #F5EFE0;
-  --hero-muted:       rgb(249, 243, 229);
-  --hero-overlay-bot: rgba(10, 9, 7, 0.88);
-  --hero-overlay-mid: rgba(13, 12, 10, 0.55);
-  --hero-overlay-top: rgba(13, 12, 10, 0.30);
+/* ─────────────────────────────────────────────────────────────
+   Home hero. Left-aligned editorial cover: masked headline lines,
+   parallax + Ken Burns background, framed edges, facts rail.
+   ───────────────────────────────────────────────────────────── */
 
-  --hero-font-display: 'Playfair Display', 'Georgia', serif;
-  --cormorant-garamond: 'Cormorant Garamond', Georgia, serif;
-  --hero-font-body:    'Jost', sans-serif;
-
-  --hero-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  /* Navbar height offset — keeps content below fixed nav */
-  --nav-height: 72px;
-}
-
-/* ── Reset scoped ─────────────────────────────────────────── */
-.hero *,
-.hero *::before,
-.hero *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* ── Section shell ────────────────────────────────────────── */
 .hero {
   position: relative;
   min-height: 100svh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
-  background-color: var(--hero-black);
-  color: var(--hero-cream);
   isolation: isolate;
-  /* Offset so content sits below the fixed Navbar */
-  padding-top: var(--nav-height);
+  background: var(--ink-1000);
+  color: var(--cream-100);
+  padding-top: var(--nav-h);
+  padding-bottom: clamp(6rem, 12vh, 9rem);
 }
 
-/* ── Background — parallax layer ─────────────────────────── */
+/* ── Background ───────────────────────────────────────────── */
+
+.hero__bg-wrap {
+  position: absolute;
+  inset: -12% 0 -20%;
+  z-index: -3;
+  will-change: transform;
+}
+
 .hero__bg {
   position: absolute;
-  inset: -15%;
-  background-image:
-    url("../assets/Gate.png");
+  inset: 0;
+  background-position: center 38%;
   background-size: cover;
-  background-position: center 35%;
-  z-index: -2;
+  background-repeat: no-repeat;
+  transform-origin: 55% 45%;
+  animation: hero-kenburns 26s var(--ease-in-out) infinite alternate;
 }
 
-/* ── Overlay — heavy at top & bottom, lighter mid
-      matches the brochure's dark vignette style ──────────── */
-.hero__overlay {
+@keyframes hero-kenburns {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.12); }
+}
+
+/* Directional scrim — heaviest where the type sits. */
+.hero__scrim {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: -1;
+  z-index: -2;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(10, 11, 12, 0.92) 0%,
+      rgba(10, 11, 12, 0.78) 32%,
+      rgba(10, 11, 12, 0.42) 62%,
+      rgba(10, 11, 12, 0.58) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(10, 11, 12, 0.95) 0%,
+      rgba(10, 11, 12, 0.25) 34%,
+      rgba(10, 11, 12, 0.45) 100%
+    );
 }
 
-/* ── Body — centered block like brochure cover ───────────── */
-.hero__body {
+/* Soft corner darkening keeps attention centred. */
+.hero__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    120% 90% at 50% 45%,
+    transparent 40%,
+    rgba(10, 11, 12, 0.55) 100%
+  );
+}
+
+/* ── Inset frame ──────────────────────────────────────────── */
+
+/* The frame starts below the navbar — otherwise its top and side rules
+   run straight through the bar's translucent background. */
+.hero__frame {
+  position: absolute;
+  inset: calc(var(--nav-h) + clamp(0.5rem, 1.4vw, 1.25rem))
+         clamp(1rem, 2.4vw, 2.25rem)
+         clamp(1rem, 2.4vw, 2.25rem);
+  pointer-events: none;
+}
+
+.hero__frame-line {
+  position: absolute;
+  background: rgba(239, 231, 216, 0.16);
+  animation: hero-frame var(--dur-5) var(--ease-lux) both;
+}
+
+.hero__frame-line--t,
+.hero__frame-line--b {
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: left center;
+  animation-name: hero-frame-x;
+}
+
+.hero__frame-line--l,
+.hero__frame-line--r {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform-origin: center top;
+  animation-name: hero-frame-y;
+}
+
+.hero__frame-line--t { top: 0; animation-delay: 300ms; }
+.hero__frame-line--b { bottom: 0; animation-delay: 420ms; }
+.hero__frame-line--l { left: 0; animation-delay: 360ms; }
+.hero__frame-line--r { right: 0; animation-delay: 480ms; }
+
+@keyframes hero-frame-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes hero-frame-y {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* ── Content ──────────────────────────────────────────────── */
+
+.hero__inner {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 3rem 2rem 8rem;
-  max-width: 860px;
-  width: 100%;
-  animation: hero-fade-up 1s var(--hero-ease) both;
+  align-items: flex-start;
+  max-width: var(--container);
 }
 
-/* ── Eyebrow — "— A MODERN PRIVATE RESIDENCE —" ─────────── */
 .hero__eyebrow {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 22px;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+  animation: hero-fade var(--dur-4) var(--ease-lux) 200ms both;
 }
 
-/* .hero__eyebrow-rule {
+.hero__eyebrow-rule {
   display: block;
-  width: 2.5rem;
+  width: clamp(36px, 6vw, 72px);
   height: 1px;
-  background: var(--hero-cream);
-  opacity: 0.5;
-  flex-shrink: 0;
-} */
-
-.hero__eyebrow::before,
-.hero__eyebrow::after {
-  content: "";
-  display: block;
-  width: 46px;
-  height: 0.5px;
-  background: #c5a05c;
-  opacity: 0.6;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: hero-frame-x var(--dur-5) var(--ease-lux) 320ms both;
 }
 
 .hero__eyebrow-text {
-    font-family: var(--hero-font-body);
-    font-size: 11.5px;
-    letter-spacing: .34em;
-    text-transform: uppercase;
-    color: #c5a05c;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
-/* ── Title — refined, elegant display type
-      (smaller + airier than the original oversized treatment) ─ */
+/* Headline — each line masked, sliding up from behind its own edge. */
 .hero__title {
-  font-family: var(--cormorant-garamond);
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl);
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: 0.07em;
-  color: var(--hero-cream);
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
-  margin-bottom: 0.65rem;
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  color: var(--cream-50);
+  margin-bottom: var(--sp-4);
 }
+
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;   /* room for serif descenders inside the mask */
+}
+
+.hero__line-in {
+  display: block;
+  transform: translateY(105%);
+  animation: hero-line var(--dur-5) var(--ease-lux) both;
+}
+
+.hero__line:nth-child(1) .hero__line-in { animation-delay: 260ms; }
+.hero__line:nth-child(2) .hero__line-in { animation-delay: 400ms; }
 
 .hero__title em {
   font-style: italic;
-  font-weight: 300;
-  color: var(--hero-gold);
+  color: var(--accent);
 }
 
-/* ── Sub-brand italic serif — "Bukit Indah Karimun" style ── */
+@keyframes hero-line {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes hero-fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
 .hero__subtitle {
-  font-family: var(--hero-font-display);
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.9vw, 1.45rem);
   font-style: italic;
-  color: var(--hero-gold-light);
-  letter-spacing: 0.04em;
-  margin-bottom: 1.4rem;
-  opacity: 0.9;
-}
-
-/* ── Tagline — "Your Home Above the Horizon." style ─────── */
-.hero__tagline {
-  font-family: var(--cormorant-garamond);
-  font-size: clamp(1rem, 1.4vw, 1.05rem);
   font-weight: 400;
-  line-height: 1.8;
-  color: var(--hero-muted);
-  max-width: 500px;
-  margin-bottom: 2.75rem;
+  letter-spacing: 0.04em;
+  color: var(--gold-300);
+  margin-bottom: var(--sp-5);
+  animation: hero-fade var(--dur-4) var(--ease-lux) 560ms both;
 }
 
-/* ── CTAs ─────────────────────────────────────────────────── */
+.hero__tagline {
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(244, 238, 226, 0.82);
+  max-width: 46ch;
+  margin-bottom: var(--sp-7);
+  animation: hero-fade var(--dur-4) var(--ease-lux) 660ms both;
+}
+
 .hero__actions {
   display: flex;
-  gap: 1rem;
+  gap: var(--sp-4);
   flex-wrap: wrap;
-  justify-content: center;
+  animation: hero-fade var(--dur-4) var(--ease-lux) 760ms both;
 }
 
-.hero__btn {
-  font-family: var(--hero-font-body);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.85rem 2.2rem;
-  display: inline-flex;
-  align-items: center;
-  transition:
-    background 0.25s var(--hero-ease),
-    color      0.25s var(--hero-ease),
-    border-color 0.25s var(--hero-ease);
-}
+/* ── Scroll cue ───────────────────────────────────────────── */
 
-.hero__btn--primary {
-  background: var(--hero-gold);
-  color: var(--hero-black);
-  border: 1px solid var(--hero-gold);
-}
-
-.hero__btn--primary:hover {
-  background: var(--hero-gold-light);
-  border-color: var(--hero-gold-light);
-}
-
-.hero__btn--ghost {
-  background: transparent;
-  color: var(--hero-cream);
-  border: 1px solid rgba(245, 239, 224, 0.4);
-}
-
-.hero__btn--ghost:hover {
-  border-color: var(--hero-cream);
-  background: rgba(245, 239, 224, 0.07);
-}
-
-/* ── Badge strip — matches the bottom pill row in brochure ── */
-/* "• Free Standing Home  • Lokasi Pusat Kota  • ..." */
-.hero__badges {
+.hero__scroll {
   position: absolute;
-  bottom: 0;
+  /* Clear of the frame's right-hand rule. */
+  right: clamp(2.75rem, 5vw, 5rem);
+  bottom: clamp(8rem, 16vh, 11rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  animation: hero-fade var(--dur-4) var(--ease-lux) 900ms both;
+}
+
+.hero__scroll-label {
+  font-family: var(--font-body);
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(244, 238, 226, 0.62);
+  writing-mode: vertical-rl;
+}
+
+.hero__scroll-track {
+  position: relative;
+  width: 1px;
+  height: 64px;
+  background: rgba(239, 231, 216, 0.22);
+  overflow: hidden;
+}
+
+.hero__scroll-dot {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 3px;
+  height: 22px;
+  background: var(--accent);
+  animation: hero-scroll 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes hero-scroll {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
+
+/* ── Facts rail ───────────────────────────────────────────── */
+
+.hero__facts {
+  position: absolute;
   left: 0;
   right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0;
-  padding: 1.1rem 2rem;
-  border-top: 1px solid rgba(245, 239, 224, 0.15);
-  background: rgba(10, 9, 7, 0.55);
+  bottom: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(239, 231, 216, 0.14);
+  background: linear-gradient(to top, rgba(10, 9, 7, 0.72), rgba(10, 9, 7, 0.24));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  animation: hero-fade var(--dur-4) var(--ease-lux) 860ms both;
 }
 
-.hero__badge {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-family: var(--hero-font-body);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--hero-cream);
-  opacity: 0.8;
-
-  /* Pill border — exact match to brochure badges */
-  border: 1px solid rgba(245, 239, 224, 0.3);
-  border-radius: 999px;
-  padding: 0.45rem 1.1rem;
-  margin: 0.3rem 0.4rem;
-  transition: opacity 0.2s var(--hero-ease), border-color 0.2s var(--hero-ease);
+.hero__fact {
+  position: relative;
+  padding: var(--sp-4) clamp(0.75rem, 2vw, 2rem);
+  text-align: center;
+  transition: background var(--dur-2) var(--ease-out);
 }
 
-.hero__badge:hover {
-  opacity: 1;
-  border-color: rgba(201, 168, 76, 0.6);
+.hero__fact + .hero__fact::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 1px;
+  background: rgba(239, 231, 216, 0.14);
 }
 
-.hero__badge-dot {
-  display: block;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--hero-gold);
-  flex-shrink: 0;
+.hero__fact:hover { background: rgba(197, 160, 92, 0.08); }
+
+.hero__fact-label {
+  font-family: var(--font-body);
+  font-size: 0.5625rem;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(244, 238, 226, 0.55);
+  margin-bottom: 4px;
 }
 
-/* ── Animation ────────────────────────────────────────────── */
-@keyframes hero-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hero__fact-value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--gold-300);
+  font-variant-numeric: tabular-nums;
 }
 
-/* ── Reduced motion ───────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .hero__body    { animation: none; }
-  .hero__bg      { transform: none !important; }
-}
+/* ── Tablet / mobile ──────────────────────────────────────── */
 
-/* ── Tablet ───────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .hero__body {
-    padding-bottom: 9rem;
-  }
+  .hero__scroll { display: none; }
+  .hero__tagline { max-width: 38ch; }
 }
 
-/* ── Mobile ───────────────────────────────────────────────── */
-@media (max-width: 560px) {
-  .hero__title {
-    font-size: clamp(2rem, 10vw, 3rem);
+@media (max-width: 640px) {
+  .hero {
+    padding-bottom: clamp(7rem, 20vh, 10rem);
+    align-items: flex-end;
   }
 
-  .hero__tagline br {
-    display: none;
-  }
+  .hero__title { font-size: clamp(2.75rem, 14vw, 4rem); }
 
   .hero__actions {
-    flex-direction: column;
     width: 100%;
-    max-width: 280px;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 320px;
   }
 
-  .hero__btn {
-    justify-content: center;
-  }
+  .hero__facts { grid-template-columns: repeat(2, 1fr); }
 
-  .hero__badges {
-    gap: 0;
-    padding: 0.85rem 1rem;
-  }
+  .hero__fact { padding: 0.75rem 0.5rem; }
 
-  .hero__badge {
-    font-size: 0.65rem;
-    padding: 0.4rem 0.85rem;
+  /* On a 2-column grid the separator belongs on the left of odd cells
+     and along the top of the second row. */
+  .hero__fact:nth-child(2n)::before { content: ""; }
+  .hero__fact:nth-child(-n + 2)::after { content: none; }
+  .hero__fact:nth-child(n + 3) {
+    border-top: 1px solid rgba(239, 231, 216, 0.12);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__bg { animation: none; transform: scale(1.04); }
+  .hero__scroll-dot { animation: none; }
+  .hero__line-in { transform: none; }
 }

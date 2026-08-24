@@ -1,10 +1,316 @@
-/* Smooth scrolling for in-page section jumps */
-html {
-  scroll-behavior: smooth;
+/* ─────────────────────────────────────────────────────────────
+   About page — founding story, vision & mission, marketing office.
+   ───────────────────────────────────────────────────────────── */
+
+.about {
+  background: var(--paper-bg);
+  color: var(--paper-fg);
 }
 
-/* Offset each section so the fixed navbar doesn't cover its top.
-   Match the value to your navbar height (~88px here). */
-.section-anchor {
-  scroll-margin-top: 88px;
+/* ── Story ────────────────────────────────────────────────── */
+
+.story__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: center;
+}
+
+.story__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--cream-300);
+}
+
+.story__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Founding-year plate sitting over the lower corner of the photo. */
+.story__badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--ink-900);
+  border-top: 2px solid var(--accent);
+}
+
+.story__badge-label {
+  font-family: var(--font-body);
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-fg-muted);
+}
+
+.story__badge-year {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.story__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-5);
+}
+
+.story__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-md);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--paper-fg-strong);
+}
+
+.story__title em {
+  font-style: italic;
+  color: var(--accent-deep);
+}
+
+.story__body {
+  font-size: var(--fs-lead);
+  line-height: 1.78;
+  color: var(--paper-fg);
+  max-width: 52ch;
+}
+
+.story__name {
+  font-family: var(--font-display);
+  font-size: 1.1em;
+  font-style: italic;
+  color: var(--accent-deep);
+  white-space: nowrap;
+}
+
+.story__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--sp-5);
+  width: 100%;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--paper-rule-soft);
+}
+
+.story__fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.story__fact-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--paper-fg-strong);
+}
+
+.story__fact-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper-fg-muted);
+}
+
+/* ── Vision & mission ─────────────────────────────────────── */
+
+.vm__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+.vm__aside {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-7));
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-7);
+}
+
+.vm__vision {
+  padding: var(--sp-6);
+  background: var(--ink-800);
+  border-left: 2px solid var(--accent);
+}
+
+.vm__vision-label,
+.vm__missions-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--sp-4);
+}
+
+.vm__vision-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.56;
+  color: var(--cream-50);
+}
+
+.vm__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink-rule-soft);
+}
+
+.vm__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-5);
+  padding-block: var(--sp-5);
+  border-bottom: 1px solid var(--ink-rule-soft);
+  transition: background var(--dur-3) var(--ease-out);
+}
+
+.vm__item:hover { background: rgba(197, 160, 92, 0.05); }
+
+.vm__no {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.4em;
+}
+
+.vm__text {
+  font-size: var(--fs-body);
+  line-height: 1.76;
+  color: var(--ink-fg);
+  max-width: 58ch;
+}
+
+/* ── Location ─────────────────────────────────────────────── */
+
+.loc {
+  background: var(--paper-bg-alt);
+  border-top: 1px solid var(--paper-rule-soft);
+}
+
+.loc__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: var(--sp-8);
+  align-items: stretch;
+}
+
+/* Height comes from the aspect ratio alone. A min-height here would
+   fight the ratio on narrow screens and push the box wider than its
+   grid column. */
+.loc__map {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--paper-rule);
+  background: var(--cream-300);
+}
+
+.loc__map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* Warm the map slightly so it sits inside the palette instead of
+     glaring blue-white against the cream page. */
+  filter: grayscale(0.35) sepia(0.12) contrast(1.02);
+  transition: filter var(--dur-4) var(--ease-out);
+}
+
+.loc__map:hover iframe { filter: none; }
+
+.loc__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  padding: var(--sp-6);
+  background: var(--ink-900);
+  color: var(--ink-fg);
+  border-top: 2px solid var(--accent);
+}
+
+.loc__rows { margin: 0; }
+
+.loc__row {
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--ink-rule-soft);
+}
+
+.loc__row:first-child { padding-top: 0; }
+
+.loc__row dt {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.loc__row dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: var(--cream-50);
+}
+
+.loc__row a {
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+
+.loc__row a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .story__grid,
+  .vm__grid,
+  .loc__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vm__aside { position: static; }
+
+  .story__media { aspect-ratio: 3 / 2; }
+
+  /* Taller ratio so the map stays usable in a single column. */
+  .loc__map { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 560px) {
+  .story__badge { padding: var(--sp-3) var(--sp-4); }
+  .vm__item { grid-template-columns: auto 1fr; gap: var(--sp-4); }
 }

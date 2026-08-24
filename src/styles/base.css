@@ -1,0 +1,450 @@
+/* ─────────────────────────────────────────────────────────────
+   Base layer — reset, document defaults, and the small set of
+   shared primitives every section reuses (container, eyebrow,
+   hairline rule, buttons, scroll reveal).
+   ───────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Anchor targets clear the fixed navbar. */
+  scroll-padding-top: calc(var(--nav-h) + var(--sp-4));
+}
+
+html,
+body {
+  margin: 0;
+  /* `clip` blocks sideways overflow without turning <body> into a
+     scroll container — `hidden` breaks iOS Safari scrolling on
+     short pages. Keep the plain value as an old-browser fallback. */
+  overflow-x: hidden;
+  overflow-x: clip;
+  /* Dark base so iOS overscroll bounce matches the site chrome. */
+  background-color: var(--ink-900);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 300;
+  line-height: var(--lh-body);
+  color: var(--paper-fg);
+  background-color: var(--paper-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--paper-fg-strong);
+}
+
+p { margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img { height: auto; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--ink-900);
+}
+
+/* Visible focus for keyboard users only — never a mouse halo. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Screen-reader-only text. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Layout primitives ──────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--text {
+  max-width: calc(var(--container-text) + var(--gutter) * 2);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--lg { padding-block: var(--section-y-lg); }
+
+/* Dark section shell — flips every semantic colour beneath it. */
+.section--ink {
+  background: var(--ink-bg);
+  color: var(--ink-fg);
+}
+
+.section--ink h1,
+.section--ink h2,
+.section--ink h3,
+.section--ink h4 { color: var(--ink-fg-strong); }
+
+/* Page wrapper — re-keyed on every route change, so this animation
+   replays as a cross-fade between pages. */
+.page-shell {
+  animation: page-in var(--dur-4) var(--ease-lux) both;
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Placeholder while a lazily loaded page is fetched — reserves roughly
+   a screen of height so the footer does not flash into view. */
+.page-loading { min-height: 80svh; }
+
+/* ─── Editorial signatures ───────────────────────────────────── */
+
+/* Eyebrow — small letterspaced label above every section title. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Leading rule that draws itself in when the section reveals. */
+.eyebrow::before {
+  content: "";
+  width: 42px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  transform-origin: left center;
+  transform: scaleX(var(--rule-scale, 1));
+  transition: transform var(--dur-4) var(--ease-lux) 120ms;
+}
+
+.eyebrow--center::after {
+  content: "";
+  width: 42px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+/* Section index number — "01 —" editorial chapter marker. */
+.chapter-no {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display title with an italic gold emphasis span. */
+.display-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-md);
+  font-weight: 300;
+  line-height: var(--lh-tight);
+}
+
+.display-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.62;
+  color: var(--paper-fg-muted);
+  font-weight: 300;
+}
+
+.section--ink .lead { color: var(--ink-fg-muted); }
+
+/* Hairline divider. */
+.rule {
+  height: 1px;
+  background: var(--paper-rule);
+  border: 0;
+  margin: 0;
+}
+
+.section--ink .rule { background: var(--ink-rule); }
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--paper-fg-strong);
+  --btn-line: var(--paper-rule);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: 1rem 2.25rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-button);
+  text-transform: uppercase;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-line);
+  border-radius: var(--radius-0);
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  transition:
+    color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-lux);
+}
+
+/* Gold wipe that fills from the bottom on hover. */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-fill, var(--accent));
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform var(--dur-3) var(--ease-lux);
+}
+
+.btn:hover::after,
+.btn:focus-visible::after { transform: scaleY(1); }
+
+.btn:active { transform: translateY(1px); }
+
+.btn svg { flex-shrink: 0; }
+
+/* Arrow nudges forward on hover. */
+.btn__arrow {
+  transition: transform var(--dur-2) var(--ease-lux);
+}
+
+.btn:hover .btn__arrow { transform: translateX(4px); }
+
+.btn--primary {
+  --btn-bg: var(--accent);
+  --btn-fg: var(--ink-900);
+  --btn-line: var(--accent);
+  --btn-fill: var(--gold-300);
+}
+
+.btn--primary:hover { color: var(--ink-900); }
+
+.btn--outline {
+  --btn-fill: var(--paper-fg-strong);
+}
+
+.btn--outline:hover { color: var(--cream-50); }
+
+.btn--ghost-ink {
+  --btn-fg: var(--ink-fg-strong);
+  --btn-line: rgba(239, 231, 216, 0.32);
+  --btn-fill: var(--cream-50);
+}
+
+.btn--ghost-ink:hover {
+  color: var(--ink-900);
+  border-color: var(--cream-50);
+}
+
+.btn--sm { padding: 0.7rem 1.5rem; }
+
+.btn--block { width: 100%; }
+
+/* Text link with an underline that draws left-to-right. */
+.link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-button);
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 4px;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0.999);
+  transform-origin: right center;
+  transition: transform var(--dur-3) var(--ease-lux);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(0);
+}
+
+/* ─── Status chip ────────────────────────────────────────────── */
+/* Availability marker shared by the portfolio index, the project
+   pages and the site plan legend. */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--status-color, var(--accent));
+  white-space: nowrap;
+}
+
+.status__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.status--new-launch  { --status-color: var(--status-new); }
+.status--available   { --status-color: var(--status-avail); }
+.status--coming-soon { --status-color: var(--status-soon); }
+.status--sold        { --status-color: var(--status-sold); }
+
+/* The new-launch dot pulses — it is the one status worth noticing. */
+.status--new-launch .status__dot {
+  animation: status-pulse 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent); }
+  50%      { box-shadow: 0 0 0 6px color-mix(in srgb, currentColor 0%, transparent); }
+}
+
+/* ─── Scroll reveal ──────────────────────────────────────────── */
+/* Applied by the useReveal hook: elements start shifted and
+   transparent, then settle once they enter the viewport. The
+   --reveal-delay custom property staggers siblings. */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-4) var(--ease-lux),
+    transform var(--dur-4) var(--ease-lux);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variant: image wipes open from the bottom edge. */
+.reveal-clip {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--dur-5) var(--ease-lux);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-clip--visible { clip-path: inset(0 0 0 0); }
+
+/* Variant: a hairline that draws out from its left edge. */
+.reveal-line {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-5) var(--ease-lux);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-line--visible { transform: scaleX(1); }
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-clip,
+  .reveal-line {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}

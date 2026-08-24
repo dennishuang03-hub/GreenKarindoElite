@@ -94,7 +94,11 @@
       { "label": { "id": "Perkiraan Rilis", "en": "Estimated Launch" }, "value": { "id": "Kuartal 4, 2026", "en": "Q4 2026" } },
       { "label": { "id": "Status", "en": "Status" }, "value": { "id": "Pra-pemasaran", "en": "Pre-marketing" } }
       ],
-      "mapUrl": "https://maps.google.com/?q=PT+Green+Karindo+Elite"
+      "mapUrl": "https://maps.google.com/?q=PT+Green+Karindo+Elite",
+      "sitePlan": {
+      },
+      "progress": {
+      }
   }
   ]
 }
